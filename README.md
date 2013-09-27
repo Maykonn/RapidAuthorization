@@ -1,4 +1,8 @@
 RapidAuthorization
 ==================
 
-Sistema de autorização em PHP - Roled-based Access Control (RBAC)
+Sistema de autorização escrito em PHP baseado na abordagem *Roled-based Access Control (RBAC).
+
+
+
+*Roled-based Access Control (RBAC): https://en.wikipedia.org/wiki/Role-based_access_control
