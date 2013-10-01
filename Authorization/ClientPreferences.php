@@ -75,7 +75,6 @@ class ClientPreferences
 
     private function execute()
     {
-        $this->prepareUserClassName();
         $this->initAutoload();
         // execute another prerences...
     }
@@ -86,18 +85,6 @@ class ClientPreferences
             Autoload::instance()->init();
         }
 
-        return;
-    }
-
-    /**
-     * <p>Remove .php from class name to Autoload</p>
-     */
-    private function prepareUserClassName()
-    {
-        $newUserClassName = str_replace('.php', null, $this->preferencesList->userClass);
-        $this->preferencesList->userClass = $newUserClassName;
-        $this->preferencesList->offsetSet('userClass', $newUserClassName);
-        $this->userClass = $newUserClassName;
         return;
     }
 
