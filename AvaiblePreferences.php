@@ -13,6 +13,7 @@ class AvaiblePreferences
 {
 
     private $mysqlHost = 'localhost';
+    private $mysqlPort = 3306;
     private $mysqlUser = '';
     private $mysqlPass = '';
     private $dbName = '';

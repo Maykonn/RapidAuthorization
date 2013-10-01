@@ -16,6 +16,7 @@ use Rapid\Authorization\RapidAuthorization;
 $authorizationConf = Array(
     'useRapidAuthorizationAutoload' => true,
     'userClassInstance' => new ClientUser(),
+    'mysqlPort' => 3306,
     'mysqlHost' => 'localhost',
     'mysqlUser' => '',
     'mysqlPass' => '',
