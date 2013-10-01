@@ -12,6 +12,18 @@ use \ArrayObject;
 class AvaiblePreferences
 {
 
+    private $mysqlHost = 'localhost';
+    private $mysqlUser = '';
+    private $mysqlPass = '';
+    private $dbName = '';
+    private $dbCharset = 'utf8';
+
+    /**
+     * <p>Auto generate, or not, the necessary tables on database</p>
+     * @var boolean
+     */
+    private $autoGenerateTables = true;
+
     /**
      * <p>Use, or not, the autoload provided by RapidAuthorization.</p>
      * <p>Set to false to use autoload provided by client application.<br/>
