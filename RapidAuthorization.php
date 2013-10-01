@@ -13,6 +13,7 @@ require_once 'AvaiblePreferences.php';
 require_once 'Autoload.php';
 
 use Rapid\Authorization\Database\MySQL;
+use Rapid\Authorization\Database\MySQLSchemaHandler;
 
 class RapidAuthorization
 {
@@ -55,6 +56,11 @@ class RapidAuthorization
             'dbName' => $this->preferences->dbName,
             'dbCharset' => $this->preferences->dbCharset
         ));
+
+        if($this->preferences->autoGenerateTables) {
+            $schema = MySQLSchemaHandler::instance($this->mysql->getHandler());
+            $schema->createAuthorizationTables();
+        }
     }
 
     private function initUserHandler()
