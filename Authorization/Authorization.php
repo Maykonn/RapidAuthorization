@@ -28,10 +28,10 @@ class Authorization
      * Get client preferences handler
      * @return ArrayObject
      */
-    public function getPreferences()
+    /*public function getPreferences()
     {
         return $this->preferences->getPreferencesList();
-    }
+    }*/
 
     public function __construct($preferences = Array())
     {
