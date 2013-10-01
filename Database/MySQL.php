@@ -12,7 +12,18 @@ use \PDO;
 class MySQL
 {
 
+    /**
+     * @var PDO
+     */
     private $conn;
+
+    /**
+     * @return PDO
+     */
+    public function getHandler()
+    {
+        return $this->conn;
+    }
 
     /**
      * @var MySQL
