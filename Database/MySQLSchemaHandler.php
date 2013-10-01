@@ -54,14 +54,8 @@ class MySQLSchemaHandler
 
     private function getAuthorizationTablesStmt()
     {
-        $stmt = "
-        CREATE TABLE IF NOT EXISTS`user` (
-            `id`  int(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
-            `name`  varchar(150) NOT NULL ,
-            PRIMARY KEY (`id`)
-        );";
-
-        return $stmt;
+        $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR;
+        return file_get_contents($dir . 'schema.sql');
     }
 
 }
