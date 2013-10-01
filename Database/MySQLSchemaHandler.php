@@ -39,7 +39,7 @@ class MySQLSchemaHandler
         $this->db = $pdo;
     }
 
-    public function createAuthorizationTables()
+    public function createDefaultSchema()
     {
         try {
             $stmt = $this->db->prepare($this->getAuthorizationTablesStmt());

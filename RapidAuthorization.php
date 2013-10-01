@@ -59,7 +59,7 @@ class RapidAuthorization
 
         if($this->preferences->autoGenerateTables) {
             $schema = MySQLSchemaHandler::instance($this->mysql->getHandler());
-            $schema->createAuthorizationTables();
+            $schema->createDefaultSchema();
         }
     }
 
