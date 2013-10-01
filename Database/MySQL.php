@@ -12,7 +12,7 @@ use \PDO;
 class MySQL
 {
 
-    private $con;
+    private $conn;
 
     /**
      * @var MySQL
@@ -39,14 +39,14 @@ class MySQL
     public function connect(Array $connection)
     {
         try {
-            self::$instance = new PDO(
+            $this->conn = new PDO(
                 "mysql:host=" . $connection['host'] .
                 ';port=' . $connection['port'] .
                 ';dbname=' . $connection['dbName'], $connection['user'], $connection['pass']
             );
-            self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-            self::$instance->query('SET NAMES ' . $connection['dbCharset']);
-            self::$instance->query('SET CHARACTER SET ' . $connection['dbCharset']);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+            $this->conn->query('SET NAMES ' . $connection['dbCharset']);
+            $this->conn->query('SET CHARACTER SET ' . $connection['dbCharset']);
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
