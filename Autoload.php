@@ -41,7 +41,8 @@ class Autoload
     private function loader($className)
     {
         $parts = explode('\\', $className);
-        require end($parts) . '.php';
+        //require end($parts) . '.php';
+        require $dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . $className . '.php';
     }
 
 }
