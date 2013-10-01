@@ -12,7 +12,7 @@ require_once 'ClientPreferences.php';
 require_once 'AvaiblePreferences.php';
 require_once 'Autoload.php';
 
-class Authorization
+class RapidAuthorization
 {
     /**
      * @var User
