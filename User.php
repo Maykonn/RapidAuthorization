@@ -10,16 +10,11 @@ namespace Rapid\Authorization;
 
 use \PDO;
 
-class User
+class User extends Entity
 {
 
     public $id;
     public $username;
-
-    /**
-     * @var PDO
-     */
-    private $db;
 
     /**
      * @var User
@@ -36,11 +31,6 @@ class User
         } else {
             return self::$instance = new self($pdo);
         }
-    }
-
-    private function __construct(PDO $pdo)
-    {
-        $this->db = $pdo;
     }
 
     public function save()
