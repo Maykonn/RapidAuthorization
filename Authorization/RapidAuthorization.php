@@ -14,6 +14,7 @@ require_once 'Autoload.php';
 
 class RapidAuthorization
 {
+
     /**
      * @var User
      */
@@ -28,15 +29,15 @@ class RapidAuthorization
      * Get client preferences handler
      * @return ArrayObject
      */
-    /*public function getPreferences()
-    {
-        return $this->preferences->getPreferencesList();
-    }*/
+    /* public function getPreferences()
+      {
+      return $this->preferences->getPreferencesList();
+      } */
 
     public function __construct($preferences = Array())
     {
         $this->preferences = ClientPreferences::instance($preferences);
-        $this->user = User::instance($this->preferences->userClass);
+        $this->user = User::instance($this->preferences->userClassInstance);
     }
 
 }
