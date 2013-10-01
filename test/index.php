@@ -19,7 +19,7 @@ $authorizationConf = Array(
     'mysqlHost' => 'localhost',
     'mysqlUser' => '',
     'mysqlPass' => '',
-    'dbName' => 'camerahot',
+    'dbName' => 'rapid_authorization',
     'dbCharset' => 'utf8'
 );
 
