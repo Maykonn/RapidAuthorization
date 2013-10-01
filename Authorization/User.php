@@ -15,7 +15,7 @@ class User
      * <p>Instance of user class on client application domain</p>
      * @var Object
      */
-    private $userClass;
+    private $userClassInstance;
 
     /**
      * @var User
@@ -36,7 +36,7 @@ class User
 
     private function __construct($userClass)
     {
-        $this->userClass = new $userClass;
+        $this->userClassInstance = $userClass;
     }
 
 }
