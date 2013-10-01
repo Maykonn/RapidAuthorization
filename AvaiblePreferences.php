@@ -14,7 +14,7 @@ class AvaiblePreferences
 
     private $mysqlHost = 'localhost';
     private $mysqlPort = 3306;
-    private $mysqlUser = '';
+    private $mysqlUser = 'root';
     private $mysqlPass = '';
     private $dbName = '';
     private $dbCharset = 'utf8';
