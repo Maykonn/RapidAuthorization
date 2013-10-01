@@ -7,8 +7,9 @@
  * Caso sua aplicação possua seu próprio autoload você deve ignorar essa parte.
  * Caso contrário
  */
-require_once '../src/index.php';
-require_once 'client/ClientUser.php';
+$sep = DIRECTORY_SEPARATOR;
+require_once '..' . $sep . 'src' . $sep . 'index.php';
+require_once 'client' . $sep . 'ClientUser.php';
 
 use Rapid\Authorization\RapidAuthorization;
 
