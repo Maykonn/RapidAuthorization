@@ -51,12 +51,9 @@ class RapidAuthorization
             'host' => $this->preferences->mysqlHost,
             'port' => $this->preferences->mysqlPort,
             'user' => $this->preferences->mysqlUser,
-            'pass' => $this->preferences->mysqlPass
-        ));
-
-        $this->mysql->selectDb(Array(
-            'dbCharset' => $this->preferences->dbCharset,
-            'dbName' => $this->preferences->dbName
+            'pass' => $this->preferences->mysqlPass,
+            'dbName' => $this->preferences->dbName,
+            'dbCharset' => $this->preferences->dbCharset
         ));
     }
 
