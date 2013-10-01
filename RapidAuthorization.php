@@ -41,7 +41,7 @@ class RapidAuthorization
 
     private function initPreferences(Array $preferences)
     {
-        $this->preferences = ClientPreferences::instance($preferences);
+        $this->preferences = ClientPreferences::instance($preferences)->getPreferencesList();
     }
 
     private function initMySqlHandler()

@@ -21,7 +21,7 @@ $authorizationConf = Array(
     'mysqlUser' => 'root',
     'mysqlPass' => '',
     'dbName' => 'rapid_authorization',
-    'dbCharset' => 'utf8'
+    //'dbCharset' => 'utf8'
 );
 
 $authorization = new RapidAuthorization($authorizationConf);
