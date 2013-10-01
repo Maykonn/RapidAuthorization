@@ -8,11 +8,18 @@
 
 namespace Rapid\Authorization;
 
+use \PDO;
+
 class User
 {
 
     public $id;
     public $username;
+
+    /**
+     * @var PDO
+     */
+    private $db;
 
     /**
      * @var User
@@ -22,22 +29,23 @@ class User
     /**
      * @return User
      */
-    public static function instance()
+    public static function instance(PDO $pdo)
     {
         if(self::$instance instanceof User) {
             return self::$instance;
         } else {
-            return self::$instance = new self();
+            return self::$instance = new self($pdo);
         }
     }
 
-    private function __construct()
+    private function __construct(PDO $pdo)
     {
-
+        $this->db = $pdo;
     }
 
-    public function save() {
-        
+    public function save()
+    {
+
     }
 
 }

@@ -9,7 +9,6 @@
  */
 $sep = DIRECTORY_SEPARATOR;
 require_once '..' . $sep . 'index.php';
-require_once 'client' . $sep . 'ClientUser.php';
 
 use Rapid\Authorization\RapidAuthorization;
 

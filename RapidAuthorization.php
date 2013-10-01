@@ -37,7 +37,6 @@ class RapidAuthorization
     {
         $this->initPreferences($preferences);
         $this->initMySqlHandler();
-        $this->initUserHandler();
     }
 
     private function initPreferences(Array $preferences)
@@ -65,7 +64,7 @@ class RapidAuthorization
 
     public function createUser($username)
     {
-        $this->user = User::instance();
+        $this->user = User::instance($this->mysql->getHandler());
         $this->user->username = $username;
         $this->user->save();
     }
