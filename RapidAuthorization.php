@@ -49,6 +49,7 @@ class RapidAuthorization
         $this->mysql = MySQL::instance();
         $this->mysql->connect(Array(
             'host' => $this->preferences->mysqlHost,
+            'port' => $this->preferences->mysqlPort,
             'user' => $this->preferences->mysqlUser,
             'pass' => $this->preferences->mysqlPass
         ));
