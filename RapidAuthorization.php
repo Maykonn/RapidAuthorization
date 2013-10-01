@@ -63,9 +63,11 @@ class RapidAuthorization
         }
     }
 
-    private function initUserHandler()
+    public function createUser($username)
     {
-        $this->user = User::instance($this->preferences->userClassInstance);
+        $this->user = User::instance();
+        $this->user->username = $username;
+        $this->user->save();
     }
 
 }

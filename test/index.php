@@ -15,7 +15,6 @@ use Rapid\Authorization\RapidAuthorization;
 
 $authorizationConf = Array(
     'useRapidAuthorizationAutoload' => true,
-    'userClassInstance' => new ClientUser(),
     'mysqlPort' => 3306,
     'mysqlHost' => 'localhost',
     'mysqlUser' => 'root',
@@ -26,4 +25,6 @@ $authorizationConf = Array(
 );
 
 $authorization = new RapidAuthorization($authorizationConf);
+$user = $authorization->createUser('fulano');
+//$authorization->createRole('super_admin');
 ?>

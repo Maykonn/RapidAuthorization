@@ -11,11 +11,8 @@ namespace Rapid\Authorization;
 class User
 {
 
-    /**
-     * <p>Instance of user class on client application domain</p>
-     * @var Object
-     */
-    private $userClassInstance;
+    public $id;
+    public $username;
 
     /**
      * @var User
@@ -25,18 +22,22 @@ class User
     /**
      * @return User
      */
-    public static function instance($userClass = '')
+    public static function instance()
     {
         if(self::$instance instanceof User) {
             return self::$instance;
         } else {
-            return self::$instance = new self($userClass);
+            return self::$instance = new self();
         }
     }
 
-    private function __construct($userClass)
+    private function __construct()
     {
-        $this->userClassInstance = $userClass;
+
+    }
+
+    public function save() {
+        
     }
 
 }
