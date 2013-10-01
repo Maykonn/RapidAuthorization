@@ -22,6 +22,7 @@ $authorizationConf = Array(
     'mysqlPass' => '',
     'dbName' => 'rapid_authorization',
     //'dbCharset' => 'utf8'
+    //'autoGenerateTables' => true
 );
 
 $authorization = new RapidAuthorization($authorizationConf);
