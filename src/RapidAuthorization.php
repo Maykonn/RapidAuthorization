@@ -42,7 +42,7 @@ class RapidAuthorization
         $this->preferences = ClientPreferences::instance($preferences);
     }
 
-    private function initMySQL()
+    private function initMySqlHandler()
     {
         $this->mysql = MySQL::instance();
         $this->mysql->connect(Array(
