@@ -34,10 +34,10 @@ class AvaiblePreferences
     private $useRapidAuthorizationAutoload = false;
 
     /**
-     * <p>User class name on client application domain</p>
+     * <p>Instance of "User" class on client application domain</p>
      * @var String The user class name
      */
-    private $userClass = '';
+    private $userClassInstance = '';
 
     /**
      * @var AvaiblePreferences
