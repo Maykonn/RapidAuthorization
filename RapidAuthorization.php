@@ -19,11 +19,6 @@ class RapidAuthorization
 {
 
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
      * @var ClientPreferences
      */
     private $preferences;
@@ -62,11 +57,21 @@ class RapidAuthorization
         }
     }
 
-    public function createUser($username)
+    public function createRole($name)
     {
-        $this->user = User::instance($this->mysql->getHandler());
-        $this->user->username = $username;
-        $this->user->save();
+        $role = Role::instance($this->mysql->getHandler());
+        $role->name = $name;
+        $role->save();
+        return $role->id;
+    }
+
+    public function updateRole($id, $name)
+    {
+        $role = Role::instance($this->mysql->getHandler());
+        $role->id = $id;
+        $role->name = $name;
+        $role->save();
+        return $role->id;
     }
 
 }

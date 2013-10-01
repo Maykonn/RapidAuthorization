@@ -24,6 +24,9 @@ $authorizationConf = Array(
 );
 
 $authorization = new RapidAuthorization($authorizationConf);
-$user = $authorization->createUser('fulano');
-//$authorization->createRole('super_admin');
+$roleId = $authorization->createRole('atendente');
+
+//var_dump($roleId);
+//$roleId = $authorization->updateRole('2', 'programador');
+//var_dump($roleId);
 ?>
