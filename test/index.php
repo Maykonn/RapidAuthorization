@@ -29,4 +29,7 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$roleId = $authorization->createRole('admin');
 //$roleId = $authorization->updateRole($roleId, 'nome do role');
 //$deleted = $authorization->deleteRole(6);
+$roleId = 2;
+$userId = 1; // maykonn
+$authorization->attachRoleInUser($roleId, $userId);
 ?>

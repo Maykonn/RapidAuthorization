@@ -57,6 +57,7 @@ class RapidAuthorization
         }
     }
 
+    // ROLE ----------------------------------------------------------------------------------------
     public function createRole($name)
     {
         $role = Role::instance($this->mysql->getHandler());
@@ -77,6 +78,18 @@ class RapidAuthorization
         $role = Role::instance($this->mysql->getHandler());
         $role->id = $id;
         return $role->delete();
+    }
+
+    // USER ----------------------------------------------------------------------------------------
+    public function attachRoleInUser($roleId, $userId)
+    {
+        $role = Role::instance($this->mysql->getHandler());
+        $role->id = (int) $roleId;
+
+        $user = User::instance($this->mysql->getHandler());
+        $user->id = (int) $userId;
+
+        return $user->attachRole($role);
     }
 
 }

@@ -33,9 +33,13 @@ class User extends Entity
         }
     }
 
-    public function save()
+    public function attachRole(Role $role)
     {
-
+        $sql = "INSERT INTO user_has_role(id_user, id_role) VALUES (:userId, :roleId)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':userId', $this->id, PDO::PARAM_INT);
+        $stmt->bindParam(':roleId', $role->id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
 }
