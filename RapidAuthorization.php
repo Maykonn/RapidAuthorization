@@ -61,8 +61,7 @@ class RapidAuthorization
     {
         $role = Role::instance($this->mysql->getHandler());
         $role->name = $name;
-        $role->save();
-        return $role->id;
+        return $role->save();
     }
 
     public function updateRole($id, $name)
@@ -70,8 +69,14 @@ class RapidAuthorization
         $role = Role::instance($this->mysql->getHandler());
         $role->id = $id;
         $role->name = $name;
-        $role->save();
-        return $role->id;
+        return $role->save();
+    }
+
+    public function deleteRole($id)
+    {
+        $role = Role::instance($this->mysql->getHandler());
+        $role->id = $id;
+        return $role->delete();
     }
 
 }
