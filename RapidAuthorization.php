@@ -59,24 +59,40 @@ class RapidAuthorization
     }
 
     // ROLE ----------------------------------------------------------------------------------------
-    public function roleCreate($name)
+    /**
+     * <p>A Role can be, e.g. Admin, Seller, etc.</p>
+     */
+    public function roleCreate($name, $description = null)
     {
         $role = Role::instance($this->mysql->getHandler());
         $role->name = $name;
+        $role->description = $description;
         return $role->save();
     }
 
-    public function roleUpdate($id, $name)
+    /**
+     * <p>Set null to $description to set NULL on database</p>
+     */
+    public function roleUpdate($id, $name, $description = null)
     {
         $role = Role::instance($this->mysql->getHandler());
+        $role->find($id);
+
         $role->id = $id;
         $role->name = $name;
+
+        if($description !== null) {
+            $role->description = $description;
+        }
+
         return $role->save();
     }
 
     public function roleDelete($id)
     {
         $role = Role::instance($this->mysql->getHandler());
+        $role->find($id);
+
         $role->id = $id;
         return $role->delete();
     }
@@ -100,6 +116,16 @@ class RapidAuthorization
         return $user->attachRole($role);
     }
 
+    // TASK ----------------------------------------------------------------------------------------
+    /**
+     * <p>A task can be, e.g. Manage Products or Manage Customers</p>
+     */
+    public function taskCreate()
+    {
+
+    }
+
+    // OPERATION -----------------------------------------------------------------------------------
 }
 
 ?>
