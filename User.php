@@ -33,12 +33,28 @@ class User extends Entity
         }
     }
 
+    public function getRoles($fetchMode)
+    {
+        $sql = "
+            SELECT rol.id, rol.`name`
+            FROM role rol
+            RIGHT JOIN user_has_role usr ON rol.id = usr.id_role
+            WHERE usr.id_user = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode($fetchMode);
+        return $stmt->fetchAll();
+    }
+
     public function attachRole(Role $role)
     {
-        $sql = "INSERT INTO user_has_role(id_user, id_role) VALUES (:userId, :roleId)";
+        $sql = "INSERT INTO user_has_role(id_user, id_role) VALUES (:idUser, :idRole)";
+
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':userId', $this->id, PDO::PARAM_INT);
-        $stmt->bindParam(':roleId', $role->id, PDO::PARAM_INT);
+        $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
+        $stmt->bindParam(':idRole', $role->id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 

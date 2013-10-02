@@ -12,6 +12,7 @@ require_once 'ClientPreferences.php';
 require_once 'AvaiblePreferences.php';
 require_once 'Autoload.php';
 
+use \PDO;
 use Rapid\Authorization\Database\MySQL;
 use Rapid\Authorization\Database\MySQLSchemaHandler;
 
@@ -58,14 +59,14 @@ class RapidAuthorization
     }
 
     // ROLE ----------------------------------------------------------------------------------------
-    public function createRole($name)
+    public function roleCreate($name)
     {
         $role = Role::instance($this->mysql->getHandler());
         $role->name = $name;
         return $role->save();
     }
 
-    public function updateRole($id, $name)
+    public function roleUpdate($id, $name)
     {
         $role = Role::instance($this->mysql->getHandler());
         $role->id = $id;
@@ -73,7 +74,7 @@ class RapidAuthorization
         return $role->save();
     }
 
-    public function deleteRole($id)
+    public function roleDelete($id)
     {
         $role = Role::instance($this->mysql->getHandler());
         $role->id = $id;
@@ -81,7 +82,14 @@ class RapidAuthorization
     }
 
     // USER ----------------------------------------------------------------------------------------
-    public function attachRoleInUser($roleId, $userId)
+    public function userGetRoles($userId, $pdoFetchMode = PDO::FETCH_ASSOC)
+    {
+        $user = User::instance($this->mysql->getHandler());
+        $user->id = (int) $userId;
+        return $user->getRoles($pdoFetchMode);
+    }
+
+    public function userAttachRole($roleId, $userId)
     {
         $role = Role::instance($this->mysql->getHandler());
         $role->id = (int) $roleId;
