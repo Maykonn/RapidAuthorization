@@ -27,11 +27,7 @@ class User extends Entity
      */
     public static function instance(PDO $pdo)
     {
-        if(self::$instance instanceof User) {
-            return self::$instance;
-        } else {
-            return self::$instance = new self($pdo);
-        }
+        return self::$instance = new self($pdo);
     }
 
     public function getRoles($fetchMode)
