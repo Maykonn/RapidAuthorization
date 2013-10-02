@@ -3,8 +3,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for role
 -- ----------------------------
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
+CREATE TABLE IF NOT EXISTS`role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
@@ -13,8 +12,7 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS`user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
@@ -23,8 +21,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Table structure for user_has_role
 -- ----------------------------
-DROP TABLE IF EXISTS `user_has_role`;
-CREATE TABLE `user_has_role` (
+CREATE TABLE IF NOT EXISTS `user_has_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned NOT NULL,
   `id_role` int(10) unsigned NOT NULL,
