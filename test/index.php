@@ -26,14 +26,17 @@ $authorizationConf = Array(
 $authorization = new RapidAuthorization($authorizationConf);
 
 // Exemplos de criar, editar e apagar um Role
-//$roleId = $authorization->createRole('admin');
-//$roleId = $authorization->updateRole($roleId, 'nome do role');
-//$deleted = $authorization->deleteRole(6);
-
+//$roleId = $authorization->roleCreateRole('admin');
+//$roleId = $authorization->roleUpdate($roleId, 'nome do role');
+//$deleted = $authorization->roleDelete(6);
+//
+//
 // Exemplo atributir Role a um User
-//$authorization->attachRoleInUser(2, 1);
-
+//$authorization->userAttachRole(2, 1);
+//
+//
 // Exemplo de como obter a listagem de Roles de um User
 //$roles = $authorization->userGetRoles(1, PDO::FETCH_OBJ);
 //$roles = $authorization->userGetRoles(1);
+//var_dump($roles);
 ?>

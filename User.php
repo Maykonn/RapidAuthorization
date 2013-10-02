@@ -9,6 +9,7 @@
 namespace Rapid\Authorization;
 
 use \PDO;
+use Rapid\Authorization\Database\MySQL;
 
 class User extends Entity
 {
@@ -35,27 +36,35 @@ class User extends Entity
 
     public function getRoles($fetchMode)
     {
-        $sql = "
+        try {
+            $sql = "
             SELECT rol.id, rol.`name`
             FROM role rol
             RIGHT JOIN user_has_role usr ON rol.id = usr.id_role
             WHERE usr.id_user = :id";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->setFetchMode($fetchMode);
-        return $stmt->fetchAll();
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->setFetchMode($fetchMode);
+            return $stmt->fetchAll();
+        } catch(PDOException $e) {
+            MySQL::showException($e);
+        }
     }
 
     public function attachRole(Role $role)
     {
-        $sql = "INSERT INTO user_has_role(id_user, id_role) VALUES (:idUser, :idRole)";
+        try {
+            $sql = "INSERT INTO user_has_role(id_user, id_role) VALUES (:idUser, :idRole)";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
-        $stmt->bindParam(':idRole', $role->id, PDO::PARAM_INT);
-        return $stmt->execute();
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':idRole', $role->id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch(PDOException $e) {
+            MySQL::showException($e);
+        }
     }
 
 }
