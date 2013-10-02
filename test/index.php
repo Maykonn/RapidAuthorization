@@ -24,9 +24,9 @@ $authorizationConf = Array(
 );
 
 $authorization = new RapidAuthorization($authorizationConf);
-$roleId = $authorization->createRole('atendente');
 
-//var_dump($roleId);
-//$roleId = $authorization->updateRole('2', 'programador');
-//var_dump($roleId);
+// Exemplos de criar, editar e apagar roles
+//$roleId = $authorization->createRole('admin');
+//$roleId = $authorization->updateRole($roleId, 'nome do role');
+//$deleted = $authorization->deleteRole(6);
 ?>
