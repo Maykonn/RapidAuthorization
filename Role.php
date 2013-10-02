@@ -33,6 +33,7 @@ class Role extends Entity
     {
         try {
             $sql = "INSERT INTO role(id, name) VALUES (:id, :name) ON DUPLICATE KEY UPDATE name = :name";
+
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
@@ -53,6 +54,7 @@ class Role extends Entity
     {
         try {
             $sql = "DELETE FROM role WHERE id = :id";
+
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             return $stmt->execute();
