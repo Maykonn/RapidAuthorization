@@ -14,9 +14,9 @@ use Rapid\Authorization\Database\MySQL;
 class Role extends Entity
 {
 
-    public $id = 0;
-    public $name = '';
-    public $description = null;
+    private $id = 0;
+    private $name = '';
+    private $description = null;
 
     /**
      * @var Role
@@ -32,9 +32,57 @@ class Role extends Entity
     }
 
     /**
+     * <p>A Role can be, e.g. Admin, Seller, etc.</p>
+     */
+    public function create($name, $description = null)
+    {
+        $this->name = $name;
+        $this->description = $description;
+        return $this->save();
+    }
+
+    /**
+     * <p>Set null to $description to set NULL on database</p>
+     */
+    public function update($id, $name, $description = null)
+    {
+        if($this->find($id)) {
+            $this->id = $id;
+            $this->name = $name;
+
+            if($description !== null) {
+                $this->description = $description;
+            }
+
+            return $this->save();
+        }
+
+        return 0;
+    }
+
+    public function delete($id)
+    {
+        if($this->find($id)) {
+            $this->id = $id;
+
+            try {
+                $sql = "DELETE FROM role WHERE id = :id";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+                return $stmt->execute();
+            } catch(PDOException $e) {
+                MySQL::showException($e);
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * <p>Populate object with values from record on database</p>
      */
-    public function find($id)
+    private function find($id)
     {
         try {
             $sql = "SELECT id, name, description FROM role WHERE id = :id";
@@ -50,6 +98,8 @@ class Role extends Entity
                 $this->id = (int) $role->id;
                 $this->name = $role->name;
                 $this->description = $role->description;
+
+                return $this;
             } else {
                 throw new Exception('Record #' . $id . ' not found on `role` table');
             }
@@ -60,7 +110,7 @@ class Role extends Entity
         }
     }
 
-    public function save()
+    private function save()
     {
         try {
             $sql = "
@@ -83,19 +133,6 @@ class Role extends Entity
 
             $this->id = (int) $this->id;
             return $this->id;
-        } catch(PDOException $e) {
-            MySQL::showException($e);
-        }
-    }
-
-    public function delete()
-    {
-        try {
-            $sql = "DELETE FROM role WHERE id = :id";
-
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-            return $stmt->execute();
         } catch(PDOException $e) {
             MySQL::showException($e);
         }

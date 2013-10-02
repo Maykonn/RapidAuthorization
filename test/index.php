@@ -26,9 +26,9 @@ $authorizationConf = Array(
 $authorization = new RapidAuthorization($authorizationConf);
 
 // Exemplos de criar, editar e apagar um Role
-//$roleId = $authorization->roleCreate('admin', 'descrição opicional');
-//$roleId = $authorization->roleUpdate(1, 'atendente', "descrição opicional, informe '' para limpar a descrição");
-//$deleted = $authorization->roleDelete(6);
+//$roleId = $authorization->role()->create('sadf', 'descrição opicional');
+//$roleId = $authorization->role()->update(16, 'atendente', "descrição opicional, informe '' para limpar a descrição");
+//$deleted = $authorization->role()->delete(15);
 //
 //
 // Exemplo atributir Role a um User
