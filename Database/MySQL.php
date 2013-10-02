@@ -59,7 +59,7 @@ class MySQL
             $this->conn->query('SET NAMES ' . $connection['dbCharset']);
             $this->conn->query('SET CHARACTER SET ' . $connection['dbCharset']);
         } catch(PDOException $e) {
-            echo $e->getMessage();
+            self::showException($e);
         }
     }
 
