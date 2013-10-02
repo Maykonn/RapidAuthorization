@@ -42,7 +42,7 @@ class Role extends Entity
     }
 
     /**
-     * <p>Set null to $description to set NULL on database</p>
+     * <p>Set '' to $description to set NULL on database</p>
      */
     public function update($id, $name, $description = null)
     {
