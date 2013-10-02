@@ -8,6 +8,7 @@
 namespace Rapid\Authorization;
 
 use \PDO;
+use Rapid\Authorization\Database\MySQL;
 
 class Role extends Entity
 {
@@ -50,10 +51,7 @@ class Role extends Entity
             $this->id = (int) $this->id;
             return $this->id;
         } catch(PDOException $e) {
-            echo '<pre>';
-            echo '<b>' . $e->getMessage() . '</b><br/><br/>';
-            echo $e->getTraceAsString();
-            echo '</pre>';
+            MySQL::showException($e);
         }
     }
 
