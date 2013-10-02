@@ -63,6 +63,14 @@ class MySQL
         }
     }
 
+    public static function showException($e)
+    {
+        echo '<pre>';
+        echo '<b>' . $e->getMessage() . '</b><br/><br/>';
+        echo $e->getTraceAsString();
+        echo '</pre>';
+    }
+
 }
 
 ?>
