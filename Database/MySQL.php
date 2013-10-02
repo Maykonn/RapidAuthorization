@@ -52,10 +52,10 @@ class MySQL
         try {
             $this->conn = new PDO(
                 "mysql:host=" . $connection['host'] .
-                ';port=' . $connection['port'] .
-                ';dbname=' . $connection['dbName'], $connection['user'], $connection['pass']
+                ";port=" . $connection['port'] .
+                ";dbname=" . $connection['dbName'], $connection['user'], $connection['pass']
             );
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->query('SET NAMES ' . $connection['dbCharset']);
             $this->conn->query('SET CHARACTER SET ' . $connection['dbCharset']);
         } catch(PDOException $e) {
