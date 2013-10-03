@@ -32,11 +32,11 @@ $authorization = new RapidAuthorization($authorizationConf);
 //
 //
 // Exemplo atributir Role a um User
-$authorization->user()->attachRole(4, 1);
+//$authorization->user()->attachRole(4, 1);
 //
 //
 // Exemplo de como obter a listagem de Roles de um User
-//$roles = $authorization->userGetRoles(1, PDO::FETCH_OBJ);
-//$roles = $authorization->userGetRoles(1);
+//$roles = $authorization->user()->getRoles(1, PDO::FETCH_OBJ);
+//$roles = $authorization->user()->getRoles(1);
 //var_dump($roles);
 ?>
