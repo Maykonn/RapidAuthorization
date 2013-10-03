@@ -25,10 +25,13 @@ $authorizationConf = Array(
 
 $authorization = new RapidAuthorization($authorizationConf);
 
+// TODO: mover todos esses testes para um objeto de testes
+//
+//
 // Exemplos de criar, editar e apagar um Role
-//$roleId = $authorization->role()->create('sadf', 'descrição opicional');
-//$roleId = $authorization->role()->update(16, 'atendente', "descrição opicional, informe '' para limpar a descrição");
-//$deleted = $authorization->role()->delete(15);
+//$roleId = $authorization->role()->create('Aux. Atendimento', 'descrição opcional');
+//$roleId = $authorization->role()->update($roleId, 'Atendente', "(opcional), informe '' para limpar a descrição");
+//$deleted = $authorization->role()->delete($roleId);
 //
 //
 // Exemplo atributir Role a um User
@@ -39,4 +42,10 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$roles = $authorization->user()->getRoles(1, PDO::FETCH_OBJ);
 //$roles = $authorization->user()->getRoles(1);
 //var_dump($roles);
+//
+//
+// Exemplos de criar, editar e apagar uma Task
+//$taskId = $authorization->task()->create('Gerenciar Clientes', 'descrição opcional');
+//$authorization->task()->update($taskId, 'editado', '');
+//$authorization->task()->delete($taskId);
 ?>
