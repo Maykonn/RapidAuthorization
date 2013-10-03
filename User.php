@@ -9,13 +9,13 @@
 namespace Rapid\Authorization;
 
 use \PDO;
+use \Exception;
 use Rapid\Authorization\Database\MySQL;
 
 class User extends Entity
 {
 
     public $id;
-    public $username;
 
     /**
      * @var User
@@ -51,22 +51,56 @@ class User extends Entity
         }
     }
 
-    public function attachRole($roleId, $idUser)
+    public function attachRole($roleId, $userId)
+    {
+        if($this->isPossibleToAttachTheRole($roleId, $userId)) {
+            try {
+                $sql = "INSERT INTO user_has_role(id_user, id_role) VALUES (:idUser, :idRole)";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':idUser', $userId, PDO::PARAM_INT);
+                $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
+                return $stmt->execute();
+            } catch(PDOException $e) {
+                MySQL::showException($e);
+            }
+        }
+
+        return false;
+    }
+
+    private function isPossibleToAttachTheRole($roleId, $userId)
+    {
+        return (
+            Role::instance($this->db)->findById($roleId) and
+            User::instance($this->db)->findById($userId)
+            );
+    }
+
+    public function findById($userId)
     {
         try {
-            $role = Role::instance($this->db);
-            $role->id = (int) $roleId;
-            $this->id = (int) $idUser;
-
-            $sql = "INSERT INTO user_has_role(id_user, id_role) VALUES (:idUser, :idRole)";
+            // use * here because we don't know the fields from "User" table
+            $sql = "SELECT * FROM user WHERE id = :userId";
 
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
-            $stmt->bindParam(':idRole', $role->id, PDO::PARAM_INT);
-            return $stmt->execute();
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $user = $stmt->fetch();
+
+            if($user) {
+                return $user;
+            } else {
+                throw new Exception('Record #' . $userId . ' not found on `user` table');
+            }
         } catch(PDOException $e) {
             MySQL::showException($e);
+        } catch(Exception $e) {
+            MySQL::showException($e);
         }
+
+        return false;
     }
 
 }

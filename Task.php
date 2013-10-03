@@ -62,7 +62,7 @@ class Task extends Entity
 
     public function delete($id)
     {
-        if($this->populateById($id)) {
+        if($this->findById($id)) {
             $this->id = $id;
 
             try {
@@ -82,32 +82,43 @@ class Task extends Entity
     /**
      * <p>Populate object with values from record on database</p>
      */
-    private function populateById($id)
+    private function populateById($roleId)
+    {
+        $task = $this->findById($roleId);
+
+        if($task) {
+            $this->id = (int) $task['id'];
+            $this->name = $task['name'];
+            $this->description = $task['description'];
+            return true;
+        }
+
+        return false;
+    }
+
+    public function findById($taskId)
     {
         try {
-            $sql = "SELECT id, name, description FROM task WHERE id = :id";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_OBJ);
+            $sql = "SELECT id, name, description FROM task WHERE id = :taskId";
 
-            /* @var $task Task */
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':taskId', $taskId);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $task = $stmt->fetch();
 
             if($task) {
-                $this->id = (int) $task->id;
-                $this->name = $task->name;
-                $this->description = $task->description;
-
-                return true;
+                return $task;
             } else {
-                throw new Exception('Record #' . $id . ' not found on `task` table');
+                throw new Exception('Record #' . $taskId . ' not found on `task` table');
             }
         } catch(PDOException $e) {
             MySQL::showException($e);
         } catch(Exception $e) {
             MySQL::showException($e);
         }
+
+        return false;
     }
 
     private function save()

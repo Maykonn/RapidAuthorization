@@ -51,9 +51,5 @@ $authorization = new RapidAuthorization($authorizationConf);
 //
 //
 // Exemplo atribuir Task a um Role
-// TODO adicionar método find a role e user para verificar existencia de objetos relacionados
-// o exemplo abaixo deve falhar tanto para role quanto para task pois nao existe nenhum dos dois
-$roleId = 9999;
-$taskId = 9999;
-$authorization->role()->attachTask($taskId, $roleId);
+//$authorization->role()->attachTask($taskId, $roleId);
 ?>
