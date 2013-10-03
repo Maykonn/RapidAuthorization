@@ -12,7 +12,6 @@ require_once 'ClientPreferences.php';
 require_once 'AvaiblePreferences.php';
 require_once 'Autoload.php';
 
-use \PDO;
 use Rapid\Authorization\Database\MySQL;
 use Rapid\Authorization\Database\MySQLSchemaHandler;
 
@@ -74,16 +73,22 @@ class RapidAuthorization
         return User::instance($this->mysql->getHandler());
     }
 
-    // TASK ----------------------------------------------------------------------------------------
     /**
-     * <p>A task can be, e.g. Manage Products or Manage Customers</p>
+     * @return Task
      */
-    public function taskCreate()
+    public function task()
     {
-
+        return Task::instance($this->mysql->getHandler());
     }
 
-    // OPERATION -----------------------------------------------------------------------------------
+    /**
+     * <p>An operation can be, e.g. Create Product or Edit Customer</p>
+     * @return Operation
+     */
+    /* public function operation()
+      {
+      return Operation::instance($this->mysql->getHandler());
+      } */
 }
 
 ?>
