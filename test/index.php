@@ -52,4 +52,14 @@ $authorization = new RapidAuthorization($authorizationConf);
 //
 // Exemplo atribuir Task a um Role
 //$authorization->role()->attachTask($taskId, $roleId);
+//
+//
+// Exemplos de criar, editar e apagar uma Operation
+//$operationId = $authorization->operation()->create('Iniciar Atendimento', 'descrição opcional');
+//$operationId = $authorization->operation()->update($operationId, 'Iniciar Atendimento', "(opcional), informe '' para limpar a descrição");
+//$deleted = $authorization->operation()->delete($operationId);
+//
+//
+// Exemplo atribuir Operation a uma Task
+//$authorization->task()->attachOperation($operationId, $taskId);
 ?>

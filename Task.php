@@ -79,6 +79,32 @@ class Task extends Entity
         return false;
     }
 
+    public function attachOperation($operationId, $taskId)
+    {
+        if($this->isPossibleToAttachTheOperation($operationId, $taskId)) {
+            try {
+                $sql = "INSERT INTO task_has_operation(id_task, id_operation) VALUES (:idTask, :idOperation)";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
+                $stmt->bindParam(':idOperation', $operationId, PDO::PARAM_INT);
+                return $stmt->execute();
+            } catch(PDOException $e) {
+                MySQL::showException($e);
+            }
+        }
+
+        return false;
+    }
+
+    private function isPossibleToAttachTheOperation($operationId, $taskId)
+    {
+        return (
+            Operation::instance($this->db)->findById($operationId) and
+            Task::instance($this->db)->findById($taskId)
+            );
+    }
+
     /**
      * <p>Populate object with values from record on database</p>
      */
