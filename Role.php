@@ -14,9 +14,9 @@ use Rapid\Authorization\Database\MySQL;
 class Role extends Entity
 {
 
-    private $id = 0;
-    private $name = '';
-    private $description = null;
+    public $id = 0;
+    public $name = '';
+    public $description = null;
 
     /**
      * @var Role
@@ -46,7 +46,7 @@ class Role extends Entity
      */
     public function update($id, $name, $description = null)
     {
-        if($this->find($id)) {
+        if($this->populateById($id)) {
             $this->id = $id;
             $this->name = $name;
 
@@ -62,7 +62,7 @@ class Role extends Entity
 
     public function delete($id)
     {
-        if($this->find($id)) {
+        if($this->populateById($id)) {
             $this->id = $id;
 
             try {
@@ -82,7 +82,7 @@ class Role extends Entity
     /**
      * <p>Populate object with values from record on database</p>
      */
-    private function find($id)
+    private function populateById($id)
     {
         try {
             $sql = "SELECT id, name, description FROM role WHERE id = :id";
@@ -99,7 +99,7 @@ class Role extends Entity
                 $this->name = $role->name;
                 $this->description = $role->description;
 
-                return $this;
+                return true;
             } else {
                 throw new Exception('Record #' . $id . ' not found on `role` table');
             }
