@@ -82,13 +82,13 @@ class RapidAuthorization
     }
 
     /**
-     * <p>An operation can be, e.g. Create Product or Edit Customer</p>
      * @return Operation
      */
-    /* public function operation()
-      {
-      return Operation::instance($this->mysql->getHandler());
-      } */
+    public function operation()
+    {
+        return Operation::instance($this->mysql->getHandler());
+    }
+
 }
 
 ?>
