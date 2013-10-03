@@ -32,7 +32,7 @@ $authorization = new RapidAuthorization($authorizationConf);
 //
 //
 // Exemplo atributir Role a um User
-//$authorization->userAttachRole(2, 1);
+$authorization->user()->attachRole(4, 1);
 //
 //
 // Exemplo de como obter a listagem de Roles de um User

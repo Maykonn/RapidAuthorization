@@ -66,23 +66,12 @@ class RapidAuthorization
         return Role::instance($this->mysql->getHandler());
     }
 
-    // USER ----------------------------------------------------------------------------------------
-    public function userGetRoles($userId, $pdoFetchMode = PDO::FETCH_ASSOC)
+    /**
+     * @return User
+     */
+    public function user()
     {
-        $user = User::instance($this->mysql->getHandler());
-        $user->id = (int) $userId;
-        return $user->getRoles($pdoFetchMode);
-    }
-
-    public function userAttachRole($roleId, $userId)
-    {
-        $role = Role::instance($this->mysql->getHandler());
-        $role->id = (int) $roleId;
-
-        $user = User::instance($this->mysql->getHandler());
-        $user->id = (int) $userId;
-
-        return $user->attachRole($role);
+        return User::instance($this->mysql->getHandler());
     }
 
     // TASK ----------------------------------------------------------------------------------------
