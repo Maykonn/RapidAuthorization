@@ -79,6 +79,24 @@ class Role extends Entity
         return false;
     }
 
+    public function attachTask($taskId, $idRole)
+    {
+        try {
+            $task = Task::instance($this->db);
+            $task->id = (int) $taskId;
+            $this->id = (int) $idRole;
+
+            $sql = "INSERT INTO role_has_task(id_role, id_task) VALUES (:idRole, :idTask)";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':idTask', $task->id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch(PDOException $e) {
+            MySQL::showException($e);
+        }
+    }
+
     /**
      * <p>Populate object with values from record on database</p>
      */

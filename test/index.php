@@ -45,7 +45,15 @@ $authorization = new RapidAuthorization($authorizationConf);
 //
 //
 // Exemplos de criar, editar e apagar uma Task
-//$taskId = $authorization->task()->create('Gerenciar Clientes', 'descrição opcional');
+//$taskId = $authorization->task()->create('Gerenciar Atendimento', 'descrição opcional');
 //$authorization->task()->update($taskId, 'editado', '');
 //$authorization->task()->delete($taskId);
+//
+//
+// Exemplo atribuir Task a um Role
+// TODO adicionar método find a role e user para verificar existencia de objetos relacionados
+// o exemplo abaixo deve falhar tanto para role quanto para task pois nao existe nenhum dos dois
+$roleId = 9999;
+$taskId = 9999;
+$authorization->role()->attachTask($taskId, $roleId);
 ?>
