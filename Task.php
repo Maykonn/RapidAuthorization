@@ -147,6 +147,21 @@ class Task extends Entity
         return false;
     }
 
+    public function findAll()
+    {
+        try {
+            $sql = "SELECT id, name, description FROM task";
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            MySQL::instance()->showException($e);
+        } catch(Exception $e) {
+            MySQL::instance()->showException($e);
+        }
+
+        return Array();
+    }
+
     private function save()
     {
         try {

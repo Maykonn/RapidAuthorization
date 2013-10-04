@@ -90,7 +90,7 @@ Task:
     2) Editar uma Task (update).
     3) Apagar uma Task (delete).
     4) Listar uma Task (findById).
-    5) DEV: Listar todas as Tasks (findAll).
+    5) Listar todas as Tasks (findAll).
     6) Anexar uma Operation a uma Task (attachOperation).
     7) DEV: Listar todas as Operations anexadas a uma Task (getOperations).
     8) DEV: Verificar se possui determinada Operation (hasOperation).

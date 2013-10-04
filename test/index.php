@@ -33,18 +33,14 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$roleId = $authorization->role()->update($roleId, 'Atendente', "(opcional), informe '' para limpar a descrição");
 //$deleted = $authorization->role()->delete($roleId);
 //
-//
 // Exemplo listar todos Roles
 //$roles = $authorization->role()->findAll();
-//
 //
 // Exemplo listar todas as Tasks anexadas a um Role
 //$tasks = $authorization->role()->getTasks($roleId);
 //
-//
 // Exemplo verificar se um Role possui acesso a uma Task
 //$hasAccess = $authorization->role()->hasAccessToTask(5, 1);
-//
 //
 // Exemplo verificar se um Role possui acesso a uma Operation
 //$hasAccess = $authorization->role()->hasAccessToOperation($operationId, $roleId);
@@ -53,22 +49,17 @@ $authorization = new RapidAuthorization($authorizationConf);
 // Exemplo atributir Role a um User
 //$authorization->user()->attachRole(4, 1);
 //
-//
 // Exemplo listar todos Users
 //$users = $authorization->user()->findAll();
-//
 //
 // Exemplo verificar se um User possui permissões de um Role
 //$hasPermission = $authorization->user()->hasPermissionsOfTheRole($roleId, $userId);
 //
-//
 // Exemplo verificar se um User possui acesso a uma Task
 //$hasAccess = $authorization->user()->hasAccessToTask($taskId, $userId);
 //
-//
 // Exemplo verificar se um User possui acesso a uma Operation
 //$hasAccess = $authorization->user()->hasAccessToOperation($operationId, $userId);
-//
 //
 // Exemplo de como obter a listagem de Roles de um User
 //$roles = $authorization->user()->getRoles(1, PDO::FETCH_OBJ);
@@ -80,9 +71,11 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$authorization->task()->update($taskId, 'editado', '');
 //$authorization->task()->delete($taskId);
 //
-//
 // Exemplo atribuir Task a um Role
 //$authorization->role()->attachTask($taskId, $roleId);
+//
+// Exemplo listar todas Tasks
+//$tasks = $authorization->task()->findAll();
 //
 //
 // Exemplos de criar, editar e apagar uma Operation
