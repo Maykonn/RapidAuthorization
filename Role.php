@@ -236,6 +236,32 @@ class Role extends Entity
         return false;
     }
 
+    public function getOperations($roleId)
+    {
+        if(Role::instance($this->db)->findById($roleId)) {
+            try {
+                $sql = "
+                SELECT o.id, o.`name`, o.description
+                FROM operation o
+                LEFT JOIN task_has_operation tho ON o.id = tho.id_operation
+                LEFT JOIN role_has_task rht ON tho.id_task = rht.id_task
+                WHERE rht.id_role = :idRole";
+
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $roleId;
+                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            } catch(Exception $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return Array();
+    }
+
     public function hasAccessToOperation($operationId, $roleId)
     {
         if(
@@ -254,4 +280,5 @@ class Role extends Entity
     }
 
 }
+
 ?>
