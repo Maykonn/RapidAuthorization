@@ -34,15 +34,14 @@ class User extends Entity
     {
         if(User::instance($this->db)->findById($userId)) {
             try {
-                $this->id = (int) $userId;
-
                 $sql = "
-            SELECT rol.id, rol.`name`
-            FROM role rol
-            RIGHT JOIN user_has_role usr ON rol.id = usr.id_role
-            WHERE usr.id_user = :idUser";
+                SELECT rol.id, rol.`name`
+                FROM role rol
+                RIGHT JOIN user_has_role usr ON rol.id = usr.id_role
+                WHERE usr.id_user = :idUser";
 
                 $stmt = $this->db->prepare($sql);
+                $this->id = (int) $userId;
                 $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -60,16 +59,42 @@ class User extends Entity
     {
         if(User::instance($this->db)->findById($userId)) {
             try {
-                $this->id = (int) $userId;
-
                 $sql = "
-            SELECT DISTINCT t.id, t.name, t.description
-            FROM task t
-            LEFT JOIN role_has_task rht ON t.id = rht.id_task
-            LEFT JOIN user_has_role uhr ON rht.id_role = uhr.id_role
-            WHERE uhr.id_user = :idUser";
+                SELECT DISTINCT t.id, t.name, t.description
+                FROM task t
+                LEFT JOIN role_has_task rht ON t.id = rht.id_task
+                LEFT JOIN user_has_role uhr ON rht.id_role = uhr.id_role
+                WHERE uhr.id_user = :idUser";
 
                 $stmt = $this->db->prepare($sql);
+                $this->id = (int) $userId;
+                $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+                return $stmt->fetchAll();
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return Array();
+    }
+
+    public function getOperations($userId)
+    {
+        if(User::instance($this->db)->findById($userId)) {
+            try {
+                $sql = "
+                SELECT DISTINCT o.id, o.name, o.description
+                FROM operation o
+				LEFT JOIN task_has_operation tho ON o.id = tho.id_operation
+                LEFT JOIN role_has_task rht ON tho.id_task = rht.id_task
+                LEFT JOIN user_has_role uhr ON rht.id_role = uhr.id_role
+                WHERE uhr.id_user = :idUser";
+
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $userId;
                 $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);

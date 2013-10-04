@@ -70,8 +70,11 @@ $authorization = new RapidAuthorization($authorizationConf);
 // Exemplo listar Roles de um User
 //$roles = $authorization->user()->getRoles($userId);
 //
-// Exemplo listar Tasks que um Role tem acesso
+// Exemplo listar Tasks que um User tem acesso
 //$tasks = $authorization->user()->getTasks($userId);
+//
+// Exemplo listar Operations que um User tem acesso
+//$operations = $authorization->user()->getOperations($userId);
 //
 //
 // Exemplos de criar, editar e apagar uma Task
