@@ -42,12 +42,17 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$tasks = $authorization->role()->getTasks($roleId);
 //
 //
-// Exemplo listar todos Users
-//$users = $authorization->user()->findAll();
+// Exemplo verificar se um Role possui acesso a uma Task
+$hasAccess = $authorization->role()->hasAccessToTask(5, 1);
+var_dump($hasAccess);
 //
 //
 // Exemplo atributir Role a um User
 //$authorization->user()->attachRole(4, 1);
+//
+//
+// Exemplo listar todos Users
+//$users = $authorization->user()->findAll();
 //
 //
 // Exemplo verificar se um User possui permissões de um Role

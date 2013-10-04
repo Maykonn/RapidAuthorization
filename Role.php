@@ -214,6 +214,28 @@ class Role extends Entity
         return Array();
     }
 
+    public function hasAccessToTask($taskId, $roleId)
+    {
+        if(
+            Task::instance($this->db)->findById($taskId) and
+            Role::instance($this->db)->findById($roleId)
+        ) {
+            try {
+                $sql = "SELECT id FROM role_has_task WHERE id_role = :idRole AND id_task = :idTask";
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $roleId;
+                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+                $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
+                $stmt->execute();
+                return ($stmt->fetch() ? true : false);
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return false;
+    }
+
 }
 
 ?>
