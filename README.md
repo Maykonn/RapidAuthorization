@@ -96,6 +96,7 @@ Role:
     8) Listar todas as Operations que um Role tem acesso (getOperations).
     9) Verificar se possui acesso a determinada Task (hasAccessToTask).
     10) Verificar se possui acesso a determinada Operation (hasAccessToOperation).
+    11) DEV: Listar todos os Users que possuem permissão a um Role (getUsersThatHasPermission).
 
 Task:
 
