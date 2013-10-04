@@ -233,6 +233,23 @@ class Task extends Entity
         return Array();
     }
 
+    public function hasOperation($operationId, $taskId)
+    {
+        if(
+            Operation::instance($this->db)->findById($operationId) and
+            Task::instance($this->db)->findById($taskId)
+        ) {
+            $tasksThatCanExecuteTheOperation = Operation::instance($this->db)->getTasksThatCanExecute($operationId);
+            foreach($tasksThatCanExecuteTheOperation as $task) {
+                if($task['id_task'] == $taskId) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
 
 ?>

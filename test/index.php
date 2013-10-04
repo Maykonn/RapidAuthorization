@@ -88,9 +88,11 @@ $authorization = new RapidAuthorization($authorizationConf);
 // Exemplo listar todas Tasks
 //$tasks = $authorization->task()->findAll();
 //
-// Exemplo listar Operations que um User tem acesso
-$operations = $authorization->task()->getOperations(5);
-var_dump($operations);
+// Exemplo listar Operations que uma Task tem acesso
+//$operations = $authorization->task()->getOperations(5);
+//
+// Exemplo verificar se uma Task possui uma Operation
+//$hasOperation = $authorization->task()->hasOperation($operationId, $taskId);
 //
 //
 // Exemplos de criar, editar e apagar uma Operation
