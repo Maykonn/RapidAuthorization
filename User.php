@@ -111,16 +111,21 @@ class User extends Entity
             Role::instance($this->db)->findById($roleId) and
             User::instance($this->db)->findById($userId)
         ) {
-            $sql = "SELECT id FROM user_has_role WHERE id_user = :idUser AND id_role = :idRole";
+            try {
+                $sql = "SELECT id FROM user_has_role WHERE id_user = :idUser AND id_role = :idRole";
 
-            $stmt = $this->db->prepare($sql);
-            $this->id = (int) $userId;
-            $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
-            $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            return ($stmt->fetch() ? true : false);
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $userId;
+                $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
+                $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
+                $stmt->execute();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                return ($stmt->fetch() ? true : false);
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            } catch(Exception $e) {
+                MySQL::instance()->showException($e);
+            }
         }
 
         return false;
