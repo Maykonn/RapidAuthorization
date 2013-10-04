@@ -80,9 +80,10 @@ Role:
     4) Listar um Role (findById).
     5) Listar todos os Roles (findAll).
     6) Anexar uma Task a um Role (attachTask).
-    7) Listar todas as Tasks anexadas a um Role (getTasks).
-    8) Verificar se possui acesso a determinada Task (hasAccessToTask).
-    9) Verificar se possui acesso a determinada Operation (hasAccessToOperation).
+    7) Listar todas as Tasks que um Role tem acesso (getTasks).
+    8) DEV: Listar todas as Operations que um Role tem acesso (getOperations).
+    9) Verificar se possui acesso a determinada Task (hasAccessToTask).
+    10) Verificar se possui acesso a determinada Operation (hasAccessToOperation).
 
 Task:
 
