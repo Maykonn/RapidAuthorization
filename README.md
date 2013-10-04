@@ -43,15 +43,25 @@ Authorization cria a estrutura de, caso não existam, sete tabelas e seus relaci
 user, rpd_user_has_role, rpd_role, rpd_role_has_task, rpd_task, rpd_task_has_operation e rpd_operation
 
 O termo rpd_ no início dos nomes de tabelas é uma tentativa de organizá-las e separá-las das tabelas
-da aplicação cliente. Apenas a tabela user não começa com rpd_ pois não é de responsabilidade do
+da aplicação cliente. Apenas a tabela *user não começa com rpd_ pois não é de responsabilidade do
 Rapid Authorization, mas da aplicação cliente.
+
 
 ATENÇÃO: Você pode informar o nome da tabela de Users e de sua chave primária, nas configurações, caso
 não informe, será criada um tabela com o nome user.
 
 
+*A tabela de Users são todos os usuários da aplicação cliente que deseja-se manter controle de acesso.
+
+
 Funcionalidades:
 ==================
+
+Padrão:
+
+    1) Permite ligar ou desligar a geração automática de tabelas necessárias (apenas cria as tabelas caso não existam).
+    2) DEV: Permite utilizar qualquer nome para a tabela de Users e para sua chave primária.
+    3) Permite configurar se usará o próprio autoload ou fornecido pela aplicação cliente.
 
 User:
 
