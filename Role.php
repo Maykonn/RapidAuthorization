@@ -279,6 +279,24 @@ class Role extends Entity
         return false;
     }
 
+    public function getUsersThatHasPermission($roleId)
+    {
+        if(Role::instance($this->db)->findById($roleId)) {
+            try {
+                $sql = "SELECT id_user FROM user_has_role WHERE id_role = :idRole";
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $roleId;
+                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_COLUMN);
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return false;
+    }
+
 }
 
 ?>

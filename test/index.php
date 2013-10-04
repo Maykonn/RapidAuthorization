@@ -48,6 +48,9 @@ $authorization = new RapidAuthorization($authorizationConf);
 // Exemplo verificar se um Role possui acesso a uma Operation
 //$hasAccess = $authorization->role()->hasAccessToOperation($operationId, $roleId);
 //
+// Exemplo listar todos os Users que possuem permissão a um Role
+//$users = $authorization->role()->getUsersThatHasPermission($roleId);
+//
 //
 // Exemplo atributir Role a um User
 //$authorization->user()->attachRole(4, 1);
