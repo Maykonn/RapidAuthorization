@@ -12,13 +12,6 @@ use \ArrayObject;
 class AvaiblePreferences
 {
 
-    private $mysqlHost = 'localhost';
-    private $mysqlPort = 3306;
-    private $mysqlUser = 'root';
-    private $mysqlPass = '';
-    private $dbName = '';
-    private $dbCharset = 'utf8';
-
     /**
      * <p>Auto generate, or not, the necessary tables on database</p>
      * @var boolean
