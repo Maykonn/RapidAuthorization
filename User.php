@@ -45,6 +45,7 @@ class User extends Entity
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->execute();
             $stmt->setFetchMode($pdoFetchMode);
+
             return $stmt->fetchAll();
         } catch(PDOException $e) {
             MySQL::showException($e);
@@ -60,6 +61,7 @@ class User extends Entity
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':idUser', $userId, PDO::PARAM_INT);
                 $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
+
                 return $stmt->execute();
             } catch(PDOException $e) {
                 MySQL::showException($e);
@@ -98,6 +100,24 @@ class User extends Entity
             MySQL::showException($e);
         } catch(Exception $e) {
             MySQL::showException($e);
+        }
+
+        return false;
+    }
+
+    public function hasPermissionsOfTheRole($roleId, $userId)
+    {
+        if(Role::instance($this->db)->findById($roleId)) {
+            $sql = "SELECT id FROM user_has_role WHERE id_user = :idUser AND id_role = :idRole";
+
+            $stmt = $this->db->prepare($sql);
+            $this->id = (int) $userId;
+            $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            return ($stmt->fetch() ? true : false);
         }
 
         return false;

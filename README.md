@@ -66,7 +66,7 @@ User:
     2) DEV: Listar todos os Users (findAll).
     3) Anexar um Role a um User (attachRole).
     4) Listar todos os Roles anexados a um User (getRoles).
-    5) DEV: Verificar se User tem permissões de um Role (hasPermissionsOfTheRole).
+    5) Verificar se User tem permissões de um Role (hasPermissionsOfTheRole).
     6) DEV: Verificar se User possui acesso a determinada Task (hasAccessToTask).
     7) DEV: Verificar se User possui acesso a determinada Operation (hasAccessToOperation).
 

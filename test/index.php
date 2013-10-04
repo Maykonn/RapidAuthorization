@@ -38,6 +38,11 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$authorization->user()->attachRole(4, 1);
 //
 //
+// Exemplo verificar se um User possui permissões de um Role
+//$hasPermission = $authorization->user()->hasPermissionsOfTheRole(9999, 1);
+//
+//
+//
 // Exemplo de como obter a listagem de Roles de um User
 //$roles = $authorization->user()->getRoles(1, PDO::FETCH_OBJ);
 //$roles = $authorization->user()->getRoles(1);
