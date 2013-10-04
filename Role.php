@@ -128,7 +128,7 @@ class Role extends Entity
             $sql = "SELECT id, name, description FROM role WHERE id = :roleId";
 
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':roleId', $roleId);
+            $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $role = $stmt->fetch();

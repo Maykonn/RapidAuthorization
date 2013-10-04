@@ -39,8 +39,11 @@ $authorization = new RapidAuthorization($authorizationConf);
 //
 //
 // Exemplo verificar se um User possui permissões de um Role
-//$hasPermission = $authorization->user()->hasPermissionsOfTheRole(9999, 1);
+//$hasPermission = $authorization->user()->hasPermissionsOfTheRole($roleId, $userId);
 //
+//
+// Exemplo verificar se um User possui acesso a uma tarefa
+//$hasAccess = $authorization->user()->hasAccessToTask($taskId, $userId);
 //
 //
 // Exemplo de como obter a listagem de Roles de um User

@@ -48,7 +48,7 @@ class User extends Entity
 
             return $stmt->fetchAll();
         } catch(PDOException $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         }
     }
 
@@ -64,7 +64,7 @@ class User extends Entity
 
                 return $stmt->execute();
             } catch(PDOException $e) {
-                MySQL::showException($e);
+                MySQL::instance()->showException($e);
             }
         }
 
@@ -86,7 +86,7 @@ class User extends Entity
             $sql = "SELECT * FROM user WHERE id = :userId";
 
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':userId', $userId);
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $user = $stmt->fetch();
@@ -97,9 +97,9 @@ class User extends Entity
                 throw new Exception('Record #' . $userId . ' not found on `user` table');
             }
         } catch(PDOException $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         } catch(Exception $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         }
 
         return false;
@@ -107,7 +107,10 @@ class User extends Entity
 
     public function hasPermissionsOfTheRole($roleId, $userId)
     {
-        if(Role::instance($this->db)->findById($roleId)) {
+        if(
+            Role::instance($this->db)->findById($roleId) and
+            User::instance($this->db)->findById($userId)
+        ) {
             $sql = "SELECT id FROM user_has_role WHERE id_user = :idUser AND id_role = :idRole";
 
             $stmt = $this->db->prepare($sql);
@@ -118,6 +121,23 @@ class User extends Entity
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             return ($stmt->fetch() ? true : false);
+        }
+
+        return false;
+    }
+
+    public function hasAccessToTask($taskId, $userId)
+    {
+        if(
+            Task::instance($this->db)->findById($taskId) and
+            User::instance($this->db)->findById($userId)
+        ) {
+            $rolesThatHasAccessToTask = Task::instance($this->db)->getRolesThatHasAccess($taskId);
+            foreach($rolesThatHasAccessToTask as $role) {
+                if($this->hasPermissionsOfTheRole($role['id_role'], $userId)) {
+                    return true;
+                }
+            }
         }
 
         return false;

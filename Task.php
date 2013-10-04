@@ -72,7 +72,7 @@ class Task extends Entity
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
                 return $stmt->execute();
             } catch(PDOException $e) {
-                MySQL::showException($e);
+                MySQL::instance()->showException($e);
             }
         }
 
@@ -90,7 +90,7 @@ class Task extends Entity
                 $stmt->bindParam(':idOperation', $operationId, PDO::PARAM_INT);
                 return $stmt->execute();
             } catch(PDOException $e) {
-                MySQL::showException($e);
+                MySQL::instance()->showException($e);
             }
         }
 
@@ -128,7 +128,7 @@ class Task extends Entity
             $sql = "SELECT id, name, description FROM task WHERE id = :taskId";
 
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':taskId', $taskId);
+            $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $task = $stmt->fetch();
@@ -139,9 +139,9 @@ class Task extends Entity
                 throw new Exception('Record #' . $taskId . ' not found on `task` table');
             }
         } catch(PDOException $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         } catch(Exception $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         }
 
         return false;
@@ -171,8 +171,27 @@ class Task extends Entity
             $this->id = (int) $this->id;
             return $this->id;
         } catch(PDOException $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         }
+    }
+
+    public function getRolesThatHasAccess($taskId)
+    {
+        if(Task::instance($this->db)->findById($taskId)) {
+            try {
+                $sql = "SELECT id_role FROM role_has_task WHERE id_task = :idTask";
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $taskId;
+                $stmt->bindParam(':idTask', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                return $stmt->fetchAll();
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return false;
     }
 
 }

@@ -102,7 +102,7 @@ class Operation extends Entity
             $sql = "SELECT id, name, description FROM operation WHERE id = :operationId";
 
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':operationId', $operationId);
+            $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $operation = $stmt->fetch();
