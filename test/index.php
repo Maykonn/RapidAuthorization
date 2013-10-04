@@ -68,8 +68,7 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$hasAccess = $authorization->user()->hasAccessToOperation($operationId, $userId);
 //
 // Exemplo de como obter a listagem de Roles de um User
-//$roles = $authorization->user()->getRoles(1, PDO::FETCH_OBJ);
-//$roles = $authorization->user()->getRoles(1);
+//$roles = $authorization->user()->getRoles($userId);
 //
 //
 // Exemplos de criar, editar e apagar uma Task

@@ -30,10 +30,10 @@ class User extends Entity
         return self::$instance = new self($pdo);
     }
 
-    public function getRoles($id, $pdoFetchMode = PDO::FETCH_ASSOC)
+    public function getRoles($userId)
     {
         try {
-            $this->id = (int) $id;
+            $this->id = (int) $userId;
 
             $sql = "
             SELECT rol.id, rol.`name`
@@ -44,7 +44,7 @@ class User extends Entity
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->execute();
-            $stmt->setFetchMode($pdoFetchMode);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             return $stmt->fetchAll();
         } catch(PDOException $e) {
