@@ -1,9 +1,21 @@
-Rapid Authorization
+RapidAuthorization
 ==================
 
-Rapid Authorization é um sistema de autorização, escrito em PHP, baseado em *Roled-based Access Control (RBAC).
+RapidAuthorization é uma API para controle de acesso, escrito em PHP, baseado em *Roled-based Access Control (RBAC).
 
 Veja sobre RBAC na Wikipédia visitando: https://en.wikipedia.org/wiki/Role-based_access_control
+
+
+É possível utilizar o RapidAuthorization em qualquer sistema escrito em PHP. Com ele é rápido e fácil
+escrever o controle de acesso da sua aplicação. Você precisa apenas integrar à aplicação, como fazer
+isso é mostrado mais abaixo.
+
+Se o domínio/responsabilidade/etc da sua aplicação não é controle de acesso, então ela não deve saber como fazer isso.
+Essa responsabilidade deve ser dada a outro sistema, um serviço, no caso o RapidAuthorization, para que ele
+se preocupe com o controle de acesso, não a sua aplicação.
+
+O objetivo é desacoplar, o máximo possível, o controle de acesso do domínio das aplicações que o utilizarem.
+Sua aplicação já possui responsabilidades suficientes, deixe o controle de acesso com o RapidAuthorization.
 
 
 RBAC
@@ -41,7 +53,7 @@ user, rpd_user_has_role, rpd_role, rpd_role_has_task, rpd_task, rpd_task_has_ope
 
 O termo rpd_ no início dos nomes de tabelas é uma tentativa de organizá-las e separá-las das tabelas
 da aplicação cliente. Apenas a tabela *user não começa com rpd_ pois não é de responsabilidade do
-Rapid Authorization, mas da aplicação cliente.
+RapidAuthorization, mas da aplicação cliente.
 
 
 ATENÇÃO: Você pode informar o nome da tabela de Users e de sua chave primária, nas configurações, caso
