@@ -149,6 +149,25 @@ class Operation extends Entity
         }
     }
 
+    public function getTasksThatCanExecute($operationId)
+    {
+        if(Operation::instance($this->db)->findById($operationId)) {
+            try {
+                $sql = "SELECT id_task FROM task_has_operation WHERE id_operation = :idOperation";
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $operationId;
+                $stmt->bindParam(':idOperation', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                return $stmt->fetchAll();
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return false;
+    }
+
 }
 
 ?>
