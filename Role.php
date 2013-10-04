@@ -72,7 +72,7 @@ class Role extends Entity
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
                 return $stmt->execute();
             } catch(PDOException $e) {
-                MySQL::showException($e);
+                MySQL::instance()->showException($e);
             }
         }
 
@@ -90,7 +90,7 @@ class Role extends Entity
                 $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
                 return $stmt->execute();
             } catch(PDOException $e) {
-                MySQL::showException($e);
+                MySQL::instance()->showException($e);
             }
         }
 
@@ -139,9 +139,9 @@ class Role extends Entity
                 throw new Exception('Record #' . $roleId . ' not found on `role` table');
             }
         } catch(PDOException $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         } catch(Exception $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         }
 
         return false;
@@ -171,7 +171,7 @@ class Role extends Entity
             $this->id = (int) $this->id;
             return $this->id;
         } catch(PDOException $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         }
     }
 
