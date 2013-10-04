@@ -69,6 +69,9 @@ User:
     2) DEV: Listar todos os Users (findAll).
     3) Anexar um Role a um User (attachRole).
     4) Listar todos os Roles anexados a um User (getRoles).
+    5) DEV: Verificar se User tem permissões de um Role (hasPermissionsOfTheRole).
+    6) DEV: Verificar se User possui acesso a determinada Task (hasAccessToTask).
+    7) DEV: Verificar se User possui acesso a determinada Operation (hasAccessToOperation).
 
 Role:
 
@@ -79,6 +82,8 @@ Role:
     5) DEV: Listar todos os Roles (findAll).
     6) Anexar uma Task a um Role (attachTask).
     7) DEV: Listar todas as Tasks anexadas a um Role (getTasks).
+    8) DEV: Verificar se possui acesso a determinada Task (hasAccessToTask).
+    9) DEV: Verificar se possui acesso a determinada Operation (hasAccessToOperation).
 
 Task:
 
@@ -89,6 +94,7 @@ Task:
     5) DEV: Listar todas as Tasks (findAll).
     6) Anexar uma Operation a uma Task (attachOperation).
     7) DEV: Listar todas as Operations anexadas a uma Task (getOperations).
+    8) DEV: Verificar se possui determinada Operation (hasOperation).
 
 Operation:
 
