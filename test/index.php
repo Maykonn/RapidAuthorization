@@ -38,6 +38,10 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$roles = $authorization->role()->findAll();
 //
 //
+// Exemplo listar todas as Tasks anexadas a um Role
+//$tasks = $authorization->role()->getTasks($roleId);
+//
+//
 // Exemplo listar todos Users
 //$users = $authorization->user()->findAll();
 //

@@ -152,7 +152,7 @@ class Role extends Entity
         try {
             $sql = "SELECT id, name, description FROM role";
             $stmt = $this->db->query($sql);
-            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
@@ -188,6 +188,30 @@ class Role extends Entity
         } catch(PDOException $e) {
             MySQL::instance()->showException($e);
         }
+    }
+
+    public function getTasks($roleId)
+    {
+        if(Role::instance($this->db)->findById($roleId)) {
+            try {
+                $sql = "
+                SELECT t.id, t.name, t.description
+                FROM task t INNER JOIN role_has_task rht ON t.id = rht.id_task
+                WHERE rht.id_role = :idRole";
+
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $roleId;
+                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            } catch(Exception $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return Array();
     }
 
 }
