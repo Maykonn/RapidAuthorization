@@ -12,15 +12,15 @@ RBAC
 Entidades: User, Role, Task e Operation
 
 User é um usuário da aplicação cliente.
-Possui um, nenhum ou muitos Roles
+Possui permissão de nenhum, um ou muitos Roles.
 
 Role é um papel/cargo ocupado por um User na aplicação cliente.
-Pode ter uma, nenhuma ou muitas Tasks.
+Pode ter acesso a nenhuma, uma, ou muitas Tasks.
 
 Task é uma tarefa realizada pela aplicação cliente, Gerenciar Clientes é um exemplo.
-Pode ter uma, nenhuma ou muitas Operations.
+Pode ter acesso a nenhuma, uma ou muitas Operations.
 
-Operations são operações realizadas pelas Tasks da aplicação cliente, Cadastrar Cliente é um exemplo.
+Operations são operações/ações realizadas pelas Tasks da aplicação cliente, Cadastrar Cliente é um exemplo.
 
 
 Observações:
