@@ -30,9 +30,6 @@ Alguns programadores gostam de considerar uma Task como um Controller,
 por exemplo ClienteController, e uma Operation como uma ação do Controller, por exemplo
 actionCreate ou createAction.
 
-O Rapid Authorization pode ser configurado para utilizar seu próprio autoload ou utilizar o autoload
-da aplicação cliente.
-
 
 Banco de dados:
 ==================
