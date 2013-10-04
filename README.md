@@ -106,7 +106,7 @@ Task:
     4) Listar uma Task (findById).
     5) Listar todas as Tasks (findAll).
     6) Anexar uma Operation a uma Task (attachOperation).
-    7) DEV: Listar todas as Operations anexadas a uma Task (getOperations).
+    7) Listar todas as Operations anexadas a uma Task (getOperations).
     8) DEV: Verificar se possui determinada Operation (hasOperation).
     9) Listar todos os Roles que possuem acesso a uma Task (getRolesThatHasAccess).
 

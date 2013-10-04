@@ -209,6 +209,30 @@ class Task extends Entity
         return false;
     }
 
+    public function getOperations($taskId)
+    {
+        if(Task::instance($this->db)->findById($taskId)) {
+            try {
+                $sql = "
+                SELECT o.id, o.name, o.description
+                FROM operation o INNER JOIN task_has_operation tho ON o.id = tho.id_operation
+                WHERE tho.id_task = :idTask";
+
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $taskId;
+                $stmt->bindParam(':idTask', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            } catch(Exception $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return Array();
+    }
+
 }
 
 ?>
