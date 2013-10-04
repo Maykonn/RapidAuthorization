@@ -143,6 +143,23 @@ class User extends Entity
         return false;
     }
 
+    public function hasAccessToOperation($operationId, $userId)
+    {
+        if(
+            Operation::instance($this->db)->findById($operationId) and
+            User::instance($this->db)->findById($userId)
+        ) {
+            $tasksThatCanExecuteTheOperation = Operation::instance($this->db)->getTasksThatCanExecute($operationId);
+            foreach($tasksThatCanExecuteTheOperation as $task) {
+                if($this->hasAccessToTask($task['id_task'], $userId)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
 
 ?>
