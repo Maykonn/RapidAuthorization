@@ -23,7 +23,7 @@ Pode ter acesso a nenhuma, uma ou muitas Operations.
 Operations são operações/ações realizadas pelas Tasks da aplicação cliente, Cadastrar Cliente é um exemplo.
 
 
-Observações:
+Observações
 ==================
 
 Alguns programadores gostam de considerar uma Task como um Controller,
@@ -31,7 +31,7 @@ por exemplo ClienteController, e uma Operation como uma ação do Controller, po
 actionCreate ou createAction.
 
 
-Banco de dados:
+Banco de dados
 ==================
 
 Nas configurações você informa os dados de conexão do banco de dados e então, por padrão, o Rapid
@@ -51,7 +51,7 @@ não informe, será criada um tabela com o nome user.
 *A tabela de Users são todos os usuários da aplicação cliente que deseja-se manter controle de acesso.
 
 
-Funcionalidades:
+Funcionalidades
 ==================
 
 Padrão:
