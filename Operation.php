@@ -72,7 +72,7 @@ class Operation extends Entity
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
                 return $stmt->execute();
             } catch(PDOException $e) {
-                MySQL::showException($e);
+                MySQL::instance()->showException($e);
             }
         }
 
@@ -113,9 +113,9 @@ class Operation extends Entity
                 throw new Exception('Record #' . $operationId . ' not found on `operation` table');
             }
         } catch(PDOException $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         } catch(Exception $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         }
 
         return false;
@@ -145,7 +145,7 @@ class Operation extends Entity
             $this->id = (int) $this->id;
             return $this->id;
         } catch(PDOException $e) {
-            MySQL::showException($e);
+            MySQL::instance()->showException($e);
         }
     }
 
