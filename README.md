@@ -1,8 +1,89 @@
-RapidAuthorization
+Rapid Authorization
 ==================
 
-Sistema de autorização escrito em PHP baseado na abordagem *Roled-based Access Control (RBAC).
+Rapid Authorization é um sistema de autorização, escrito em PHP, baseado em *Roled-based Access Control (RBAC).
+
+Veja sobre RBAC na Wikipédia visitando: https://en.wikipedia.org/wiki/Role-based_access_control
 
 
+RBAC
+==================
 
-*Roled-based Access Control (RBAC): https://en.wikipedia.org/wiki/Role-based_access_control
+Entidades: User, Role, Task e Operation
+
+User é um usuário da aplicação cliente.
+Possui um, nenhum ou muitos Roles
+
+Role é um papel/cargo ocupado por um User na aplicação cliente.
+Pode ter uma, nenhuma ou muitas Tasks.
+
+Task é uma tarefa realizada pela aplicação cliente, Gerenciar Clientes é um exemplo.
+Pode ter uma, nenhuma ou muitas Operations.
+
+Operations são operações realizadas pelas Tasks da aplicação cliente, Cadastrar Cliente é um exemplo.
+
+
+Observações:
+==================
+
+Em alguns sistemas MVC alguns programadores gostam de considerar uma Task como um Controller,
+por exemplo ClienteController, e uma Operation como uma ação do Controller, por exemplo
+actionCreate ou createAction.
+
+O Rapid Authorization pode ser configurado para utilizar seu próprio autoload ou utilizar o autoload
+da aplicação cliente.
+
+
+Banco de dados:
+==================
+
+Nas configurações você informa os dados de conexão do banco de dados e então, por padrão, o Rapid
+Authorization cria a estrutura de, caso não existam, sete tabelas e seus relacionamentos:
+
+user, rpd_user_has_role, rpd_role, rpd_role_has_task, rpd_task, rpd_task_has_operation e rpd_operation
+
+O termo rpd_ no início dos nomes de tabelas é uma tentativa de organizá-las e separá-las das tabelas
+da aplicação cliente. Apenas a tabela user não começa com rpd_ pois não é de responsabilidade do
+Rapid Authorization, mas da aplicação cliente.
+
+ATENÇÃO: Você pode informar o nome da tabela de Users e de sua chave primária, nas configurações, caso
+não informe, será criada um tabela com o nome user.
+
+
+Funcionalidades:
+==================
+
+User:
+
+    1) Listar um User (findById).
+    2) DEV: Listar todos os Users (findAll).
+    3) Anexar um Role a um User (attachRole).
+    4) Listar todos os Roles anexados a um User (getRoles).
+
+Role:
+
+    1) Criar um Role (create).
+    2) Editar um Role (update).
+    3) Apagar um Role (delete).
+    4) Listar um Role (findById).
+    5) DEV: Listar todos os Roles (findAll).
+    6) Anexar uma Task a um Role (attachTask).
+    7) DEV: Listar todas as Tasks anexadas a um Role (getTasks).
+
+Task:
+
+    1) Criar uma Task (create).
+    2) Editar uma Task (update).
+    3) Apagar uma Task (delete).
+    4) Listar uma Task (findById).
+    5) DEV: Listar todas as Tasks (findAll).
+    6) Anexar uma Operation a uma Task (attachOperation).
+    7) DEV: Listar todas as Operations anexadas a uma Task (getOperations).
+
+Operation:
+
+    1) Criar uma Operation (create).
+    2) Editar uma Operation (update).
+    3) Apagar uma Operation (delete).
+    4) Listar uma Operation (findById).
+    5) DEV: Listar todas as Operations (findAll).
