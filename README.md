@@ -116,5 +116,5 @@ Operation:
     2) Editar uma Operation (update).
     3) Apagar uma Operation (delete).
     4) Listar uma Operation (findById).
-    5) DEV: Listar todas as Operations (findAll).
+    5) Listar todas as Operations (findAll).
     6) Listar todas as Tasks que possuem uma Operation (getTasksThatCanExecute).

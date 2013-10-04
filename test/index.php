@@ -94,13 +94,15 @@ $authorization = new RapidAuthorization($authorizationConf);
 // Exemplo verificar se uma Task possui uma Operation
 //$hasOperation = $authorization->task()->hasOperation($operationId, $taskId);
 //
+// Exemplo atribuir Operation a uma Task
+//$authorization->task()->attachOperation($operationId, $taskId);
+//
 //
 // Exemplos de criar, editar e apagar uma Operation
 //$operationId = $authorization->operation()->create('Iniciar Atendimento', 'descrição opcional');
 //$operationId = $authorization->operation()->update($operationId, 'Iniciar Atendimento', "(opcional), informe '' para limpar a descrição");
 //$deleted = $authorization->operation()->delete($operationId);
 //
-//
-// Exemplo atribuir Operation a uma Task
-//$authorization->task()->attachOperation($operationId, $taskId);
+// Exemplo listar todas Operations
+//$operations = $authorization->operation()->findAll();
 ?>
