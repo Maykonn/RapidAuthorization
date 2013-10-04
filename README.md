@@ -56,7 +56,7 @@ Funcionalidades
 
 Padrão:
 
-    1) Permite ligar ou desligar a geração automática de tabelas necessárias (apenas cria as tabelas caso não existam).
+    1) Permite ligar ou desligar a geração automática de tabelas (só cria as tabelas caso não existam).
     2) DEV: Permite utilizar qualquer nome para a tabela de Users e para sua chave primária.
     3) Permite configurar se usará o próprio autoload ou fornecido pela aplicação cliente.
 
