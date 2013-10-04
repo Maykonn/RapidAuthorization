@@ -134,7 +134,6 @@ class User extends Entity
                 $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
                 $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
                 $stmt->execute();
-                $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 return ($stmt->fetch() ? true : false);
             } catch(PDOException $e) {
                 MySQL::instance()->showException($e);
