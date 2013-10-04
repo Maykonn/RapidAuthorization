@@ -43,8 +43,11 @@ $authorization = new RapidAuthorization($authorizationConf);
 //
 //
 // Exemplo verificar se um Role possui acesso a uma Task
-$hasAccess = $authorization->role()->hasAccessToTask(5, 1);
-var_dump($hasAccess);
+//$hasAccess = $authorization->role()->hasAccessToTask(5, 1);
+//
+//
+// Exemplo verificar se um Role possui acesso a uma Operation
+//$hasAccess = $authorization->role()->hasAccessToOperation($operationId, $roleId);
 //
 //
 // Exemplo atributir Role a um User

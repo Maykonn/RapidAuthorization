@@ -236,6 +236,22 @@ class Role extends Entity
         return false;
     }
 
-}
+    public function hasAccessToOperation($operationId, $roleId)
+    {
+        if(
+            Operation::instance($this->db)->findById($operationId) and
+            Role::instance($this->db)->findById($roleId)
+        ) {
+            $tasksThatCanExecuteTheOperation = Operation::instance($this->db)->getTasksThatCanExecute($operationId);
+            foreach($tasksThatCanExecuteTheOperation as $task) {
+                if($this->hasAccessToTask($task['id_task'], $roleId)) {
+                    return true;
+                }
+            }
+        }
 
+        return false;
+    }
+
+}
 ?>
