@@ -26,7 +26,7 @@ Operations são operações/ações realizadas pelas Tasks da aplicação client
 Observações:
 ==================
 
-Em alguns sistemas MVC alguns programadores gostam de considerar uma Task como um Controller,
+Alguns programadores gostam de considerar uma Task como um Controller,
 por exemplo ClienteController, e uma Operation como uma ação do Controller, por exemplo
 actionCreate ou createAction.
 
