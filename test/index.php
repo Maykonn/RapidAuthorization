@@ -34,6 +34,10 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$deleted = $authorization->role()->delete($roleId);
 //
 //
+// Exemplo listar todos Roles
+//$roles = $authorization->role()->findAll();
+//
+//
 // Exemplo listar todos Users
 //$users = $authorization->user()->findAll();
 //
@@ -57,7 +61,6 @@ $authorization = new RapidAuthorization($authorizationConf);
 // Exemplo de como obter a listagem de Roles de um User
 //$roles = $authorization->user()->getRoles(1, PDO::FETCH_OBJ);
 //$roles = $authorization->user()->getRoles(1);
-//var_dump($roles);
 //
 //
 // Exemplos de criar, editar e apagar uma Task

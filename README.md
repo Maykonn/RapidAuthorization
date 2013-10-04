@@ -76,7 +76,7 @@ Role:
     2) Editar um Role (update).
     3) Apagar um Role (delete).
     4) Listar um Role (findById).
-    5) DEV: Listar todos os Roles (findAll).
+    5) Listar todos os Roles (findAll).
     6) Anexar uma Task a um Role (attachTask).
     7) DEV: Listar todas as Tasks anexadas a um Role (getTasks).
     8) DEV: Verificar se possui acesso a determinada Task (hasAccessToTask).

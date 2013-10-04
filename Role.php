@@ -147,6 +147,21 @@ class Role extends Entity
         return false;
     }
 
+    public function findAll()
+    {
+        try {
+            $sql = "SELECT id, name, description FROM role";
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch(PDOException $e) {
+            MySQL::instance()->showException($e);
+        } catch(Exception $e) {
+            MySQL::instance()->showException($e);
+        }
+
+        return Array();
+    }
+
     private function save()
     {
         try {
