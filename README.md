@@ -54,7 +54,7 @@ não informe, será criada um tabela com o nome user.
 Funcionalidades
 ==================
 
-Padrão:
+Configuração:
 
     1) Permite ligar ou desligar a geração automática de tabelas (só cria as tabelas caso não existam).
     2) DEV: Permite utilizar qualquer nome para a tabela de Users e para sua chave primária.
