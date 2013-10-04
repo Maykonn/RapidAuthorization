@@ -63,7 +63,7 @@ Configuração:
 User:
 
     1) Listar um User (findById).
-    2) DEV: Listar todos os Users (findAll).
+    2) Listar todos os Users (findAll).
     3) Anexar um Role a um User (attachRole).
     4) Listar todos os Roles anexados a um User (getRoles).
     5) Verificar se User tem permissões de um Role (hasPermissionsOfTheRole).

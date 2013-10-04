@@ -105,6 +105,21 @@ class User extends Entity
         return false;
     }
 
+    public function findAll()
+    {
+        try {
+            $sql = "SELECT id FROM user";
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch(PDOException $e) {
+            MySQL::instance()->showException($e);
+        } catch(Exception $e) {
+            MySQL::instance()->showException($e);
+        }
+
+        return Array();
+    }
+
     public function hasPermissionsOfTheRole($roleId, $userId)
     {
         if(

@@ -34,6 +34,10 @@ $authorization = new RapidAuthorization($authorizationConf);
 //$deleted = $authorization->role()->delete($roleId);
 //
 //
+// Exemplo listar todos Users
+//$users = $authorization->user()->findAll();
+//
+//
 // Exemplo atributir Role a um User
 //$authorization->user()->attachRole(4, 1);
 //
