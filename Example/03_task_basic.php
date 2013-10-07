@@ -34,7 +34,7 @@ echo $idFromUpdateTask = $authorization->task()->update($idToUpdate, 'Manage Pro
 
 // Delete
 echo 'DELETED TASK: #';
-echo $idFromDeletedRole = $authorization->task()->delete($idToDelete) . '<br>';
+echo $idFromDeletedTask = $authorization->task()->delete($idToDelete) . '<br>';
 
 
 // List By ID
