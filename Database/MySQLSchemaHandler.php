@@ -52,7 +52,7 @@ class MySQLSchemaHandler
     {
         try {
             $stmt = $this->db->prepare($this->getAuthorizationTablesStmt());
-            $stmt->execute();
+            return $stmt->execute();
         } catch(PDOException $e) {
             echo '<pre>';
             echo '<b>' . $e->getMessage() . '</b><br/><br/>';
