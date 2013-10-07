@@ -8,7 +8,7 @@
  * Caso contrário
  */
 $sep = DIRECTORY_SEPARATOR;
-require_once '..' . $sep . 'index.php';
+require_once '..' . $sep . 'RapidAuthorization.php';
 
 use Rapid\Authorization\RapidAuthorization;
 
