@@ -8,9 +8,13 @@
 namespace Rapid\Authorization\Database;
 
 use \PDO;
+use Rapid\Authorization\ClientPreferences;
 
 class MySQLSchemaHandler
 {
+
+    private $userTable = '';
+    private $userTablePK = '';
 
     /**
      * @var PDO
@@ -25,17 +29,20 @@ class MySQLSchemaHandler
     /**
      * @return MySQLSchemaHandler
      */
-    public static function instance(PDO $pdo)
+    public static function instance(ClientPreferences $preferences, PDO $pdo)
     {
         if(self::$instance instanceof MySQLSchemaHandler) {
             return self::$instance;
         } else {
-            return self::$instance = new self($pdo);
+            return self::$instance = new self($preferences, $pdo);
         }
     }
 
-    private function __construct(PDO $pdo)
+    private function __construct(ClientPreferences $preferences, PDO $pdo)
     {
+        $preferencesList = $preferences->getPreferencesList();
+        $this->userTable = $preferencesList->userTable;
+        $this->userTablePK = $preferencesList->userTablePK;
         $this->db = $pdo;
     }
 

@@ -24,6 +24,11 @@ class RapidAuthorization
     private $preferences;
 
     /**
+     * @var ArrayObject
+     */
+    private $preferencesList;
+
+    /**
      * @var MySQL
      */
     private $mysql;
@@ -36,23 +41,24 @@ class RapidAuthorization
 
     private function initPreferences(Array $preferences)
     {
-        $this->preferences = ClientPreferences::instance($preferences)->getPreferencesList();
+        $this->preferences = ClientPreferences::instance($preferences);
+        $this->preferencesList = $this->preferences->getPreferencesList();
     }
 
     private function initMySqlHandler()
     {
         $this->mysql = MySQL::instance();
         $this->mysql->connect(Array(
-            'host' => $this->preferences->mysqlHost,
-            'port' => $this->preferences->mysqlPort,
-            'user' => $this->preferences->mysqlUser,
-            'pass' => $this->preferences->mysqlPass,
-            'dbName' => $this->preferences->dbName,
-            'dbCharset' => $this->preferences->dbCharset
+            'host' => $this->preferencesList->mysqlHost,
+            'port' => $this->preferencesList->mysqlPort,
+            'user' => $this->preferencesList->mysqlUser,
+            'pass' => $this->preferencesList->mysqlPass,
+            'dbName' => $this->preferencesList->dbName,
+            'dbCharset' => $this->preferencesList->dbCharset
         ));
 
-        if($this->preferences->autoGenerateTables) {
-            $schema = MySQLSchemaHandler::instance($this->mysql->getHandler());
+        if($this->preferencesList->autoGenerateTables) {
+            $schema = MySQLSchemaHandler::instance($this->preferences, $this->mysql->getHandler());
             $schema->createDefaultSchema();
         }
     }
