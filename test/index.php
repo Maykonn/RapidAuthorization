@@ -13,16 +13,26 @@ require_once '..' . $sep . 'index.php';
 use Rapid\Authorization\RapidAuthorization;
 
 $authorizationConf = Array(
-    'useRapidAuthorizationAutoload' => true,
     'mysqlPort' => 3306,
     'mysqlHost' => 'localhost',
     'mysqlUser' => 'root',
     'mysqlPass' => '',
     'dbName' => 'rapid_authorization',
-    //'dbCharset' => 'utf8'
-    //'autoGenerateTables' => true,
+    // se não informado o default é utf8
+    //'dbCharset' => 'latin1',
+    //
+    // se não informado o default é true
+    //'autoGenerateTables' => false,
+    //
+    // se não informado o default é user
     //'userTable' => 'nome_tabela_user',
+    //
+    // se não informado o default é id
     //'userTablePK' => 'nome_primary_key_tabela_user'
+    //
+    // se não informado o default é false
+    // você deve informar true somente se sua aplicação não possuir autoload
+    'useRapidAuthorizationAutoload' => true
 );
 
 $authorization = new RapidAuthorization($authorizationConf);

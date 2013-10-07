@@ -69,8 +69,9 @@ Funcionalidades
 Configuração:
 
     1) Permite ligar ou desligar a geração automática de tabelas (só cria as tabelas caso não existam).
-    2) DEV: Permite utilizar qualquer nome para a tabela de Users e para sua chave primária.
-    3) Permite configurar se usará o próprio autoload ou fornecido pela aplicação cliente.
+    2) Permite utilizar qualquer nome para a tabela de Users e para sua chave primária.
+    3) Permite utilizar qualquer enconding(utf8, latin1, etc) para as tabelas.
+    4) Permite configurar se usará o próprio autoload ou fornecido pela aplicação cliente.
 
 User:
 
