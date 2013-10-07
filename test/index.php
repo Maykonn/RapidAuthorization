@@ -20,7 +20,9 @@ $authorizationConf = Array(
     'mysqlPass' => '',
     'dbName' => 'rapid_authorization',
     //'dbCharset' => 'utf8'
-    //'autoGenerateTables' => true
+    //'autoGenerateTables' => true,
+    //'userTable' => 'nome_tabela_user',
+    //'userTablePK' => 'nome_primary_key_tabela_user'
 );
 
 $authorization = new RapidAuthorization($authorizationConf);

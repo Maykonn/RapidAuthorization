@@ -18,6 +18,8 @@ class AvaiblePreferences
     private $mysqlPass = '';
     private $dbName = '';
     private $dbCharset = 'utf8';
+    private $userTable = 'user';
+    private $userTablePK = 'id';
 
     /**
      * <p>Auto generate, or not, the necessary tables on database</p>
