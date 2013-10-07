@@ -49,7 +49,7 @@ class ClientPreferences
 
     private function setPreferencesList(Array $clientPreferences)
     {
-        $this->preferencesList = AvaiblePreferences::instance()->getList();
+        $this->preferencesList = AvailablePreferences::instance()->getList();
         $this->applyValuesFromClientPreferences($clientPreferences);
     }
 

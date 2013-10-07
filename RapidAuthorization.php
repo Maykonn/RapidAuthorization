@@ -9,7 +9,7 @@ namespace Rapid\Authorization;
 
 // Necessárias antes do Autoload
 require_once 'ClientPreferences.php';
-require_once 'AvaiblePreferences.php';
+require_once 'AvailablePreferences.php';
 require_once 'Autoload.php';
 
 use Rapid\Authorization\Database\MySQL;

@@ -9,7 +9,7 @@ namespace Rapid\Authorization;
 
 use \ArrayObject;
 
-class AvaiblePreferences
+class AvailablePreferences
 {
 
     private $mysqlHost = 'localhost';
@@ -37,7 +37,7 @@ class AvaiblePreferences
     private $useRapidAuthorizationAutoload = false;
 
     /**
-     * @var AvaiblePreferences
+     * @var AvailablePreferences
      */
     private static $instance;
 
@@ -47,11 +47,11 @@ class AvaiblePreferences
     private $list = Array();
 
     /**
-     * @return AvaiblePreferences
+     * @return AvailablePreferences
      */
     public static function instance()
     {
-        if(self::$instance instanceof AvaiblePreferences) {
+        if(self::$instance instanceof AvailablePreferences) {
             return self::$instance;
         } else {
             return self::$instance = new self();
