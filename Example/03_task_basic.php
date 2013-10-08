@@ -15,6 +15,8 @@ $configuration = Array(
     'mysqlUser' => 'root',
     'mysqlPass' => '',
     'dbName' => 'rapid_authorization',
+    'userTable' => 'user_table',
+    'userTablePK' => 'user_pk',
     'useRapidAuthorizationAutoload' => true
 );
 
