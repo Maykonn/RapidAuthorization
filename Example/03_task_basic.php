@@ -24,7 +24,7 @@ $configuration = Array(
 // Create
 $authorization = new RapidAuthorization($configuration);
 echo 'CREATED TASKs: #';
-echo $authorization->task()->create('Manage Customers', 'Optional description of Task') . ' - ';
+echo $authorization->task()->create('Manage Orders', 'Optional description of Task') . ' - ';
 echo $idToDelete = $authorization->task()->create('Manage Suppliers', 'Will be deleted') . ' - ';
 echo $idToUpdate = $authorization->task()->create('Manage Products', 'Will be updated to NULL') . '<br>';
 
