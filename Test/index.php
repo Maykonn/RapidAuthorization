@@ -18,11 +18,9 @@ $authorizationConf = Array(
     'mysqlUser' => 'root',
     'mysqlPass' => '',
     'dbName' => 'rapid_authorization',
+    'autoGenerateTables' => true,
     // se não informado o default é utf8
     //'dbCharset' => 'latin1',
-    //
-    // se não informado o default é true
-    //'autoGenerateTables' => false,
     //
     // se não informado o default é user
     //'userTable' => 'nome_tabela_user',
