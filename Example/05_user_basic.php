@@ -36,7 +36,6 @@ $users = $authorization->user()->findAll();
 print_r($users);
 echo '</pre>';
 
-
 // Attach Role
 $roleId = 1;
 $userId = 1;
