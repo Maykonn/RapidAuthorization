@@ -42,15 +42,12 @@ Alguns programadores gostam de considerar uma Task como um Controller,
 por exemplo ClienteController, e uma Operation como uma ação do Controller, por exemplo
 actionCreate ou createAction.
 
-
 É utilizado uma simples comunicação com o banco de dados utilizando PDO. Você não deve utilizar as
 classes existentes em /Datase em sua aplicação. Você não precisa nem se preocupar com elas.
 O mesmo serve para a Autoload.php.
 
-
-*É suportado apenas por versões do PHP que permitam namespaces, autoload e PDO.
-
-*Consideramos uma prática inaceitável, feia e sem motivos para tal, utilizar versões antigas
+É suportado apenas por versões do PHP que permitam namespaces, autoload e PDO.
+Consideramos uma prática inaceitável, feia e sem motivos para tal, utilizar versões antigas
 do PHP em novas aplicações.
 
 
