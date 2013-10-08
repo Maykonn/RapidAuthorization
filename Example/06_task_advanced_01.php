@@ -93,11 +93,3 @@ $operationId = 4;
 $taskId = 3;
 echo 'TASK #' . $taskId . ' HAS OPERATION: #' . $operationId;
 var_dump($authorization->task()->hasOperation($operationId, $taskId)) . '<br>';
-
-
-// List all roles that can access a Task
-//$taskId = 1;
-//echo 'ALL ROLES THAT CAN ACCES TASK #' .$taskId . '<pre>';
-//$rolesThaCanAccess = $authorization->task()->getRolesThatHasAccess($taskId);
-//print_r($rolesThaCanAccess);
-//echo '</pre>';
