@@ -24,4 +24,9 @@ $configuration = Array(
 );
 
 $authorization = new RapidAuthorization($configuration);
+
+echo '
+    OK!!!<br/>
+    NOW YOU MUST POPULATE THE ' . $configuration['userTable'] . ' TABLE WITH THE PK 1 AND 2,
+    FOR THE EXAMPLES WORK.';
 ?>
