@@ -101,7 +101,7 @@ class Role extends Entity
     {
         return (
             Task::instance($this->preferences, $this->db)->findById($taskId) and
-            Role::instance($this->preferences, $this->db)->findById($roleId)
+            !Role::instance($this->preferences, $this->db)->hasAccessToTask($taskId, $roleId)
             );
     }
 
