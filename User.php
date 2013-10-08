@@ -131,7 +131,7 @@ class User extends Entity
     {
         return (
             Role::instance($this->preferences, $this->db)->findById($roleId) and
-            User::instance($this->preferences, $this->db)->findById($userId)
+            !User::instance($this->preferences, $this->db)->hasPermissionsOfTheRole($roleId, $userId)
             );
     }
 
