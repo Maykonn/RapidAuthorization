@@ -43,6 +43,12 @@ por exemplo ClienteController, e uma Operation como uma ação do Controller, po
 actionCreate ou createAction.
 
 
+*É suportado apenas por versões do PHP que permitam namespaces, autoload e PDO.
+
+*Consideramos uma prática inaceitável, feia e sem motivos para tal, utilizar versões antigas
+do PHP em novas aplicações.
+
+
 Banco de dados
 ==================
 
