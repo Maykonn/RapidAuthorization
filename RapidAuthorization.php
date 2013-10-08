@@ -68,7 +68,7 @@ class RapidAuthorization
      */
     public function role()
     {
-        return Role::instance($this->mysql->getHandler());
+        return Role::instance($this->preferences, $this->mysql->getHandler());
     }
 
     /**
@@ -76,7 +76,7 @@ class RapidAuthorization
      */
     public function user()
     {
-        return User::instance($this->mysql->getHandler());
+        return User::instance($this->preferences, $this->mysql->getHandler());
     }
 
     /**
@@ -84,7 +84,7 @@ class RapidAuthorization
      */
     public function task()
     {
-        return Task::instance($this->mysql->getHandler());
+        return Task::instance($this->preferences, $this->mysql->getHandler());
     }
 
     /**
@@ -92,7 +92,7 @@ class RapidAuthorization
      */
     public function operation()
     {
-        return Operation::instance($this->mysql->getHandler());
+        return Operation::instance($this->preferences, $this->mysql->getHandler());
     }
 
 }

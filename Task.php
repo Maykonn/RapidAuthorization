@@ -26,9 +26,9 @@ class Task extends Entity
     /**
      * @return Task
      */
-    public static function instance(PDO $pdo)
+    public static function instance(ClientPreferences $preferences, PDO $pdo)
     {
-        return self::$instance = new self($pdo);
+        return self::$instance = new self($preferences, $pdo);
     }
 
     /**
@@ -100,8 +100,8 @@ class Task extends Entity
     private function isPossibleToAttachTheOperation($operationId, $taskId)
     {
         return (
-            Operation::instance($this->db)->findById($operationId) and
-            Task::instance($this->db)->findById($taskId)
+            Operation::instance($this->preferences, $this->db)->findById($operationId) and
+            Task::instance($this->preferences, $this->db)->findById($taskId)
             );
     }
 
@@ -192,7 +192,7 @@ class Task extends Entity
 
     public function getRolesThatHasAccess($taskId)
     {
-        if(Task::instance($this->db)->findById($taskId)) {
+        if(Task::instance($this->preferences, $this->db)->findById($taskId)) {
             try {
                 $sql = "SELECT id_role FROM role_has_task WHERE id_task = :idTask";
                 $stmt = $this->db->prepare($sql);
@@ -211,7 +211,7 @@ class Task extends Entity
 
     public function getOperations($taskId)
     {
-        if(Task::instance($this->db)->findById($taskId)) {
+        if(Task::instance($this->preferences, $this->db)->findById($taskId)) {
             try {
                 $sql = "
                 SELECT o.id, o.name, o.description
@@ -236,10 +236,11 @@ class Task extends Entity
     public function hasOperation($operationId, $taskId)
     {
         if(
-            Operation::instance($this->db)->findById($operationId) and
-            Task::instance($this->db)->findById($taskId)
+            Operation::instance($this->preferences, $this->db)->findById($operationId) and
+            Task::instance($this->preferences, $this->db)->findById($taskId)
         ) {
-            $tasksThatCanExecuteTheOperation = Operation::instance($this->db)->getTasksThatCanExecute($operationId);
+            $operation = Operation::instance($this->preferences, $this->db);
+            $tasksThatCanExecuteTheOperation = $operation->getTasksThatCanExecute($operationId);
             foreach($tasksThatCanExecuteTheOperation as $task) {
                 if($task['id_task'] == $taskId) {
                     return true;

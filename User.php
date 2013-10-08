@@ -25,14 +25,14 @@ class User extends Entity
     /**
      * @return User
      */
-    public static function instance(PDO $pdo)
+    public static function instance(ClientPreferences $preferences, PDO $pdo)
     {
-        return self::$instance = new self($pdo);
+        return self::$instance = new self($preferences, $pdo);
     }
 
     public function getRoles($userId)
     {
-        if(User::instance($this->db)->findById($userId)) {
+        if(User::instance($this->preferences, $this->db)->findById($userId)) {
             try {
                 $sql = "
                 SELECT rol.id, rol.`name`
@@ -57,7 +57,7 @@ class User extends Entity
 
     public function getTasks($userId)
     {
-        if(User::instance($this->db)->findById($userId)) {
+        if(User::instance($this->preferences, $this->db)->findById($userId)) {
             try {
                 $sql = "
                 SELECT DISTINCT t.id, t.name, t.description
@@ -83,7 +83,7 @@ class User extends Entity
 
     public function getOperations($userId)
     {
-        if(User::instance($this->db)->findById($userId)) {
+        if(User::instance($this->preferences, $this->db)->findById($userId)) {
             try {
                 $sql = "
                 SELECT DISTINCT o.id, o.name, o.description
@@ -130,8 +130,8 @@ class User extends Entity
     private function isPossibleToAttachTheRole($roleId, $userId)
     {
         return (
-            Role::instance($this->db)->findById($roleId) and
-            User::instance($this->db)->findById($userId)
+            Role::instance($this->preferences, $this->db)->findById($roleId) and
+            User::instance($this->preferences, $this->db)->findById($userId)
             );
     }
 
@@ -139,7 +139,9 @@ class User extends Entity
     {
         try {
             // use * here because we don't know the fields from "User" table
-            $sql = "SELECT * FROM user WHERE id = :userId";
+            $sql = "
+            SELECT * FROM " . $this->preferencesList->userTable . "
+            WHERE " . $this->preferencesList->userTablePK . " = :userId";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
@@ -164,7 +166,7 @@ class User extends Entity
     public function findAll()
     {
         try {
-            $sql = "SELECT id FROM user";
+            $sql = "SELECT id FROM " . $this->preferencesList->userTable;
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_COLUMN);
         } catch(PDOException $e) {
@@ -179,8 +181,8 @@ class User extends Entity
     public function hasPermissionsOfTheRole($roleId, $userId)
     {
         if(
-            Role::instance($this->db)->findById($roleId) and
-            User::instance($this->db)->findById($userId)
+            Role::instance($this->preferences, $this->db)->findById($roleId) and
+            User::instance($this->preferences, $this->db)->findById($userId)
         ) {
             try {
                 $sql = "SELECT id FROM user_has_role WHERE id_user = :idUser AND id_role = :idRole";
@@ -204,10 +206,10 @@ class User extends Entity
     public function hasAccessToTask($taskId, $userId)
     {
         if(
-            Task::instance($this->db)->findById($taskId) and
-            User::instance($this->db)->findById($userId)
+            Task::instance($this->preferences, $this->db)->findById($taskId) and
+            User::instance($this->preferences, $this->db)->findById($userId)
         ) {
-            $rolesThatHasAccessToTask = Task::instance($this->db)->getRolesThatHasAccess($taskId);
+            $rolesThatHasAccessToTask = Task::instance($this->preferences, $this->db)->getRolesThatHasAccess($taskId);
             foreach($rolesThatHasAccessToTask as $role) {
                 if($this->hasPermissionsOfTheRole($role['id_role'], $userId)) {
                     return true;
@@ -221,10 +223,10 @@ class User extends Entity
     public function hasAccessToOperation($operationId, $userId)
     {
         if(
-            Operation::instance($this->db)->findById($operationId) and
-            User::instance($this->db)->findById($userId)
+            Operation::instance($this->preferences, $this->db)->findById($operationId) and
+            User::instance($this->preferences, $this->db)->findById($userId)
         ) {
-            $tasksThatCanExecuteTheOperation = Operation::instance($this->db)->getTasksThatCanExecute($operationId);
+            $tasksThatCanExecuteTheOperation = Operation::instance($this->preferences, $this->db)->getTasksThatCanExecute($operationId);
             foreach($tasksThatCanExecuteTheOperation as $task) {
                 if($this->hasAccessToTask($task['id_task'], $userId)) {
                     return true;

@@ -26,9 +26,9 @@ class Role extends Entity
     /**
      * @return Role
      */
-    public static function instance(PDO $pdo)
+    public static function instance(ClientPreferences $preferences, PDO $pdo)
     {
-        return self::$instance = new self($pdo);
+        return self::$instance = new self($preferences, $pdo);
     }
 
     /**
@@ -100,8 +100,8 @@ class Role extends Entity
     private function isPossibleToAttachTheTask($taskId, $roleId)
     {
         return (
-            Task::instance($this->db)->findById($taskId) and
-            Role::instance($this->db)->findById($roleId)
+            Task::instance($this->preferences, $this->db)->findById($taskId) and
+            Role::instance($this->preferences, $this->db)->findById($roleId)
             );
     }
 
@@ -192,7 +192,7 @@ class Role extends Entity
 
     public function getTasks($roleId)
     {
-        if(Role::instance($this->db)->findById($roleId)) {
+        if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "
                 SELECT t.id, t.name, t.description
@@ -217,8 +217,8 @@ class Role extends Entity
     public function hasAccessToTask($taskId, $roleId)
     {
         if(
-            Task::instance($this->db)->findById($taskId) and
-            Role::instance($this->db)->findById($roleId)
+            Task::instance($this->preferences, $this->db)->findById($taskId) and
+            Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
             try {
                 $sql = "SELECT id FROM role_has_task WHERE id_role = :idRole AND id_task = :idTask";
@@ -238,7 +238,7 @@ class Role extends Entity
 
     public function getOperations($roleId)
     {
-        if(Role::instance($this->db)->findById($roleId)) {
+        if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "
                 SELECT o.id, o.`name`, o.description
@@ -265,10 +265,10 @@ class Role extends Entity
     public function hasAccessToOperation($operationId, $roleId)
     {
         if(
-            Operation::instance($this->db)->findById($operationId) and
-            Role::instance($this->db)->findById($roleId)
+            Operation::instance($this->preferences, $this->db)->findById($operationId) and
+            Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
-            $tasksThatCanExecuteTheOperation = Operation::instance($this->db)->getTasksThatCanExecute($operationId);
+            $tasksThatCanExecuteTheOperation = Operation::instance($this->preferences, $this->db)->getTasksThatCanExecute($operationId);
             foreach($tasksThatCanExecuteTheOperation as $task) {
                 if($this->hasAccessToTask($task['id_task'], $roleId)) {
                     return true;
@@ -281,7 +281,7 @@ class Role extends Entity
 
     public function getUsersThatHasPermission($roleId)
     {
-        if(Role::instance($this->db)->findById($roleId)) {
+        if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "SELECT id_user FROM user_has_role WHERE id_role = :idRole";
                 $stmt = $this->db->prepare($sql);

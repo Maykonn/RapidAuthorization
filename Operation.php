@@ -26,9 +26,9 @@ class Operation extends Entity
     /**
      * @return Operation
      */
-    public static function instance(PDO $pdo)
+    public static function instance(ClientPreferences $preferences, PDO $pdo)
     {
-        return self::$instance = new self($pdo);
+        return self::$instance = new self($preferences, $pdo);
     }
 
     /**
@@ -166,7 +166,7 @@ class Operation extends Entity
 
     public function getTasksThatCanExecute($operationId)
     {
-        if(Operation::instance($this->db)->findById($operationId)) {
+        if(Operation::instance($this->preferences, $this->db)->findById($operationId)) {
             try {
                 $sql = "SELECT id_task FROM task_has_operation WHERE id_operation = :idOperation";
                 $stmt = $this->db->prepare($sql);
