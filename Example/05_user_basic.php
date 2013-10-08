@@ -22,6 +22,21 @@ $configuration = Array(
 
 $authorization = new RapidAuthorization($configuration);
 
+// List an User
+$userId = 1;
+echo 'LISTING USER #' . $userId . '<pre>';
+$user = $authorization->user()->findById($userId);
+print_r($user);
+echo '</pre>';
+
+
+// List all Users
+echo 'LISTING ALL USERs <pre>';
+$users = $authorization->user()->findAll();
+print_r($users);
+echo '</pre>';
+
+
 // Attach Role
 $roleId = 1;
 $userId = 1;
