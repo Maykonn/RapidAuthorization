@@ -166,7 +166,7 @@ class User extends Entity
     public function findAll()
     {
         try {
-            $sql = "SELECT id FROM " . $this->preferencesList->userTable;
+            $sql = "SELECT " . $this->preferencesList->userTablePK . " FROM " . $this->preferencesList->userTable;
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_COLUMN);
         } catch(PDOException $e) {
