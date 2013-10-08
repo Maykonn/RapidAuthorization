@@ -12,39 +12,28 @@ use \ArrayObject;
 class AvailablePreferences
 {
 
-    private $mysqlHost = 'localhost';
-    private $mysqlPort = 3306;
-    private $mysqlUser = 'root';
-    private $mysqlPass = '';
-    private $dbName = '';
-    private $dbCharset = 'utf8';
-    private $userTable = 'user';
-    private $userTablePK = 'id';
-
-    /**
-     * <p>Auto generate, or not, the necessary tables on database</p>
-     * @var boolean
-     */
-    private $autoGenerateTables = false;
-
-    /**
-     * <p>Use, or not, the autoload provided by RapidAuthorization.</p>
-     * <p>Set to false to use autoload provided by client application.<br/>
-     * Client application must set to true if needed.</p>
-     *
-     * @var boolean
-     */
-    private $useRapidAuthorizationAutoload = false;
-
-    /**
-     * @var AvailablePreferences
-     */
-    private static $instance;
+    private $preferences = Array(
+        'mysqlHost' => 'localhost',
+        'mysqlPort' => 3306,
+        'mysqlUser' => '',
+        'mysqlPass' => '',
+        'dbName' => '',
+        'dbCharset' => 'utf8',
+        'userTable' => 'user',
+        'userTablePK' => 'id',
+        'autoGenerateTables' => false,
+        'useRapidAuthorizationAutoload' => false
+    );
 
     /**
      * @var ArrayObject
      */
     private $list = Array();
+
+    /**
+     * @var AvailablePreferences
+     */
+    private static $instance;
 
     /**
      * @return AvailablePreferences
@@ -67,11 +56,8 @@ class AvailablePreferences
     {
         if(count($this->list) === 0) {
             $this->list = new ArrayObject();
-            $list = get_class_vars(get_class($this));
-            unset($list['instance']);
-            unset($list['list']);
 
-            foreach($list as $property => $value) {
+            foreach($this->preferences as $property => $value) {
                 $this->list->offsetSet($property, $value);
                 $this->list->$property = $value;
                 $this->$property = $value;
