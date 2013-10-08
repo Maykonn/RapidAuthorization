@@ -26,7 +26,8 @@ $authorization = new RapidAuthorization($configuration);
 echo 'CREATED OPERATIONs: #';
 echo $authorization->operation()->create('Add New Product', 'Optional description of Operation') . ' - ';
 echo $idToDelete = $authorization->operation()->create('View Sales Report', 'Will be deleted') . ' - ';
-echo $idToUpdate = $authorization->operation()->create('Open New Order', 'Will be updated to NULL') . '<br>';
+echo $idToUpdate = $authorization->operation()->create('Open New Order', 'Will be updated to NULL') . ' - ';
+echo $authorization->operation()->create('Close Order') . '<br>';
 
 
 // Update - if set NULL in description param, the description value will not change
