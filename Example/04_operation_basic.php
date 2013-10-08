@@ -20,9 +20,9 @@ $configuration = Array(
     'useRapidAuthorizationAutoload' => true
 );
 
+$authorization = new RapidAuthorization($configuration);
 
 // Create
-$authorization = new RapidAuthorization($configuration);
 echo 'CREATED OPERATIONs: #';
 echo $authorization->operation()->create('Add New Product', 'Optional description of Operation') . ' - ';
 echo $idToDelete = $authorization->operation()->create('View Sales Report', 'Will be deleted') . ' - ';

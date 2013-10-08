@@ -20,9 +20,9 @@ $configuration = Array(
     'useRapidAuthorizationAutoload' => true
 );
 
+$authorization = new RapidAuthorization($configuration);
 
 // Create
-$authorization = new RapidAuthorization($configuration);
 echo 'CREATED ROLEs: #';
 echo $authorization->role()->create('Administrator', 'Optional description of Role') . ' - ';
 echo $idToDelete = $authorization->role()->create('Tester', 'Will be deleted') . ' - ';

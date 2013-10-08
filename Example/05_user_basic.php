@@ -20,9 +20,9 @@ $configuration = Array(
     'useRapidAuthorizationAutoload' => true,
 );
 
+$authorization = new RapidAuthorization($configuration);
 
 // Attach Role
-$authorization = new RapidAuthorization($configuration);
 $roleId = 1;
 $userId = 1;
 echo 'ADD ROLE #' . $roleId . ' TO USER : #' . $userId;

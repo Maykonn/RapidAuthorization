@@ -20,9 +20,9 @@ $configuration = Array(
     'useRapidAuthorizationAutoload' => true
 );
 
+$authorization = new RapidAuthorization($configuration);
 
 // Create
-$authorization = new RapidAuthorization($configuration);
 echo 'CREATED TASKs: #';
 echo $authorization->task()->create('Manage Orders', 'Optional description of Task') . ' - ';
 echo $idToDelete = $authorization->task()->create('Manage Suppliers', 'Will be deleted') . ' - ';

@@ -20,9 +20,9 @@ $configuration = Array(
     'useRapidAuthorizationAutoload' => true,
 );
 
+$authorization = new RapidAuthorization($configuration);
 
 // Attach Operation
-$authorization = new RapidAuthorization($configuration);
 $operationId = 3;
 $taskId = 1;
 echo 'ADD OPERATION #' . $operationId . ' TO TASK: #' . $taskId;

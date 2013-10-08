@@ -20,9 +20,9 @@ $configuration = Array(
     'useRapidAuthorizationAutoload' => true,
 );
 
+$authorization = new RapidAuthorization($configuration);
 
 // Attach Task
-$authorization = new RapidAuthorization($configuration);
 $taskId = 1;
 $roleId = 3;
 echo 'ADD TASK #' . $taskId . ' TO ROLE: #' . $roleId;
