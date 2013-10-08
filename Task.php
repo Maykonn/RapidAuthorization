@@ -101,7 +101,7 @@ class Task extends Entity
     {
         return (
             Operation::instance($this->preferences, $this->db)->findById($operationId) and
-            Task::instance($this->preferences, $this->db)->findById($taskId)
+            !Task::instance($this->preferences, $this->db)->hasOperation($operationId, $taskId)
             );
     }
 
