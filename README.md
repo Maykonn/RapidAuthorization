@@ -38,6 +38,9 @@ Operations são operações/ações realizadas pelas Tasks da aplicação client
 Observações
 ==================
 
+Para instalar, basta colocar o conteúdo baixado na pasta lib/RapidAuthorization por exemplo, da sua aplicação
+e então dar uma olhada nos exemplos da pasta /Example que você vai saber o que fazer.
+
 Alguns programadores gostam de considerar uma Task como um Controller,
 por exemplo ClienteController, e uma Operation como uma ação do Controller, por exemplo
 actionCreate ou createAction.
