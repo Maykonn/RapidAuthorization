@@ -25,7 +25,7 @@ class AvailablePreferences
      * <p>Auto generate, or not, the necessary tables on database</p>
      * @var boolean
      */
-    private $autoGenerateTables = true;
+    private $autoGenerateTables = false;
 
     /**
      * <p>Use, or not, the autoload provided by RapidAuthorization.</p>
