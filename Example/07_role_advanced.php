@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Working with Roles - Advanced_01
+ * Working with Roles - Advanced
  * @author Maykonn Welington Candido<maykonn@outlook.com>
  */
 $sep = DIRECTORY_SEPARATOR;
