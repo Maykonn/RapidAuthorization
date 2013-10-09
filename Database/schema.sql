@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `rpd_user_has_role` (
   UNIQUE KEY `key_rpd_user_has_role` (`id_user`,`id_role`),
   KEY `id_user` (`id_user`),
   KEY `id_role` (`id_role`),
-  CONSTRAINT `rpd_user_has_role_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  -- If needed add manually
+  -- CONSTRAINT `rpd_user_has_role_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `rpd_user_has_role_role` FOREIGN KEY (`id_role`) REFERENCES `rpd_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

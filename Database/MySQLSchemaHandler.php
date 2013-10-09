@@ -76,15 +76,14 @@ class MySQLSchemaHandler
         $contentUserTable = str_replace($userTableDefault, $userTable, $contentDefault);
 
         // replace user_has_role foreign key
-        $userHasRoleFKDefault = 'REFERENCES `user` (`id`)';
-        $userHasRoleFK = 'REFERENCES `' . $this->userTable . '` (`' . $this->userTablePK . '`)';
-
-        $contentUser = str_replace($userHasRoleFKDefault, $userHasRoleFK, $contentUserTable);
+        /* $userHasRoleFKDefault = 'REFERENCES `user` (`id`)';
+          $userHasRoleFK = 'REFERENCES `' . $this->userTable . '` (`' . $this->userTablePK . '`)';
+          $contentUser = str_replace($userHasRoleFKDefault, $userHasRoleFK, $contentUserTable); */
 
         // tables collation
         $collationDefault = 'utf8';
         $collation = $this->dbCharset;
-        $content = str_replace($collationDefault, $collation, $contentUser);
+        $content = str_replace($collationDefault, $collation, $contentUserTable);
 
         return $content;
     }
