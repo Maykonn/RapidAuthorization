@@ -5,10 +5,10 @@
  * @author Maykonn Welington Candido<maykonn@outlook.com>
  */
 
-namespace Rapid\Authorization\Database;
+namespace RapidAuthorization\Database;
 
 use \PDO;
-use Rapid\Authorization\ClientPreferences;
+use RapidAuthorization\ClientPreferences;
 
 class MySQLSchemaHandler
 {

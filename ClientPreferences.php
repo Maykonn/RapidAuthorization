@@ -5,7 +5,7 @@
  * @author Maykonn Welington Candido<maykonn@outlook.com>
  */
 
-namespace Rapid\Authorization;
+namespace RapidAuthorization;
 
 class ClientPreferences
 {

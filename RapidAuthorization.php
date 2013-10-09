@@ -5,15 +5,15 @@
  * @author Maykonn Welington Candido<maykonn@outlook.com>
  */
 
-namespace Rapid\Authorization;
+namespace RapidAuthorization;
 
 // Necessárias antes do Autoload
 require_once 'ClientPreferences.php';
 require_once 'AvailablePreferences.php';
 require_once 'Autoload.php';
 
-use Rapid\Authorization\Database\MySQL;
-use Rapid\Authorization\Database\MySQLSchemaHandler;
+use RapidAuthorization\Database\MySQL;
+use RapidAuthorization\Database\MySQLSchemaHandler;
 
 class RapidAuthorization
 {

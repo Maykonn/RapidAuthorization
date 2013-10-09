@@ -5,7 +5,7 @@
  * @author Maykonn Welington Candido<maykonn@outlook.com>
  */
 
-namespace Rapid\Authorization\Database;
+namespace RapidAuthorization\Database;
 
 use \PDO;
 

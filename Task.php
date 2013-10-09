@@ -5,11 +5,11 @@
  * @author Maykonn Welington Candido<maykonn@outlook.com>
  */
 
-namespace Rapid\Authorization;
+namespace RapidAuthorization;
 
 use \PDO;
 use \Exception;
-use Rapid\Authorization\Database\MySQL;
+use RapidAuthorization\Database\MySQL;
 
 class Task extends Entity
 {

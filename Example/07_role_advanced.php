@@ -7,7 +7,7 @@
 $sep = DIRECTORY_SEPARATOR;
 require_once '..' . $sep . 'RapidAuthorization.php';
 
-use Rapid\Authorization\RapidAuthorization;
+use RapidAuthorization\RapidAuthorization;
 
 $configuration = Array(
     'mysqlHost' => 'localhost',
