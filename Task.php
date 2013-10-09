@@ -66,7 +66,7 @@ class Task extends Entity
             $this->id = $id;
 
             try {
-                $sql = "DELETE FROM task WHERE id = :id";
+                $sql = "DELETE FROM rpd_task WHERE id = :id";
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
@@ -83,7 +83,7 @@ class Task extends Entity
     {
         if($this->isPossibleToAttachTheOperation($operationId, $taskId)) {
             try {
-                $sql = "INSERT INTO task_has_operation(id_task, id_operation) VALUES (:idTask, :idOperation)";
+                $sql = "INSERT INTO rpd_task_has_operation(id_task, id_operation) VALUES (:idTask, :idOperation)";
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
@@ -125,7 +125,7 @@ class Task extends Entity
     public function findById($taskId)
     {
         try {
-            $sql = "SELECT id, name, description FROM task WHERE id = :taskId";
+            $sql = "SELECT id, name, description FROM rpd_task WHERE id = :taskId";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
@@ -150,7 +150,7 @@ class Task extends Entity
     public function findAll()
     {
         try {
-            $sql = "SELECT id, name, description FROM task";
+            $sql = "SELECT id, name, description FROM rpd_task";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
@@ -166,7 +166,7 @@ class Task extends Entity
     {
         try {
             $sql = "
-                INSERT INTO task(
+                INSERT INTO rpd_task(
                     id, name, description
                 ) VALUES (
                     :id, :name, :description
@@ -194,7 +194,7 @@ class Task extends Entity
     {
         if(Task::instance($this->preferences, $this->db)->findById($taskId)) {
             try {
-                $sql = "SELECT id_role FROM role_has_task WHERE id_task = :idTask";
+                $sql = "SELECT id_role FROM rpd_role_has_task WHERE id_task = :idTask";
                 $stmt = $this->db->prepare($sql);
                 $this->id = (int) $taskId;
                 $stmt->bindParam(':idTask', $this->id, PDO::PARAM_INT);
@@ -215,7 +215,7 @@ class Task extends Entity
             try {
                 $sql = "
                 SELECT o.id, o.name, o.description
-                FROM operation o INNER JOIN task_has_operation tho ON o.id = tho.id_operation
+                FROM rpd_operation o INNER JOIN rpd_task_has_operation tho ON o.id = tho.id_operation
                 WHERE tho.id_task = :idTask";
 
                 $stmt = $this->db->prepare($sql);

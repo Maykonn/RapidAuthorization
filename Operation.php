@@ -66,7 +66,7 @@ class Operation extends Entity
             $this->id = $id;
 
             try {
-                $sql = "DELETE FROM operation WHERE id = :id";
+                $sql = "DELETE FROM rpd_operation WHERE id = :id";
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
@@ -99,7 +99,7 @@ class Operation extends Entity
     public function findById($operationId)
     {
         try {
-            $sql = "SELECT id, name, description FROM operation WHERE id = :operationId";
+            $sql = "SELECT id, name, description FROM rpd_operation WHERE id = :operationId";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
@@ -124,7 +124,7 @@ class Operation extends Entity
     public function findAll()
     {
         try {
-            $sql = "SELECT id, name, description FROM operation";
+            $sql = "SELECT id, name, description FROM rpd_operation";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
@@ -140,7 +140,7 @@ class Operation extends Entity
     {
         try {
             $sql = "
-                INSERT INTO operation(
+                INSERT INTO rpd_operation(
                     id, name, description
                 ) VALUES (
                     :id, :name, :description
@@ -168,7 +168,7 @@ class Operation extends Entity
     {
         if(Operation::instance($this->preferences, $this->db)->findById($operationId)) {
             try {
-                $sql = "SELECT id_task FROM task_has_operation WHERE id_operation = :idOperation";
+                $sql = "SELECT id_task FROM rpd_task_has_operation WHERE id_operation = :idOperation";
                 $stmt = $this->db->prepare($sql);
                 $this->id = (int) $operationId;
                 $stmt->bindParam(':idOperation', $this->id, PDO::PARAM_INT);
