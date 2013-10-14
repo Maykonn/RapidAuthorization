@@ -147,6 +147,31 @@ class Task extends Entity
         return false;
     }
 
+    public function findByName($name)
+    {
+        try {
+            $sql = "SELECT id, name, description FROM rpd_task WHERE name = :name";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':name', $name, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $task = $stmt->fetch();
+
+            if($task) {
+                return $task;
+            } else {
+                throw new Exception('Record with name: ' . $name . ' not found on `task` table');
+            }
+        } catch(PDOException $e) {
+            MySQL::instance()->showException($e);
+        } catch(Exception $e) {
+            MySQL::instance()->showException($e);
+        }
+
+        return false;
+    }
+
     public function findAll()
     {
         try {
