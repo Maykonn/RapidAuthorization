@@ -46,6 +46,13 @@ print_r($listByID);
 echo '</pre><br>';
 
 
+// List By Name
+echo 'LISTING TASK WITH NAME: Manage Orders<pre>';
+$listByName = $authorization->task()->findByName('Manage Orders');
+print_r($listByName);
+echo '</pre><br>';
+
+
 // List All
 echo 'LISTING ALL TASKs : <pre>';
 $allTasks = $authorization->task()->findAll();

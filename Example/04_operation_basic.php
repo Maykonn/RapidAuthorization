@@ -47,6 +47,13 @@ print_r($listByID);
 echo '</pre><br>';
 
 
+// List By Name
+echo 'LISTING OPERATION WITH NAME: Add New Product<pre>';
+$listByName = $authorization->operation()->findByName('Add New Product');
+print_r($listByName);
+echo '</pre><br>';
+
+
 // List All
 echo 'LISTING ALL OPERATIONs : <pre>';
 $allOperations = $authorization->operation()->findAll();

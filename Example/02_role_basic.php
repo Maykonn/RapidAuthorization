@@ -46,6 +46,13 @@ print_r($listByID);
 echo '</pre><br>';
 
 
+// List By Name
+echo 'LISTING ROLE WITH NAME: Administrator<pre>';
+$listByName = $authorization->role()->findByName('Administrator');
+print_r($listByName);
+echo '</pre><br>';
+
+
 // List All
 echo 'LISTING ALL ROLEs : <pre>';
 $allRoles = $authorization->role()->findAll();
