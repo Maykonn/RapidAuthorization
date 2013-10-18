@@ -322,6 +322,21 @@ class Role extends Entity
         return false;
     }
 
+    public function removeUsersFromRole($roleId)
+    {
+        if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
+            try {
+                $sql = "DELETE FROM rpd_user_has_role WHERE id_role = :idRole";
+                $stmt = $this->db->prepare($sql);
+                $this->id = (int) $roleId;
+                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+                return $stmt->execute();
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+    }
+
 }
 
 ?>
