@@ -335,6 +335,8 @@ class Role extends Entity
                 MySQL::instance()->showException($e);
             }
         }
+
+        return false;
     }
 
 }
