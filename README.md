@@ -102,7 +102,7 @@ Role:
     1) Criar um Role (create).
     2) Editar um Role (update).
     3) Apagar um Role (delete).
-    4) Listar um Role (findById).
+    4) Listar um Role (findById, findByName).
     5) Listar todos os Roles (findAll).
     6) Anexar uma Task a um Role (attachTask).
     7) Listar todas as Tasks que um Role tem acesso (getTasks).
@@ -110,13 +110,14 @@ Role:
     9) Verificar se possui acesso a determinada Task (hasAccessToTask).
     10) Verificar se possui acesso a determinada Operation (hasAccessToOperation).
     11) Listar todos os Users que possuem permissão a um Role (getUsersThatHasPermission).
+    12) Remover todos os Users de um Role (removeUsersFromRole).
 
 Task:
 
     1) Criar uma Task (create).
     2) Editar uma Task (update).
     3) Apagar uma Task (delete).
-    4) Listar uma Task (findById).
+    4) Listar uma Task (findById, findByName).
     5) Listar todas as Tasks (findAll).
     6) Anexar uma Operation a uma Task (attachOperation).
     7) Listar todas as Operations anexadas a uma Task (getOperations).
@@ -128,6 +129,6 @@ Operation:
     1) Criar uma Operation (create).
     2) Editar uma Operation (update).
     3) Apagar uma Operation (delete).
-    4) Listar uma Operation (findById).
+    4) Listar uma Operation (findById, findByName).
     5) Listar todas as Operations (findAll).
     6) Listar todas as Tasks que possuem uma Operation (getTasksThatCanExecute).
