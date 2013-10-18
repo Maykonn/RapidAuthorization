@@ -130,3 +130,9 @@ echo 'IDs OF USERs THAT HAS PERMISSIONS OF ROLE #' . $roleId . '<pre>';
 $users = $authorization->role()->getUsersThatHasPermission($roleId);
 print_r($users);
 echo '</pre>';
+
+// Removing all users from a Role
+//$roleId = 3;
+//echo 'REMOVED ALL USER FROM ROLE #' . $roleId . '<pre>';
+//var_dump($authorization->role()->removeUsersFromRole($roleId));
+//echo '</pre>';
