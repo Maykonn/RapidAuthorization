@@ -276,6 +276,27 @@ class Task extends Entity
         return false;
     }
 
+    public function removeTaskFromRole($taskId, $roleId)
+    {
+        if(
+            Role::instance($this->preferences, $this->db)->findById($roleId) and
+            Task::instance($this->preferences, $this->db)->findById($taskId)
+        ) {
+            try {
+                $sql = "DELETE FROM rpd_role_has_task WHERE id_role = :roleId AND id_task = :taskId";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
+                $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
+                return $stmt->execute();
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return false;
+    }
+
 }
 
 ?>

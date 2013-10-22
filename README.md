@@ -123,6 +123,7 @@ Task:
     7) Listar todas as Operations anexadas a uma Task (getOperations).
     8) Verificar se possui determinada Operation (hasOperation).
     9) Listar todos os Roles que possuem acesso a uma Task (getRolesThatHasAccess).
+    10) Remover Task de um Role (removeTaskFromRole).
 
 Operation:
 
