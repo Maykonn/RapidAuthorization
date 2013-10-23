@@ -24,14 +24,14 @@ $authorization = new RapidAuthorization($configuration);
 
 // Create
 echo 'CREATED ROLEs: #';
-echo $authorization->role()->create('Administrator', 'Optional description of Role') . ' - ';
-echo $idToDelete = $authorization->role()->create('Tester', 'Will be deleted') . ' - ';
-echo $idToUpdate = $authorization->role()->create('Seller', 'Will be updated to NULL') . '<br>';
+echo $authorization->role()->create('Administrator', null, 'Optional description of Role') . ' - ';
+echo $idToDelete = $authorization->role()->create('Testers', 'tester', 'Will be deleted') . ' - ';
+echo $idToUpdate = $authorization->role()->create('Seller', null, 'Will be updated to NULL') . '<br>';
 
 
 // Update - if set NULL in description param, the description value will not change
 echo 'UPDATED ROLE: #';
-echo $idFromUpdateRole = $authorization->role()->update($idToUpdate, 'Senior Seller', '') . '<br>';
+echo $idFromUpdateRole = $authorization->role()->update($idToUpdate, 'Senior Sellers', 'Senior Seller', '') . '<br>';
 
 
 // Delete
@@ -47,8 +47,8 @@ echo '</pre><br>';
 
 
 // List By Name
-echo 'LISTING ROLE WITH NAME: Administrator<pre>';
-$listByName = $authorization->role()->findByName('Administrator');
+echo 'LISTING ROLE WITH NAME: Senior Seller<pre>';
+$listByName = $authorization->role()->findByName('Senior Seller');
 print_r($listByName);
 echo '</pre><br>';
 
