@@ -16,6 +16,7 @@ class Operation extends Entity
 
     public $id = 0;
     public $name = '';
+    public $business_name = '';
     public $description = null;
 
     /**
@@ -34,9 +35,10 @@ class Operation extends Entity
     /**
      * <p>An Operation can be, e.g. Create Product or Edit Customer</p>
      */
-    public function create($name, $description = null)
+    public function create($businessName, $name = null, $description = null)
     {
         $this->name = $name;
+        $this->business_name = $businessName;
         $this->description = $description;
         return $this->save();
     }
@@ -44,11 +46,15 @@ class Operation extends Entity
     /**
      * <p>Set '' to $description to set NULL on database</p>
      */
-    public function update($id, $name, $description = null)
+    public function update($id, $businessName, $name = null, $description = null)
     {
         if($this->populateById($id)) {
             $this->id = $id;
-            $this->name = $name;
+            $this->business_name = $businessName;
+
+            if($name !== null) {
+                $this->name = $name;
+            }
 
             if($description !== null) {
                 $this->description = $description;
@@ -89,6 +95,7 @@ class Operation extends Entity
         if($operation) {
             $this->id = (int) $operation['id'];
             $this->name = $operation['name'];
+            $this->business_name = $operation['business_name'];
             $this->description = $operation['description'];
             return true;
         }
@@ -99,7 +106,7 @@ class Operation extends Entity
     public function findById($operationId)
     {
         try {
-            $sql = "SELECT id, name, description FROM rpd_operation WHERE id = :operationId";
+            $sql = "SELECT id, name, business_name, description FROM rpd_operation WHERE id = :operationId";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
@@ -124,7 +131,7 @@ class Operation extends Entity
     public function findByName($name)
     {
         try {
-            $sql = "SELECT id, name, description FROM rpd_operation WHERE name = :name";
+            $sql = "SELECT id, name, business_name, description FROM rpd_operation WHERE name = :name";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':name', $name, PDO::PARAM_INT);
@@ -149,7 +156,7 @@ class Operation extends Entity
     public function findAll()
     {
         try {
-            $sql = "SELECT id, name, description FROM rpd_operation";
+            $sql = "SELECT id, name, business_name, description FROM rpd_operation";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
@@ -166,16 +173,21 @@ class Operation extends Entity
         try {
             $sql = "
                 INSERT INTO rpd_operation(
-                    id, name, description
+                    id, name, business_name, description
                 ) VALUES (
-                    :id, :name, :description
-                ) ON DUPLICATE KEY UPDATE name = :name, description = :description";
+                    :id, :name, :businessName, :description
+                ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName,  description = :description";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
+
+            $name = ($this->name ? $this->name : null);
+            $stmt->bindParam(':name', $name);
+
             $description = ($this->description ? $this->description : null);
             $stmt->bindParam(':description', $description);
+
             $stmt->execute();
 
             if(!$this->id) {
