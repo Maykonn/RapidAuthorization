@@ -16,6 +16,7 @@ class Role extends Entity
 
     public $id = 0;
     public $name = '';
+    public $business_name = '';
     public $description = null;
 
     /**
@@ -34,9 +35,10 @@ class Role extends Entity
     /**
      * <p>A Role can be, e.g. Admin, Seller, etc.</p>
      */
-    public function create($name, $description = null)
+    public function create($businessName, $name = null, $description = null)
     {
         $this->name = $name;
+        $this->business_name = $businessName;
         $this->description = $description;
         return $this->save();
     }
@@ -44,11 +46,15 @@ class Role extends Entity
     /**
      * <p>Set '' to $description to set NULL on database</p>
      */
-    public function update($id, $name, $description = null)
+    public function update($id, $businessName, $name = null, $description = null)
     {
         if($this->populateById($id)) {
             $this->id = $id;
-            $this->name = $name;
+            $this->business_name = $businessName;
+
+            if($name !== null) {
+                $this->name = $name;
+            }
 
             if($description !== null) {
                 $this->description = $description;
@@ -115,6 +121,7 @@ class Role extends Entity
         if($role) {
             $this->id = (int) $role['id'];
             $this->name = $role['name'];
+            $this->business_name = $task['business_name'];
             $this->description = $role['description'];
             return true;
         }
@@ -125,7 +132,7 @@ class Role extends Entity
     public function findById($roleId)
     {
         try {
-            $sql = "SELECT id, name, description FROM rpd_role WHERE id = :roleId";
+            $sql = "SELECT id, name, business_name, description FROM rpd_role WHERE id = :roleId";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
@@ -150,7 +157,7 @@ class Role extends Entity
     public function findByName($name)
     {
         try {
-            $sql = "SELECT id, name, description FROM rpd_role WHERE name = :name";
+            $sql = "SELECT id, name, business_name, description FROM rpd_role WHERE name = :name";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':name', $name, PDO::PARAM_INT);
@@ -175,7 +182,7 @@ class Role extends Entity
     public function findAll()
     {
         try {
-            $sql = "SELECT id, name, description FROM rpd_role";
+            $sql = "SELECT id, name, business_name, description FROM rpd_role";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
@@ -192,16 +199,21 @@ class Role extends Entity
         try {
             $sql = "
                 INSERT INTO rpd_role(
-                    id, name, description
+                    id, name, business_name, description
                 ) VALUES (
-                    :id, :name, :description
-                ) ON DUPLICATE KEY UPDATE name = :name, description = :description";
+                    :id, :name, :businessName, :description
+                ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName, description = :description";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
+
+            $name = ($this->name ? $this->name : null);
+            $stmt->bindParam(':name', $name);
+
             $description = ($this->description ? $this->description : null);
             $stmt->bindParam(':description', $description);
+
             $stmt->execute();
 
             if(!$this->id) {
@@ -220,7 +232,7 @@ class Role extends Entity
         if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "
-                SELECT t.id, t.name, t.description
+                SELECT t.id, t.name, t.business_name, t.description
                 FROM rpd_task t INNER JOIN rpd_role_has_task rht ON t.id = rht.id_task
                 WHERE rht.id_role = :idRole";
 
@@ -266,7 +278,7 @@ class Role extends Entity
         if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "
-                SELECT o.id, o.`name`, o.description
+                SELECT o.id, o.`name`, o.business_name, o.description
                 FROM rpd_operation o
                 LEFT JOIN rpd_task_has_operation tho ON o.id = tho.id_operation
                 LEFT JOIN rpd_role_has_task rht ON tho.id_task = rht.id_task
