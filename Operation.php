@@ -180,7 +180,7 @@ class Operation extends Entity
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-            $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
+            $stmt->bindParam(':businessName', $this->business_name, PDO::PARAM_STR);
 
             $name = ($this->name ? $this->name : null);
             $stmt->bindParam(':name', $name);
