@@ -24,14 +24,14 @@ $authorization = new RapidAuthorization($configuration);
 
 // Create
 echo 'CREATED TASKs: #';
-echo $authorization->task()->create('Manage Orders', 'Optional description of Task') . ' - ';
-echo $idToDelete = $authorization->task()->create('Manage Suppliers', 'Will be deleted') . ' - ';
-echo $idToUpdate = $authorization->task()->create('Manage Products', 'Will be updated to NULL') . '<br>';
+echo $authorization->task()->create('Manage Orders', 'ManageOrders', 'Optional description of Task') . ' - ';
+echo $idToDelete = $authorization->task()->create('Manage Suppliers', 'ManageSuppliers', 'Will be deleted') . ' - ';
+echo $idToUpdate = $authorization->task()->create('Manage Products', 'ManageProducts', 'Will be updated to NULL') . '<br>';
 
 
 // Update - if set NULL in description param, the description value will not change
 echo 'UPDATED TASK: #';
-echo $idFromUpdateTask = $authorization->task()->update($idToUpdate, 'Manage Products', '') . '<br>';
+echo $idFromUpdateTask = $authorization->task()->update($idToUpdate, 'Manage Products', 'MANAGE_PRODUCTS', '') . '<br>';
 
 
 // Delete
@@ -48,7 +48,7 @@ echo '</pre><br>';
 
 // List By Name
 echo 'LISTING TASK WITH NAME: Manage Orders<pre>';
-$listByName = $authorization->task()->findByName('Manage Orders');
+$listByName = $authorization->task()->findByName('ManageOrders');
 print_r($listByName);
 echo '</pre><br>';
 
