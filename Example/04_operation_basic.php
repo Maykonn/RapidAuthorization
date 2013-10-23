@@ -24,15 +24,15 @@ $authorization = new RapidAuthorization($configuration);
 
 // Create
 echo 'CREATED OPERATIONs: #';
-echo $authorization->operation()->create('Add New Product', 'Optional description of Operation') . ' - ';
-echo $idToDelete = $authorization->operation()->create('View Sales Report', 'Will be deleted') . ' - ';
-echo $idToUpdate = $authorization->operation()->create('Open New Order', 'Will be updated to NULL') . ' - ';
+echo $authorization->operation()->create('Add New Product', 'AddNewProduct', 'Optional description of Operation') . ' - ';
+echo $idToDelete = $authorization->operation()->create('View Sales Report', 'ViewSalesReport', 'Will be deleted') . ' - ';
+echo $idToUpdate = $authorization->operation()->create('Open New Order', 'OpenNewOrder', 'Will be updated to NULL') . ' - ';
 echo $authorization->operation()->create('Close Order') . '<br>';
 
 
 // Update - if set NULL in description param, the description value will not change
 echo 'UPDATED OPERATION: #';
-echo $idFromUpdateOperation = $authorization->operation()->update($idToUpdate, 'Add New Order', '') . '<br>';
+echo $idFromUpdateOperation = $authorization->operation()->update($idToUpdate, 'Add New Order', 'AddOrder', '') . '<br>';
 
 
 // Delete
@@ -49,7 +49,7 @@ echo '</pre><br>';
 
 // List By Name
 echo 'LISTING OPERATION WITH NAME: Add New Product<pre>';
-$listByName = $authorization->operation()->findByName('Add New Product');
+$listByName = $authorization->operation()->findByName('AddNewProduct');
 print_r($listByName);
 echo '</pre><br>';
 
