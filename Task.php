@@ -209,7 +209,7 @@ class Task extends Entity
             $stmt->bindParam(':businessName', $this->business_name, PDO::PARAM_STR);
 
             $name = ($this->name ? $this->name : null);
-            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':name', $name);
 
             $description = ($this->description ? $this->description : null);
             $stmt->bindParam(':description', $description);
