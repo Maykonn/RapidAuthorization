@@ -121,7 +121,7 @@ class Role extends Entity
         if($role) {
             $this->id = (int) $role['id'];
             $this->name = $role['name'];
-            $this->business_name = $task['business_name'];
+            $this->business_name = $role['business_name'];
             $this->description = $role['description'];
             return true;
         }
