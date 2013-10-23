@@ -1,0 +1,20 @@
+- Criar campo para que pessoas não familiarizadas com a programação do sistema possam relacionar os
+objetos de controle de acesso:
+
+    - Adicionar campo business_name para Roles, Tasks e Operations. Pois o campo name atua como um
+    identificador desses objetos internamente ao sistema (ex: ProductStockController e actionSetProductsToInativeStatus),
+    mas é complicado para quem não é programador identificar esses objetos dentro do negócio.
+
+    O correto é que um programador crie esses objetos, informando name, business_name e description, porém
+    o RapidAuthorization deve permitir que não são somente programadores anexem esses objetos uns aos
+    outros, por isso a necessidade do campo business_name.
+
+    Exemplo de Task:
+    business_name: Controle de Estoque
+    name: ProductStockController
+
+    Exemplo de Operation:
+    business_name: Inativar Produtos
+    name: actionSetProductsToInativeStatus
+
+    É mais fácil para quem não é programador entender a partir de business_name
