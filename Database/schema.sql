@@ -5,7 +5,8 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `rpd_operation` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) NOT NULL,
+  `name` varchar(150) DEFAULT NULL,
+  `business_name` varchar(150) NOT NULL,
   `description` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -15,7 +16,8 @@ CREATE TABLE IF NOT EXISTS `rpd_operation` (
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `rpd_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) NOT NULL,
+  `name` varchar(150) DEFAULT NULL,
+  `business_name` varchar(150) NOT NULL,
   `description` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -40,7 +42,8 @@ CREATE TABLE IF NOT EXISTS `rpd_role_has_task` (
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `rpd_task` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) NOT NULL,
+  `name` varchar(150) DEFAULT NULL,
+  `business_name` varchar(150) NOT NULL,
   `description` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
