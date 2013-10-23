@@ -46,3 +46,7 @@ echo 'ALL TASKs THAT CAN EXECUTE OPERATION #' .$operationId . '<pre>';
 $tasksThaCanExecute = $authorization->operation()->getTasksThatCanExecute($operationId);
 print_r($tasksThaCanExecute);
 echo '</pre>';
+
+$operationId = 4;
+echo 'DETACH OPERATION #' . $operationId . ' FROM FIRST TASK THAT CAN ACCESS THE OPERATION: ';
+var_dump($authorization->operation()->removeOperationFromTask($operationId, $tasksThaCanExecute[0]['id_task']));

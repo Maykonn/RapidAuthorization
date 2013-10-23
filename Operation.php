@@ -208,6 +208,27 @@ class Operation extends Entity
         return false;
     }
 
+    public function removeOperationFromTask($operationId, $taskId)
+    {
+        if(
+            Task::instance($this->preferences, $this->db)->findById($taskId) and
+            Operation::instance($this->preferences, $this->db)->findById($operationId)
+        ) {
+            try {
+                $sql = "DELETE FROM rpd_task_has_operation WHERE id_task = :taskId AND id_operation = :operationId";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
+                $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
+                return $stmt->execute();
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return false;
+    }
+
 }
 
 ?>
