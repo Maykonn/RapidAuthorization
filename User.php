@@ -220,11 +220,11 @@ class User extends Entity
         return false;
     }
 
-    public function hasAccessToOperation($operationId, $userId)
+    public function hasAccessToOperation($taskId, $operationId, $userId)
     {
         if(
-            Operation::instance($this->preferences, $this->db)->findById($operationId) and
-            User::instance($this->preferences, $this->db)->findById($userId)
+            User::instance($this->preferences, $this->db)->hasAccessToTask($taskId, $userId) &&
+            Task::instance($this->preferences, $this->db)->hasOperation($operationId, $taskId)
         ) {
             $tasksThatCanExecuteTheOperation = Operation::instance($this->preferences, $this->db)->getTasksThatCanExecute($operationId);
             foreach($tasksThatCanExecuteTheOperation as $task) {
