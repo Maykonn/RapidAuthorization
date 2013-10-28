@@ -20,6 +20,12 @@ class Operation extends Entity
     public $description = null;
 
     /**
+     * Verify if needs to check the authorization, see Operation::populateById()
+     * @var Enum '1', '0'
+     */
+    public $needs_authorization = '1';
+
+    /**
      * @var Operation
      */
     private static $instance;
@@ -35,18 +41,45 @@ class Operation extends Entity
     /**
      * <p>An Operation can be, e.g. Create Product or Edit Customer</p>
      */
-    public function create($businessName, $name = null, $description = null)
+    public function create($businessName, $name = null, $description = null, $needsAuthorization = '1')
     {
         $this->name = $name;
         $this->business_name = $businessName;
         $this->description = $description;
-        return $this->save();
+
+        if($this->isValidNeedsAuthorizationValue($needsAuthorization)) {
+            $this->needs_authorization = $needsAuthorization;
+            return $this->save();
+        }
+
+        return false;
+    }
+
+    private function isValidNeedsAuthorizationValue($needsAuthorizationValue)
+    {
+        try {
+            if(
+                $needsAuthorizationValue == '1' or $needsAuthorizationValue == '0' or
+                $needsAuthorizationValue === true or $needsAuthorizationValue === false
+            ) {
+                return true;
+            } else {
+                throw new Exception(
+                'Bad value to $needsAuthorization param. Expected: \'1\' or \'0\', given ' .
+                $needsAuthorizationValue
+                );
+            }
+        } catch(Exception $e) {
+            MySQL::showException($e);
+        }
+
+        return false;
     }
 
     /**
      * <p>Set '' to $description to set NULL on database</p>
      */
-    public function update($id, $businessName, $name = null, $description = null)
+    public function update($id, $businessName, $name = null, $description = null, $needsAuthorization = '1')
     {
         if($this->populateById($id)) {
             $this->id = $id;
@@ -60,7 +93,10 @@ class Operation extends Entity
                 $this->description = $description;
             }
 
-            return $this->save();
+            if($this->isValidNeedsAuthorizationValue($needsAuthorization)) {
+                $this->needs_authorization = $needsAuthorization;
+                return $this->save();
+            }
         }
 
         return 0;
@@ -97,6 +133,7 @@ class Operation extends Entity
             $this->name = $operation['name'];
             $this->business_name = $operation['business_name'];
             $this->description = $operation['description'];
+            $this->needs_authorization = $operation['needs_authorization'];
             return true;
         }
 
@@ -106,7 +143,7 @@ class Operation extends Entity
     public function findById($operationId)
     {
         try {
-            $sql = "SELECT id, name, business_name, description FROM rpd_operation WHERE id = :operationId";
+            $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE id = :operationId";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
@@ -131,7 +168,7 @@ class Operation extends Entity
     public function findByName($name)
     {
         try {
-            $sql = "SELECT id, name, business_name, description FROM rpd_operation WHERE name = :name";
+            $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE name = :name";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':name', $name, PDO::PARAM_INT);
@@ -156,7 +193,7 @@ class Operation extends Entity
     public function findAll()
     {
         try {
-            $sql = "SELECT id, name, business_name, description FROM rpd_operation";
+            $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
@@ -173,14 +210,15 @@ class Operation extends Entity
         try {
             $sql = "
                 INSERT INTO rpd_operation(
-                    id, name, business_name, description
+                    id, name, business_name, description, needs_authorization
                 ) VALUES (
-                    :id, :name, :businessName, :description
+                    :id, :name, :businessName, :description, :needsAuthorization
                 ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName,  description = :description";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':businessName', $this->business_name, PDO::PARAM_STR);
+            $stmt->bindParam(':needsAuthorization', $this->needs_authorization, PDO::PARAM_STR);
 
             $name = ($this->name ? $this->name : null);
             $stmt->bindParam(':name', $name);

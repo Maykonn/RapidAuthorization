@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `rpd_operation` (
   `name` varchar(150) DEFAULT NULL,
   `business_name` varchar(150) NOT NULL,
   `description` varchar(250) DEFAULT NULL,
+  `needs_authorization` enum('1','0') NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
