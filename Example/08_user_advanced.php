@@ -90,13 +90,15 @@ var_dump($authorization->user()->hasAccessToTask($taskId, $userId)) . '<br>';
 
 
 // Verify if an User has Access to a Operation
+$taskId = 1;
 $operationId = 1;
 $userId = 1;
 echo 'USER #' . $userId . ' HAS OPERATION: #' . $operationId;
-var_dump($authorization->user()->hasAccessToOperation($operationId, $userId)) . '<br>';
+var_dump($authorization->user()->hasAccessToOperation($taskId, $operationId, $userId)) . '<br>';
 
-$operationId = 1;
+$taskId = 1;
+$operationId = 3;
 $userId = 2;
 echo 'USER #' . $userId . ' HAS OPERATION: #' . $operationId;
-var_dump($authorization->user()->hasAccessToOperation($operationId, $userId)) . '<br>';
+var_dump($authorization->user()->hasAccessToOperation($taskId, $operationId, $userId)) . '<br>';
 ?>
