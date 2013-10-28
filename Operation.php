@@ -236,7 +236,7 @@ class Operation extends Entity
                     id, name, business_name, description, needs_authorization
                 ) VALUES (
                     :id, :name, :businessName, :description, :needsAuthorization
-                ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName,  description = :description";
+                ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName,  description = :description, needs_authorization = :needsAuthorization";
 
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
@@ -255,13 +255,6 @@ class Operation extends Entity
                     $needsAuthorization = $this->needs_authorization;
                     break;
             }
-
-            if($this->needs_authorization === true) {
-                $needsAuthorization = '1';
-            } elseif($this->needs_authorization === false) {
-                $needsAuthorization = '0';
-            }
-
 
             $stmt->bindParam(':needsAuthorization', $needsAuthorization, PDO::PARAM_STR);
 
