@@ -140,6 +140,29 @@ class Operation extends Entity
         return false;
     }
 
+    /**
+     * <p>Verify if needs verify Autorization to execute Operation</p>
+     */
+    public function needsAuthorization($operationId)
+    {
+        if($this->populateById($operationId)) {
+            switch($this->needs_authorization) {
+                case 1:
+                case '1':
+                case true:
+                    return true;
+                    break;
+                case 0:
+                case '0':
+                case false:
+                    return false;
+                    break;
+            }
+        }
+
+        return true;
+    }
+
     public function findById($operationId)
     {
         try {
@@ -218,7 +241,29 @@ class Operation extends Entity
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':businessName', $this->business_name, PDO::PARAM_STR);
-            $stmt->bindParam(':needsAuthorization', $this->needs_authorization, PDO::PARAM_STR);
+
+            switch($this->needs_authorization) {
+                case 1:
+                case true:
+                    $needsAuthorization = '1';
+                    break;
+                case 0:
+                case false:
+                    $needsAuthorization = '0';
+                    break;
+                default :
+                    $needsAuthorization = $this->needs_authorization;
+                    break;
+            }
+
+            if($this->needs_authorization === true) {
+                $needsAuthorization = '1';
+            } elseif($this->needs_authorization === false) {
+                $needsAuthorization = '0';
+            }
+
+
+            $stmt->bindParam(':needsAuthorization', $needsAuthorization, PDO::PARAM_STR);
 
             $name = ($this->name ? $this->name : null);
             $stmt->bindParam(':name', $name);
