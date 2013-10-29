@@ -134,3 +134,7 @@ Operation:
     4) Listar uma Operation (findById, findByName).
     5) Listar todas as Operations (findAll).
     6) Listar todas as Tasks que possuem uma Operation (getTasksThatCanExecute).
+    7) Listar Operations que requerem Autorização (findByRequireAuthorization).
+    8) *Listar Operations que não requerem Autorização (findByNotRequireAuthorization).
+
+* Não requerer Autorização significa que todos os Users possuem acesso em qualquer ponto do tempo a uma Operation
