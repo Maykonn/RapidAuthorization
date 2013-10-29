@@ -25,6 +25,7 @@ $authorization = new RapidAuthorization($configuration);
 // Create
 echo 'CREATED ROLEs: #';
 echo $authorization->role()->create('Administrator', null, 'Optional description of Role') . ' - ';
+echo $authorization->role()->create('Tester', 'TESTER', 'QA Tester') . ' - ';
 echo $idToDelete = $authorization->role()->create('Testers', 'tester', 'Will be deleted') . ' - ';
 echo $idToUpdate = $authorization->role()->create('Seller', null, 'Will be updated to NULL') . '<br>';
 

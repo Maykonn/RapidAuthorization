@@ -52,6 +52,13 @@ $userId = 2;
 echo 'ADD ROLE #' . $roleId . ' TO USER : #' . $userId;
 var_dump($authorization->user()->attachRole($roleId, $userId)) . '<br>';
 
+// Detach Role
+$userId = 1;
+$roleToDetach = $authorization->role()->create('Tester', 'TESTER', 'QA Tester');
+$authorization->user()->attachRole($roleToDetach, $userId);
+echo 'DETACH ROLE #' . $roleToDetach . ' FROM USER : #' . $userId;
+var_dump($authorization->user()->removeUserRole($userId, $roleToDetach)) . '<br>';
+
 
 // List all Roles that an User has permission
 $userId = 1;
