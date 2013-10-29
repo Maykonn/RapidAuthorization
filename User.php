@@ -237,6 +237,27 @@ class User extends Entity
         return false;
     }
 
+    public function removeUserRole($userId, $roleId)
+    {
+        if(
+            User::instance($this->preferences, $this->db)->findById($userId) and
+            Role::instance($this->preferences, $this->db)->findById($roleId)
+        ) {
+            try {
+                $sql = "DELETE FROM rpd_user_has_role WHERE id_user = :userId AND id_role = :roleId";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+                $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
+                return $stmt->execute();
+            } catch(PDOException $e) {
+                MySQL::instance()->showException($e);
+            }
+        }
+
+        return false;
+    }
+
 }
 
 ?>
