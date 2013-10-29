@@ -67,3 +67,15 @@ $operationId = 4;
 echo 'DETACH OPERATION #' . $operationId . ' FROM FIRST TASK THAT CAN ACCESS THE OPERATION: ';
 var_dump($authorization->operation()->removeOperationFromTask($operationId,
         $tasksThaCanExecute[0]['id_task']));
+
+
+// Require/Not Require Authorization
+echo 'ALL OPERATIONS THAT REQUIRE AUTHORIZATION VERIFICATION:<pre>';
+$operations = $authorization->operation()->findByRequireAuthorization();
+print_r($operations);
+echo '</pre>';
+
+echo 'ALL OPERATIONS THAT NOT REQUIRE AUTHORIZATION VERIFICATION:<pre>';
+$operations = $authorization->operation()->findByNotRequireAuthorization();
+print_r($operations);
+echo '</pre>';
