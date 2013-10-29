@@ -213,6 +213,36 @@ class Operation extends Entity
         return false;
     }
 
+    public function findByNotRequireAuthorization()
+    {
+        try {
+            $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE needs_authorization = '0'";
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            MySQL::instance()->showException($e);
+        } catch(Exception $e) {
+            MySQL::instance()->showException($e);
+        }
+
+        return Array();
+    }
+
+    public function findByRequireAuthorization()
+    {
+        try {
+            $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE needs_authorization = '1'";
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            MySQL::instance()->showException($e);
+        } catch(Exception $e) {
+            MySQL::instance()->showException($e);
+        }
+
+        return Array();
+    }
+
     public function findAll()
     {
         try {
