@@ -237,7 +237,7 @@ class User extends Entity
         return false;
     }
 
-    public function removeUserRole($userId, $roleId)
+    public function removeUserFromRole($userId, $roleId)
     {
         if(
             User::instance($this->preferences, $this->db)->findById($userId) and

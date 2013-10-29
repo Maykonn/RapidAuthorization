@@ -96,6 +96,7 @@ User:
     7) Verificar se User tem permissões de um Role (hasPermissionsOfTheRole).
     8) Verificar se User possui acesso a determinada Task (hasAccessToTask).
     9) Verificar se User possui acesso a determinada Operation (hasAccessToOperation).
+    10) Remover User de um Role (removeUserFromRole).
 
 Role:
 

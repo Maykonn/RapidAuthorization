@@ -57,7 +57,7 @@ $userId = 1;
 $roleToDetach = $authorization->role()->create('Tester', 'TESTER', 'QA Tester');
 $authorization->user()->attachRole($roleToDetach, $userId);
 echo 'DETACH ROLE #' . $roleToDetach . ' FROM USER : #' . $userId;
-var_dump($authorization->user()->removeUserRole($userId, $roleToDetach)) . '<br>';
+var_dump($authorization->user()->removeUserFromRole($userId, $roleToDetach)) . '<br>';
 
 
 // List all Roles that an User has permission
