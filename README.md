@@ -1,7 +1,7 @@
 RapidAuthorization
 ==================
 
-RapidAuthorization é uma API para controle de acesso, escrito em PHP, baseado em *Role-based Access Control (RBAC).
+RapidAuthorization é um framework para controle de acesso, escrito em PHP, baseado em *Role-based Access Control (RBAC).
 
 Veja sobre RBAC na Wikipédia visitando: https://en.wikipedia.org/wiki/Role-based_access_control
 
