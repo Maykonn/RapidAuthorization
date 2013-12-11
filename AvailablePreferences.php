@@ -13,6 +13,7 @@ class AvailablePreferences
 {
 
     private $preferences = Array(
+        'pdoInstance' => null,
         'mysqlHost' => 'localhost',
         'mysqlPort' => 3306,
         'mysqlUser' => '',
