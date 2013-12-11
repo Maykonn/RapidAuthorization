@@ -50,14 +50,18 @@ class MySQL
     public function connect(Array $connection)
     {
         try {
-            $this->conn = new PDO(
-                "mysql:host=" . $connection['host'] .
-                ";port=" . $connection['port'] .
-                ";dbname=" . $connection['dbName'], $connection['user'], $connection['pass']
-            );
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->conn->query('SET NAMES ' . $connection['dbCharset']);
-            $this->conn->query('SET CHARACTER SET ' . $connection['dbCharset']);
+            if($connection['pdoInstance'] instanceof PDO) {
+                $this->conn = $connection['pdoInstance'];
+            } else {
+                $this->conn = new PDO(
+                    "mysql:host=" . $connection['host'] .
+                    ";port=" . $connection['port'] .
+                    ";dbname=" . $connection['dbName'], $connection['user'], $connection['pass']
+                );
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->conn->query('SET NAMES ' . $connection['dbCharset']);
+                $this->conn->query('SET CHARACTER SET ' . $connection['dbCharset']);
+            }
         } catch(PDOException $e) {
             self::showException($e);
         }
