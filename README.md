@@ -84,6 +84,7 @@ Configuração:
     2) Permite utilizar qualquer nome para a tabela de Users e para sua chave primária.
     3) Permite gerar as tabelas com qualquer encoding (utf8, latin1, etc).
     4) Permite configurar se usará o próprio autoload ou o fornecido pela aplicação cliente.
+    5) Permite passar nas configurações uma instância PDO criada pela aplicação cliente
 
 User:
 
