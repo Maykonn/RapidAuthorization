@@ -50,7 +50,7 @@ class MySQL
     public function connect(Array $connection)
     {
         try {
-            if($connection['pdoInstance'] instanceof PDO) {
+            if(isset($connection['pdoInstance']) and $connection['pdoInstance'] instanceof PDO) {
                 $this->conn = $connection['pdoInstance'];
             } else {
                 $this->conn = new PDO(
