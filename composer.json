@@ -3,7 +3,7 @@
     "type": "library",
     "description": "RapidAuthorization is a PHP framework for Access Control, based in Role-based Access Control (RBAC)",
     "keywords": ["access control", "role-based access control", "role based access control", "rbac", "framework"],
-    "homepage": "https://github.com/maykonn/rapid-authorization",
+    "homepage": "https://github.com/Maykonn/RapidAuthorization",
     "license": "MIT",
     "authors": [
         {
