@@ -17,19 +17,6 @@ class User extends Entity
 
     public $id;
 
-    /**
-     * @var User
-     */
-    private static $instance;
-
-    /**
-     * @return User
-     */
-    public static function instance(ClientPreferences $preferences, PDO $pdo)
-    {
-        return self::$instance = new self($preferences, $pdo);
-    }
-
     public function getRoles($userId)
     {
         if(User::instance($this->preferences, $this->db)->findById($userId)) {

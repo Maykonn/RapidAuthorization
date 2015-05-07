@@ -20,19 +20,6 @@ class Task extends Entity
     public $description = null;
 
     /**
-     * @var Task
-     */
-    private static $instance;
-
-    /**
-     * @return Task
-     */
-    public static function instance(ClientPreferences $preferences, PDO $pdo)
-    {
-        return self::$instance = new self($preferences, $pdo);
-    }
-
-    /**
      * <p>A Task can be, e.g. Manage Products or Manage Customers</p>
      */
     public function create($businessName, $name = null, $description = null)

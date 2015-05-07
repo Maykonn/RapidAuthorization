@@ -24,6 +24,12 @@ class Entity
     protected $preferencesList;
 
     /**
+     * @var this
+     */
+    private static $instance;
+
+
+    /**
      * @var PDO
      */
     protected $db;
@@ -33,6 +39,14 @@ class Entity
         $this->preferences = $preferences;
         $this->preferencesList = $this->preferences->getPreferencesList();
         $this->db = $pdo;
+    }
+
+    /**
+     * @return this
+     */
+    public static function instance(ClientPreferences $preferences, PDO $pdo)
+    {
+        return self::$instance = new self($preferences, $pdo);
     }
 
 }

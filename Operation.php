@@ -26,19 +26,6 @@ class Operation extends Entity
     public $needs_authorization = '1';
 
     /**
-     * @var Operation
-     */
-    private static $instance;
-
-    /**
-     * @return Operation
-     */
-    public static function instance(ClientPreferences $preferences, PDO $pdo)
-    {
-        return self::$instance = new self($preferences, $pdo);
-    }
-
-    /**
      * <p>An Operation can be, e.g. Create Product or Edit Customer</p>
      */
     public function create($businessName, $name = null, $description = null, $needsAuthorization = '1')

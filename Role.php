@@ -20,19 +20,6 @@ class Role extends Entity
     public $description = null;
 
     /**
-     * @var Role
-     */
-    private static $instance;
-
-    /**
-     * @return Role
-     */
-    public static function instance(ClientPreferences $preferences, PDO $pdo)
-    {
-        return self::$instance = new self($preferences, $pdo);
-    }
-
-    /**
      * <p>A Role can be, e.g. Admin, Seller, etc.</p>
      */
     public function create($businessName, $name = null, $description = null)
