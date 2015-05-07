@@ -113,7 +113,7 @@ class Operation extends Entity
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
                 return $stmt->execute();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -179,7 +179,7 @@ class Operation extends Entity
             } else {
                 throw new Exception('Record #' . $operationId . ' not found on `operation` table');
             }
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);
@@ -204,7 +204,7 @@ class Operation extends Entity
             } else {
                 throw new Exception('Record with name: ' . $name . ' not found on `operation` table');
             }
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);
@@ -219,7 +219,7 @@ class Operation extends Entity
             $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE needs_authorization = '0'";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);
@@ -234,7 +234,7 @@ class Operation extends Entity
             $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE needs_authorization = '1'";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);
@@ -249,7 +249,7 @@ class Operation extends Entity
             $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);

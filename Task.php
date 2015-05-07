@@ -77,7 +77,7 @@ class Task extends Entity
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
                 return $stmt->execute();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -95,7 +95,7 @@ class Task extends Entity
                 $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
                 $stmt->bindParam(':idOperation', $operationId, PDO::PARAM_INT);
                 return $stmt->execute();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -145,7 +145,7 @@ class Task extends Entity
             } else {
                 throw new Exception('Record #' . $taskId . ' not found on `task` table');
             }
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);
@@ -170,7 +170,7 @@ class Task extends Entity
             } else {
                 throw new Exception('Record with name: ' . $name . ' not found on `task` table');
             }
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);
@@ -185,7 +185,7 @@ class Task extends Entity
             $sql = "SELECT id, name, business_name, description FROM rpd_task";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);
@@ -222,7 +222,7 @@ class Task extends Entity
 
             $this->id = (int) $this->id;
             return $this->id;
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         }
     }

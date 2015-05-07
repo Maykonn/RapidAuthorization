@@ -73,7 +73,7 @@ class User extends Entity
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
                 return $stmt->fetchAll();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -100,7 +100,7 @@ class User extends Entity
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
                 return $stmt->fetchAll();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -119,7 +119,7 @@ class User extends Entity
                 $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
 
                 return $stmt->execute();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -153,7 +153,7 @@ class User extends Entity
             } else {
                 throw new Exception('Record #' . $userId . ' not found on `user` table');
             }
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);
