@@ -139,3 +139,8 @@ Operation:
     8) *Listar Operations que não requerem Autorização (findByNotRequireAuthorization).
 
 * Não requerer Autorização significa que todos os Users possuem acesso em qualquer ponto do tempo a uma Operation
+
+
+
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/10c22641-873c-4822-939f-1be60737cd76/big.png)](https://insight.sensiolabs.com/projects/10c22641-873c-4822-939f-1be60737cd76)
