@@ -49,4 +49,8 @@ class Entity
         return self::$instance = new self($preferences, $pdo);
     }
 
+    public static function getInstance() {
+        return self::$instance;
+    }
+
 }
