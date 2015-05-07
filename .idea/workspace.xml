@@ -3,26 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3b4562d6-5217-4552-b9ba-0a91bc0e3c70" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Autoload.php" afterPath="$PROJECT_DIR$/Autoload.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AvailablePreferences.php" afterPath="$PROJECT_DIR$/AvailablePreferences.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ClientPreferences.php" afterPath="$PROJECT_DIR$/ClientPreferences.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Entity.php" afterPath="$PROJECT_DIR$/Entity.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Database/MySQL.php" afterPath="$PROJECT_DIR$/Database/MySQL.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Database/MySQLSchemaHandler.php" afterPath="$PROJECT_DIR$/Database/MySQLSchemaHandler.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Operation.php" afterPath="$PROJECT_DIR$/Operation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/RapidAuthorization.iml" afterPath="$PROJECT_DIR$/.idea/RapidAuthorization.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RapidAuthorization.php" afterPath="$PROJECT_DIR$/RapidAuthorization.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Role.php" afterPath="$PROJECT_DIR$/Role.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Task.php" afterPath="$PROJECT_DIR$/Task.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/User.php" afterPath="$PROJECT_DIR$/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Database/schema.sql" afterPath="$PROJECT_DIR$/Database/schema.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RapidAuthorization.iws" />
@@ -48,12 +32,86 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="Operation.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Operation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-              <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-              <folding />
+            <state vertical-scroll-proportion="-4.4074073" vertical-offset="5562" max-vertical-offset="6669">
+              <caret line="304" column="29" selection-start-line="304" selection-start-column="29" selection-end-line="304" selection-end-column="29" />
+              <folding>
+                <marker date="1431012280754" expanded="true" signature="2825:2865" placeholder="DELETE FROM ..." />
+                <marker date="1431012280754" expanded="true" signature="4403:4510" placeholder="SELECT id, n..rpd_operation..." />
+                <marker date="1431012280754" expanded="true" signature="5243:5345" placeholder="SELECT id, n..rpd_operation..." />
+                <marker date="1431012280754" expanded="true" signature="6081:6196" placeholder="SELECT id, n..rpd_operation..." />
+                <marker date="1431012280754" expanded="true" signature="6595:6710" placeholder="SELECT id, n..rpd_operation..." />
+                <marker date="1431012280754" expanded="true" signature="7090:7173" placeholder="SELECT id, n..rpd_operation..." />
+                <marker date="1431012280754" expanded="true" signature="7568:7815" placeholder="INSERT INTO ..." />
+                <marker date="1431012280754" expanded="true" signature="7816:7938" placeholder="UPDATE name ..." />
+                <marker date="1431012280754" expanded="true" signature="9412:9488" placeholder="SELECT id_ta..rpd_task_has_operation..." />
+                <marker date="1431012280754" expanded="true" signature="10251:10341" placeholder="DELETE FROM ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Role.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Role.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.814815" vertical-offset="5315" max-vertical-offset="6764">
+              <caret line="293" column="29" selection-start-line="293" selection-start-column="29" selection-end-line="293" selection-end-column="29" />
+              <folding>
+                <marker date="1431012295094" expanded="true" signature="1568:1603" placeholder="DELETE FROM ..." />
+                <marker date="1431012295094" expanded="true" signature="2075:2148" placeholder="INSERT INTO ..." />
+                <marker date="1431012295094" expanded="true" signature="3349:3425" placeholder="SELECT id, n..rpd_role..." />
+                <marker date="1431012295094" expanded="true" signature="4123:4199" placeholder="SELECT id, n..rpd_role..." />
+                <marker date="1431012295094" expanded="true" signature="4893:4950" placeholder="SELECT id, n..rpd_role..." />
+                <marker date="1431012295094" expanded="true" signature="5345:5545" placeholder="INSERT INTO ..." />
+                <marker date="1431012295094" expanded="true" signature="5546:5624" placeholder="UPDATE name ..." />
+                <marker date="1431012295094" expanded="true" signature="6556:6738" placeholder="SELECT t.id,..rpd_task..." />
+                <marker date="1431012295094" expanded="true" signature="7521:7599" placeholder="SELECT id FR..rpd_role_has_task..." />
+                <marker date="1431012295094" expanded="true" signature="8261:8552" placeholder="SELECT o.id,..." />
+                <marker date="1431012295094" expanded="true" signature="9875:9936" placeholder="SELECT id_us..rpd_user_has_role..." />
+                <marker date="1431012295094" expanded="true" signature="10521:10574" placeholder="DELETE FROM ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Task.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Task.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.5925927" vertical-offset="4341" max-vertical-offset="5947">
+              <caret line="240" column="33" selection-start-line="240" selection-start-column="33" selection-end-line="240" selection-end-column="33" />
+              <folding>
+                <marker date="1431012305222" expanded="true" signature="1584:1619" placeholder="DELETE FROM ..." />
+                <marker date="1431012305222" expanded="true" signature="2111:2199" placeholder="INSERT INTO ..." />
+                <marker date="1431012305222" expanded="true" signature="3432:3508" placeholder="SELECT id, n..rpd_task..." />
+                <marker date="1431012305222" expanded="true" signature="4206:4282" placeholder="SELECT id, n..rpd_task..." />
+                <marker date="1431012305222" expanded="true" signature="4976:5033" placeholder="SELECT id, n..rpd_task..." />
+                <marker date="1431012305222" expanded="true" signature="5428:5628" placeholder="INSERT INTO ..." />
+                <marker date="1431012305222" expanded="true" signature="5629:5707" placeholder="UPDATE name ..." />
+                <marker date="1431012305222" expanded="true" signature="6635:6696" placeholder="SELECT id_ro..rpd_role_has_task..." />
+                <marker date="1431012305222" expanded="true" signature="7330:7527" placeholder="SELECT o.id,..rpd_operation..." />
+                <marker date="1431012305222" expanded="true" signature="8961:9036" placeholder="DELETE FROM ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/User.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4373259" vertical-offset="3054" max-vertical-offset="4997">
+              <caret line="175" column="25" selection-start-line="175" selection-start-column="25" selection-end-line="175" selection-end-column="25" />
+              <folding>
+                <marker date="1431012315990" expanded="true" signature="727:903" placeholder="SELECT rol.i..." />
+                <marker date="1431012315990" expanded="true" signature="1536:1802" placeholder="SELECT DISTI..rpd_task..." />
+                <marker date="1431012315990" expanded="true" signature="2439:2785" placeholder="SELECT DISTI..rpd_operation..." />
+                <marker date="1431012315990" expanded="true" signature="3397:3470" placeholder="INSERT INTO ..." />
+                <marker date="1431012315990" expanded="true" signature="4223:4263" placeholder="SELECT * FRO..table..." />
+                <marker date="1431012315990" expanded="true" signature="5102:5124" placeholder="SELECT :pk F..table..." />
+                <marker date="1431012315990" expanded="true" signature="5908:5986" placeholder="SELECT id FR..rpd_user_has_role..." />
+                <marker date="1431012315990" expanded="true" signature="8115:8190" placeholder="DELETE FROM ..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,11 +135,11 @@
         <option value="$PROJECT_DIR$/Database/MySQL.php" />
         <option value="$PROJECT_DIR$/Database/MySQLSchemaHandler.php" />
         <option value="$PROJECT_DIR$/Database/schema.sql" />
-        <option value="$PROJECT_DIR$/User.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Operation.php" />
         <option value="$PROJECT_DIR$/Role.php" />
         <option value="$PROJECT_DIR$/Task.php" />
-        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/User.php" />
       </list>
     </option>
   </component>
@@ -223,11 +281,79 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/Operation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-          <folding />
+        <state vertical-scroll-proportion="-4.4074073" vertical-offset="5562" max-vertical-offset="6669">
+          <caret line="304" column="29" selection-start-line="304" selection-start-column="29" selection-end-line="304" selection-end-column="29" />
+          <folding>
+            <marker date="1431012280754" expanded="true" signature="2825:2865" placeholder="DELETE FROM ..." />
+            <marker date="1431012280754" expanded="true" signature="4403:4510" placeholder="SELECT id, n..rpd_operation..." />
+            <marker date="1431012280754" expanded="true" signature="5243:5345" placeholder="SELECT id, n..rpd_operation..." />
+            <marker date="1431012280754" expanded="true" signature="6081:6196" placeholder="SELECT id, n..rpd_operation..." />
+            <marker date="1431012280754" expanded="true" signature="6595:6710" placeholder="SELECT id, n..rpd_operation..." />
+            <marker date="1431012280754" expanded="true" signature="7090:7173" placeholder="SELECT id, n..rpd_operation..." />
+            <marker date="1431012280754" expanded="true" signature="7568:7815" placeholder="INSERT INTO ..." />
+            <marker date="1431012280754" expanded="true" signature="7816:7938" placeholder="UPDATE name ..." />
+            <marker date="1431012280754" expanded="true" signature="9412:9488" placeholder="SELECT id_ta..rpd_task_has_operation..." />
+            <marker date="1431012280754" expanded="true" signature="10251:10341" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Role.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.814815" vertical-offset="5315" max-vertical-offset="6764">
+          <caret line="293" column="29" selection-start-line="293" selection-start-column="29" selection-end-line="293" selection-end-column="29" />
+          <folding>
+            <marker date="1431012295094" expanded="true" signature="1568:1603" placeholder="DELETE FROM ..." />
+            <marker date="1431012295094" expanded="true" signature="2075:2148" placeholder="INSERT INTO ..." />
+            <marker date="1431012295094" expanded="true" signature="3349:3425" placeholder="SELECT id, n..rpd_role..." />
+            <marker date="1431012295094" expanded="true" signature="4123:4199" placeholder="SELECT id, n..rpd_role..." />
+            <marker date="1431012295094" expanded="true" signature="4893:4950" placeholder="SELECT id, n..rpd_role..." />
+            <marker date="1431012295094" expanded="true" signature="5345:5545" placeholder="INSERT INTO ..." />
+            <marker date="1431012295094" expanded="true" signature="5546:5624" placeholder="UPDATE name ..." />
+            <marker date="1431012295094" expanded="true" signature="6556:6738" placeholder="SELECT t.id,..rpd_task..." />
+            <marker date="1431012295094" expanded="true" signature="7521:7599" placeholder="SELECT id FR..rpd_role_has_task..." />
+            <marker date="1431012295094" expanded="true" signature="8261:8552" placeholder="SELECT o.id,..." />
+            <marker date="1431012295094" expanded="true" signature="9875:9936" placeholder="SELECT id_us..rpd_user_has_role..." />
+            <marker date="1431012295094" expanded="true" signature="10521:10574" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Task.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.5925927" vertical-offset="4341" max-vertical-offset="5947">
+          <caret line="240" column="33" selection-start-line="240" selection-start-column="33" selection-end-line="240" selection-end-column="33" />
+          <folding>
+            <marker date="1431012305222" expanded="true" signature="1584:1619" placeholder="DELETE FROM ..." />
+            <marker date="1431012305222" expanded="true" signature="2111:2199" placeholder="INSERT INTO ..." />
+            <marker date="1431012305222" expanded="true" signature="3432:3508" placeholder="SELECT id, n..rpd_task..." />
+            <marker date="1431012305222" expanded="true" signature="4206:4282" placeholder="SELECT id, n..rpd_task..." />
+            <marker date="1431012305222" expanded="true" signature="4976:5033" placeholder="SELECT id, n..rpd_task..." />
+            <marker date="1431012305222" expanded="true" signature="5428:5628" placeholder="INSERT INTO ..." />
+            <marker date="1431012305222" expanded="true" signature="5629:5707" placeholder="UPDATE name ..." />
+            <marker date="1431012305222" expanded="true" signature="6635:6696" placeholder="SELECT id_ro..rpd_role_has_task..." />
+            <marker date="1431012305222" expanded="true" signature="7330:7527" placeholder="SELECT o.id,..rpd_operation..." />
+            <marker date="1431012305222" expanded="true" signature="8961:9036" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4373259" vertical-offset="3054" max-vertical-offset="4997">
+          <caret line="175" column="25" selection-start-line="175" selection-start-column="25" selection-end-line="175" selection-end-column="25" />
+          <folding>
+            <marker date="1431012315990" expanded="true" signature="727:903" placeholder="SELECT rol.i..." />
+            <marker date="1431012315990" expanded="true" signature="1536:1802" placeholder="SELECT DISTI..rpd_task..." />
+            <marker date="1431012315990" expanded="true" signature="2439:2785" placeholder="SELECT DISTI..rpd_operation..." />
+            <marker date="1431012315990" expanded="true" signature="3397:3470" placeholder="INSERT INTO ..." />
+            <marker date="1431012315990" expanded="true" signature="4223:4263" placeholder="SELECT * FRO..table..." />
+            <marker date="1431012315990" expanded="true" signature="5102:5124" placeholder="SELECT :pk F..table..." />
+            <marker date="1431012315990" expanded="true" signature="5908:5986" placeholder="SELECT id FR..rpd_user_has_role..." />
+            <marker date="1431012315990" expanded="true" signature="8115:8190" placeholder="DELETE FROM ..." />
+          </folding>
         </state>
       </provider>
     </entry>

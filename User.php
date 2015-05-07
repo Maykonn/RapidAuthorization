@@ -171,7 +171,7 @@ class User extends Entity
             $stmt->bindParam(':table', $this->preferencesList->userTable);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_COLUMN);
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         } catch(Exception $e) {
             MySQL::instance()->showException($e);

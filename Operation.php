@@ -302,7 +302,7 @@ class Operation extends Entity
 
             $this->id = (int) $this->id;
             return $this->id;
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         }
     }

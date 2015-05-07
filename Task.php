@@ -238,7 +238,7 @@ class Task extends Entity
                 $stmt->execute();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 return $stmt->fetchAll();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
