@@ -165,8 +165,11 @@ class User extends Entity
     public function findAll()
     {
         try {
-            $sql = "SELECT " . $this->preferencesList->userTablePK . " FROM " . $this->preferencesList->userTable;
-            $stmt = $this->db->query($sql);
+            $sql = "SELECT :pk FROM :table";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':pk', $this->preferencesList->userTablePK);
+            $stmt->bindParam(':table', $this->preferencesList->userTable);
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_COLUMN);
         } catch(PDOException $e) {
             MySQL::instance()->showException($e);
@@ -192,7 +195,7 @@ class User extends Entity
                 $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
                 $stmt->execute();
                 return ($stmt->fetch() ? true : false);
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             } catch(Exception $e) {
                 MySQL::instance()->showException($e);

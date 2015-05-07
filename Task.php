@@ -260,7 +260,7 @@ class Task extends Entity
                 $stmt->bindParam(':idTask', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             } catch(Exception $e) {
                 MySQL::instance()->showException($e);

@@ -326,7 +326,7 @@ class Role extends Entity
                 $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_COLUMN);
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
