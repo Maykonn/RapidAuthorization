@@ -13,46 +13,6 @@ use RapidAuthorization\Database\MySQL;
 
 class Task extends Entity
 {
-
-    public $id = 0;
-    public $name = '';
-    public $business_name = '';
-    public $description = null;
-
-    /**
-     * <p>A Task can be, e.g. Manage Products or Manage Customers</p>
-     */
-    public function create($businessName, $name = null, $description = null)
-    {
-        $this->name = $name;
-        $this->business_name = $businessName;
-        $this->description = $description;
-        return $this->save();
-    }
-
-    /**
-     * <p>Set '' to $description to set NULL on database</p>
-     */
-    public function update($id, $businessName, $name = null, $description = null)
-    {
-        if($this->populateById($id)) {
-            $this->id = $id;
-            $this->business_name = $businessName;
-
-            if($name !== null) {
-                $this->name = $name;
-            }
-
-            if($description !== null) {
-                $this->description = $description;
-            }
-
-            return $this->save();
-        }
-
-        return 0;
-    }
-
     public function delete($id)
     {
         if($this->findById($id)) {
@@ -96,24 +56,6 @@ class Task extends Entity
             Operation::instance($this->preferences, $this->db)->findById($operationId) &&
             !Task::instance($this->preferences, $this->db)->hasOperation($operationId, $taskId)
             );
-    }
-
-    /**
-     * <p>Populate object with values from record on database</p>
-     */
-    private function populateById($roleId)
-    {
-        $task = $this->findById($roleId);
-
-        if($task) {
-            $this->id = (int) $task['id'];
-            $this->name = $task['name'];
-            $this->business_name = $task['business_name'];
-            $this->description = $task['description'];
-            return true;
-        }
-
-        return false;
     }
 
     public function findById($taskId)

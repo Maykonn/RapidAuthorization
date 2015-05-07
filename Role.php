@@ -13,46 +13,6 @@ use RapidAuthorization\Database\MySQL;
 
 class Role extends Entity
 {
-
-    public $id = 0;
-    public $name = '';
-    public $business_name = '';
-    public $description = null;
-
-    /**
-     * <p>A Role can be, e.g. Admin, Seller, etc.</p>
-     */
-    public function create($businessName, $name = null, $description = null)
-    {
-        $this->name = $name;
-        $this->business_name = $businessName;
-        $this->description = $description;
-        return $this->save();
-    }
-
-    /**
-     * <p>Set '' to $description to set NULL on database</p>
-     */
-    public function update($id, $businessName, $name = null, $description = null)
-    {
-        if($this->populateById($id)) {
-            $this->id = $id;
-            $this->business_name = $businessName;
-
-            if($name !== null) {
-                $this->name = $name;
-            }
-
-            if($description !== null) {
-                $this->description = $description;
-            }
-
-            return $this->save();
-        }
-
-        return 0;
-    }
-
     public function delete($id)
     {
         if($this->findById($id)) {
