@@ -58,24 +58,6 @@ class Role extends Entity
             );
     }
 
-    /**
-     * <p>Populate object with values from record on database</p>
-     */
-    private function populateById($roleId)
-    {
-        $role = $this->findById($roleId);
-
-        if($role) {
-            $this->id = (int) $role['id'];
-            $this->name = $role['name'];
-            $this->business_name = $role['business_name'];
-            $this->description = $role['description'];
-            return true;
-        }
-
-        return false;
-    }
-
     public function findById($roleId)
     {
         try {
