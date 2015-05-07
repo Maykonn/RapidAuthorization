@@ -1,8 +1,6 @@
 RapidAuthorization
 ==================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/10c22641-873c-4822-939f-1be60737cd76/small.png)](https://insight.sensiolabs.com/projects/10c22641-873c-4822-939f-1be60737cd76)
-
 RapidAuthorization é um framework para controle de acesso, escrito em PHP, baseado em *Role-based Access Control (RBAC).
 
 Veja sobre RBAC na Wikipédia visitando: https://en.wikipedia.org/wiki/Role-based_access_control
