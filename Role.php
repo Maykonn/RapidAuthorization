@@ -151,24 +151,7 @@ class Role extends Entity
                     :id, :name, :businessName, :description
                 ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName, description = :description";
 
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-            $stmt->bindParam(':businessName', $this->business_name, PDO::PARAM_STR);
-
-            $name = ($this->name ? $this->name : null);
-            $stmt->bindParam(':name', $name);
-
-            $description = ($this->description ? $this->description : null);
-            $stmt->bindParam(':description', $description);
-
-            $stmt->execute();
-
-            if(!$this->id) {
-                $this->id = (int) $this->db->lastInsertId();
-            }
-
-            $this->id = (int) $this->id;
-            return $this->id;
+            return parent::saveFromSQL($sql);
         } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         }

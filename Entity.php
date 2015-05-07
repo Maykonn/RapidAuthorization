@@ -107,4 +107,24 @@ class Entity
         return false;
     }
 
+    protected function saveFromSQL($sql) {
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $stmt->bindParam(':businessName', $this->business_name, PDO::PARAM_STR);
+
+        $name = ($this->name ? $this->name : null);
+        $stmt->bindParam(':name', $name);
+
+        $description = ($this->description ? $this->description : null);
+        $stmt->bindParam(':description', $description);
+
+        $stmt->execute();
+
+        if(!$this->id) {
+            $this->id = (int) $this->db->lastInsertId();
+        }
+
+        return $this->id = (int) $this->id;
+    }
+
 }
