@@ -141,7 +141,7 @@ class Role extends Entity
         return Array();
     }
 
-    private function save()
+    public function save()
     {
         try {
             $sql = "
@@ -151,7 +151,7 @@ class Role extends Entity
                     :id, :name, :businessName, :description
                 ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName, description = :description";
 
-            return parent::saveFromSQL($sql);
+            return $this->saveFromSQL($sql);
         } catch(\PDOException $e) {
             MySQL::instance()->showException($e);
         }
