@@ -106,7 +106,7 @@ class Role extends Entity
     private function isPossibleToAttachTheTask($taskId, $roleId)
     {
         return (
-            Task::instance($this->preferences, $this->db)->findById($taskId) and
+            Task::instance($this->preferences, $this->db)->findById($taskId) &&
             !Role::instance($this->preferences, $this->db)->hasAccessToTask($taskId, $roleId)
             );
     }
@@ -254,7 +254,7 @@ class Role extends Entity
     public function hasAccessToTask($taskId, $roleId)
     {
         if(
-            Task::instance($this->preferences, $this->db)->findById($taskId) and
+            Task::instance($this->preferences, $this->db)->findById($taskId) &&
             Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
             try {
@@ -302,7 +302,7 @@ class Role extends Entity
     public function hasAccessToOperation($operationId, $roleId)
     {
         if(
-            Operation::instance($this->preferences, $this->db)->findById($operationId) and
+            Operation::instance($this->preferences, $this->db)->findById($operationId) &&
             Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
             $tasksThatCanExecuteTheOperation = Operation::instance($this->preferences, $this->db)->getTasksThatCanExecute($operationId);
@@ -343,7 +343,7 @@ class Role extends Entity
                 $this->id = (int) $roleId;
                 $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
                 return $stmt->execute();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -353,4 +353,3 @@ class Role extends Entity
 
 }
 
-?>

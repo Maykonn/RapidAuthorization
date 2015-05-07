@@ -47,7 +47,7 @@ class User extends Entity
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
                 return $stmt->fetchAll();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -130,7 +130,7 @@ class User extends Entity
     private function isPossibleToAttachTheRole($roleId, $userId)
     {
         return (
-            Role::instance($this->preferences, $this->db)->findById($roleId) and
+            Role::instance($this->preferences, $this->db)->findById($roleId) &&
             !User::instance($this->preferences, $this->db)->hasPermissionsOfTheRole($roleId, $userId)
             );
     }
@@ -138,12 +138,11 @@ class User extends Entity
     public function findById($userId)
     {
         try {
-            // use * here because we don't know the fields from "User" table
-            $sql = "
-            SELECT * FROM " . $this->preferencesList->userTable . "
-            WHERE " . $this->preferencesList->userTablePK . " = :userId";
+            $sql = "SELECT * FROM :table WHERE :pk = :userId";
 
             $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':table', $this->preferencesList->userTable);
+            $stmt->bindParam(':pk', $this->preferencesList->userTablePK);
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -181,7 +180,7 @@ class User extends Entity
     public function hasPermissionsOfTheRole($roleId, $userId)
     {
         if(
-            Role::instance($this->preferences, $this->db)->findById($roleId) and
+            Role::instance($this->preferences, $this->db)->findById($roleId) &&
             User::instance($this->preferences, $this->db)->findById($userId)
         ) {
             try {
@@ -206,7 +205,7 @@ class User extends Entity
     public function hasAccessToTask($taskId, $userId)
     {
         if(
-            Task::instance($this->preferences, $this->db)->findById($taskId) and
+            Task::instance($this->preferences, $this->db)->findById($taskId) &&
             User::instance($this->preferences, $this->db)->findById($userId)
         ) {
             $rolesThatHasAccessToTask = Task::instance($this->preferences, $this->db)->getRolesThatHasAccess($taskId);
@@ -240,7 +239,7 @@ class User extends Entity
     public function removeUserFromRole($userId, $roleId)
     {
         if(
-            User::instance($this->preferences, $this->db)->findById($userId) and
+            User::instance($this->preferences, $this->db)->findById($userId) &&
             Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
             try {
@@ -250,7 +249,7 @@ class User extends Entity
                 $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
                 $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
                 return $stmt->execute();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -259,5 +258,3 @@ class User extends Entity
     }
 
 }
-
-?>

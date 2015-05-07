@@ -50,7 +50,7 @@ class MySQL
     public function connect(Array $connection)
     {
         try {
-            if(isset($connection['pdoInstance']) and $connection['pdoInstance'] instanceof PDO) {
+            if(isset($connection['pdoInstance']) && $connection['pdoInstance'] instanceof PDO) {
                 $this->conn = $connection['pdoInstance'];
             } else {
                 $this->conn = new PDO(
@@ -62,12 +62,12 @@ class MySQL
                 $this->conn->query('SET NAMES ' . $connection['dbCharset']);
                 $this->conn->query('SET CHARACTER SET ' . $connection['dbCharset']);
             }
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             self::showException($e);
         }
     }
 
-    public static function showException($e)
+    public static function showException(\Exception $e)
     {
         echo '<pre>';
         echo '<b>' . $e->getMessage() . '</b><br/><br/>';

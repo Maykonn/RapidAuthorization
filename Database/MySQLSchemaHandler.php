@@ -50,15 +50,8 @@ class MySQLSchemaHandler
 
     public function createDefaultSchema()
     {
-        try {
-            $stmt = $this->db->prepare($this->getAuthorizationTablesStmt());
-            return $stmt->execute();
-        } catch(PDOException $e) {
-            echo '<pre>';
-            echo '<b>' . $e->getMessage() . '</b><br/><br/>';
-            echo $e->getTraceAsString();
-            echo '</pre>';
-        }
+        $stmt = $this->db->prepare($this->getAuthorizationTablesStmt());
+        return $stmt->execute();
     }
 
     private function getAuthorizationTablesStmt()
@@ -75,11 +68,6 @@ class MySQLSchemaHandler
   PRIMARY KEY (`' . $this->userTablePK . '`)';
         $contentUserTable = str_replace($userTableDefault, $userTable, $contentDefault);
 
-        // replace user_has_role foreign key
-        /* $userHasRoleFKDefault = 'REFERENCES `user` (`id`)';
-          $userHasRoleFK = 'REFERENCES `' . $this->userTable . '` (`' . $this->userTablePK . '`)';
-          $contentUser = str_replace($userHasRoleFKDefault, $userHasRoleFK, $contentUserTable); */
-
         // tables collation
         $collationDefault = 'utf8';
         $collation = $this->dbCharset;
@@ -89,5 +77,3 @@ class MySQLSchemaHandler
     }
 
 }
-
-?>

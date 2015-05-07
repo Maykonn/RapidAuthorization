@@ -59,8 +59,8 @@ class Operation extends Entity
     {
         try {
             if(
-                $needsAuthorizationValue == '1' or $needsAuthorizationValue == '0' or
-                $needsAuthorizationValue === true or $needsAuthorizationValue === false
+                $needsAuthorizationValue == '1' || $needsAuthorizationValue == '0' ||
+                $needsAuthorizationValue === true || $needsAuthorizationValue === false
             ) {
                 return true;
             } else {
@@ -329,7 +329,7 @@ class Operation extends Entity
     public function removeOperationFromTask($operationId, $taskId)
     {
         if(
-            Task::instance($this->preferences, $this->db)->findById($taskId) and
+            Task::instance($this->preferences, $this->db)->findById($taskId) &&
             Operation::instance($this->preferences, $this->db)->findById($operationId)
         ) {
             try {
@@ -339,7 +339,7 @@ class Operation extends Entity
                 $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
                 $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
                 return $stmt->execute();
-            } catch(PDOException $e) {
+            } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -348,5 +348,3 @@ class Operation extends Entity
     }
 
 }
-
-?>

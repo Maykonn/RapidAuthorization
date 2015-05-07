@@ -56,19 +56,12 @@ class ClientPreferences
     private function applyValuesFromClientPreferences(Array $clientPreferences)
     {
         foreach($clientPreferences as $property => $value) {
-            try {
-                if($this->preferencesList->offsetExists($property)) {
-                    $this->preferencesList->offsetSet($property, $value);
-                    $this->preferencesList->$property = $value;
-                    $this->$property = $value;
-                } else {
-                    throw new Exception($property . " isn't a valid option");
-                }
-            } catch(Exception $e) {
-                echo '<pre>';
-                echo '<b>' . $e->getMessage() . '</b><br/><br/>';
-                echo $e->getTraceAsString();
-                echo '</pre>';
+            if($this->preferencesList->offsetExists($property)) {
+                $this->preferencesList->offsetSet($property, $value);
+                $this->preferencesList->$property = $value;
+                $this->$property = $value;
+            } else {
+                throw new \Exception($property . " isn't a valid option");
             }
         }
     }
@@ -89,5 +82,3 @@ class ClientPreferences
     }
 
 }
-
-?>

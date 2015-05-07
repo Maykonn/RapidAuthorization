@@ -40,16 +40,8 @@ class Autoload
 
     private function loader($className)
     {
-        try {
-            require $dir = dirname(__DIR__) . DIRECTORY_SEPARATOR . $className . '.php';
-        } catch(Exception $e) {
-            echo '<pre>';
-            echo '<b>' . $e->getMessage() . '</b><br/><br/>';
-            echo $e->getTraceAsString();
-            echo '</pre>';
-        }
+        require dirname(__DIR__) . DIRECTORY_SEPARATOR . $className . '.php';
     }
 
 }
 
-?>
