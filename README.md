@@ -9,8 +9,8 @@ Veja sobre RBAC na Wikipédia visitando: https://en.wikipedia.org/wiki/Role-base
 
 
 É possível utilizar o RapidAuthorization em qualquer sistema escrito em PHP. Com ele é rápido e fácil
-escrever o controle de acesso da sua aplicação. Você precisa apenas integrar à aplicação, veja os exemplos
-em /Example.
+escrever o controle de acesso da sua aplicação. Você precisa apenas integrar à aplicação, [veja os exemplos
+aqui](https://github.com/Maykonn/RapidAuthorizationExamples).
 
 Se o domínio/responsabilidade/etc da sua aplicação não é controle de acesso, então ela não deve saber como fazer isso.
 Essa responsabilidade deve ser dada a outro sistema, um serviço, no caso o RapidAuthorization, para que ele
@@ -41,7 +41,7 @@ Observações
 ==================
 
 Para instalar, basta colocar o conteúdo baixado na pasta lib/RapidAuthorization por exemplo, da sua aplicação
-e então dar uma olhada nos exemplos da pasta /Example que você vai saber o que fazer.
+e então dar uma [olhada nos exemplos](https://github.com/Maykonn/RapidAuthorizationExamples) que você vai saber o que fazer.
 
 Alguns programadores gostam de considerar uma Task como um Controller,
 por exemplo ClienteController, e uma Operation como uma ação do Controller, por exemplo
