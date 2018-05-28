@@ -12,10 +12,15 @@ use \PDO;
 use \Exception;
 use RapidAuthorization\Database\MySQL;
 
-class User extends Entity
+class User extends AbstractEntity
 {
-
-    public $id;
+    /**
+	 * @return $this
+	 */
+	public static function instance(ClientPreferences $preferences, PDO $pdo)
+	{
+		return self::$instance = new self($preferences, $pdo);
+	}
 
     public function getRoles($userId)
     {
