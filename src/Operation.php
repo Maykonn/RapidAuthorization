@@ -11,19 +11,21 @@ use \PDO;
 use \Exception;
 use RapidAuthorization\Database\MySQL;
 
-class Operation extends Entity
+class Operation extends AbstractEntity
 {
-
-    public $id = 0;
-    public $name = '';
-    public $business_name = '';
-    public $description = null;
-
     /**
      * Verify if needs to check the authorization, see Operation::populateById()
      * @var Enum '1', '0'
      */
     public $needs_authorization = '1';
+
+    /**
+	 * @return $this
+	 */
+	public static function instance(ClientPreferences $preferences, PDO $pdo)
+	{
+		return self::$instance = new self($preferences, $pdo);
+	}
 
     /**
      * <p>An Operation can be, e.g. Create Product or Edit Customer</p>

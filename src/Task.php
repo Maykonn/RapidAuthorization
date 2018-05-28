@@ -11,8 +11,16 @@ use \PDO;
 use \Exception;
 use RapidAuthorization\Database\MySQL;
 
-class Task extends Entity
+class Task extends AbstractEntity
 {
+	/**
+	 * @return $this
+	 */
+	public static function instance(ClientPreferences $preferences, PDO $pdo)
+	{
+		return self::$instance = new self($preferences, $pdo);
+	}
+
     public function delete($id)
     {
         if($this->findById($id)) {
