@@ -130,7 +130,7 @@ class User extends AbstractEntity
 	public function findById($userId)
 	{
 		try {
-			$sql = "SELECT * FROM " . $this->preferencesList->userTable . " WHERE " . $this->preferencesList->userTablePK . " = :userId";
+			$sql = "SELECT * FROM $this->preferencesList->userTable WHERE $this->preferencesList->userTablePK = :userId";
 
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
