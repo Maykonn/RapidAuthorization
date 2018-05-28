@@ -7,11 +7,6 @@
 
 namespace RapidAuthorization;
 
-// Necessárias antes do Autoload
-/*require_once 'ClientPreferences.php';
-require_once 'AvailablePreferences.php';
-require_once 'Autoload.php';
-*/
 use RapidAuthorization\Database\MySQL;
 use RapidAuthorization\Database\MySQLSchemaHandler;
 
