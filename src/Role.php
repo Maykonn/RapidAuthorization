@@ -31,7 +31,8 @@ class Role extends AbstractEntity
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-                return $stmt->execute();
+                $stmt->execute();
+                return $id;
             } catch(\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
