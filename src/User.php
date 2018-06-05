@@ -12,16 +12,8 @@ use \PDO;
 use \Exception;
 use RapidAuthorization\Database\MySQL;
 
-class User extends AbstractEntity
+class User extends Entity
 {
-	/**
-	 * @return $this
-	 */
-	public static function instance(ClientPreferences $preferences, PDO $pdo)
-	{
-		return self::$instance = new self($preferences, $pdo);
-	}
-
 	public function getRoles($userId)
 	{
 		if (User::instance($this->preferences, $this->db)->findById($userId)) {
@@ -130,7 +122,7 @@ class User extends AbstractEntity
 	public function findById($userId)
 	{
 		try {
-			$sql = "SELECT * FROM $this->preferencesList->userTable WHERE $this->preferencesList->userTablePK = :userId";
+			$sql = "SELECT * FROM " . $this->preferencesList->userTable . " WHERE " . $this->preferencesList->userTablePK . " = :userId";
 
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);

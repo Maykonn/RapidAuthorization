@@ -1,8 +1,6 @@
 <?php
-
 /**
  * Entity
- *
  * @author Maykonn Welington Candido<maykonn@outlook.com>
  */
 
@@ -12,8 +10,20 @@ use Doctrine\DBAL\Driver\Connection;
 use \PDO;
 use \ArrayObject;
 
-abstract class AbstractEntity implements IEntity
+class Entity implements IEntity
 {
+	/**
+	 * @param ClientPreferences $preferences
+	 * @param Connection $pdo
+	 *
+	 * @return self
+	 */
+	public static function instance(ClientPreferences $preferences, Connection $pdo)
+	{
+		$calledClass = get_called_class();
+		return self::$instance = new $calledClass($preferences, $pdo);
+	}
+
 	/**
 	 * @var ClientPreferences
 	 */
@@ -62,7 +72,7 @@ abstract class AbstractEntity implements IEntity
 	}
 
 	/**
-	 * <p>Set '' to $description to set NULL on database</p>
+	 * Set '' to $description to set NULL on database
 	 */
 	public function update($id, $businessName, $name = null, $description = null)
 	{

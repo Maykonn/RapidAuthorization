@@ -7,88 +7,69 @@
 
 namespace RapidAuthorization;
 
+use Doctrine\DBAL\Connection;
+use RapidAuthorization\Database\DB;
 use RapidAuthorization\Database\MySQL;
-use RapidAuthorization\Database\MySQLSchemaHandler;
+use RapidAuthorization\Database\SchemaHandler;
 
 class RapidAuthorization
 {
 
-    /**
-     * @var ClientPreferences
-     */
-    private $preferences;
+	/**
+	 * @var ClientPreferences
+	 */
+	private $preferences;
 
-    /**
-     * @var ArrayObject
-     */
-    private $preferencesList;
+	/**
+	 * @var \ArrayObject
+	 */
+	private $preferencesList;
 
-    /**
-     * @var MySQL
-     */
-    private $mysql;
+	/**
+	 * @var Connection
+	 */
+	private $dbConn;
 
-    public function __construct($preferences = Array())
-    {
-        $this->initPreferences($preferences);
-        $this->initMySqlHandler();
-    }
+	public function __construct($preferences = Array())
+	{
+		$this->initPreferences($preferences);
+		$this->initDatabase();
+	}
 
-    private function initPreferences(Array $preferences)
-    {
-        $this->preferences = ClientPreferences::instance($preferences);
-        $this->preferencesList = $this->preferences->getPreferencesList();
-    }
+	private function initPreferences(Array $preferences)
+	{
+		$this->preferences = ClientPreferences::instance($preferences);
+		$this->preferencesList = $this->preferences->getPreferencesList();
+	}
 
-    private function initMySqlHandler()
-    {
-        $this->mysql = MySQL::instance();
-        $this->mysql->connect(Array(
-            'pdoInstance' => $this->preferencesList->pdoInstance,
-            'host' => $this->preferencesList->mysqlHost,
-            'port' => $this->preferencesList->mysqlPort,
-            'user' => $this->preferencesList->mysqlUser,
-            'pass' => $this->preferencesList->mysqlPass,
-            'dbName' => $this->preferencesList->dbName,
-            'dbCharset' => $this->preferencesList->dbCharset
-        ));
+	private function initDatabase()
+	{
+		$this->dbConn = DB::connect($this->preferencesList);
 
-        if($this->preferencesList->autoGenerateTables) {
-            $schema = MySQLSchemaHandler::instance($this->preferences, $this->mysql->getHandler());
-            $schema->createDefaultSchema();
-        }
-    }
+		if ($this->preferencesList->autoGenerateTables) {
+			$schema = SchemaHandler::instance($this->preferences, $this->dbConn->getWrappedConnection());
+			$schema->createDefaultSchema();
+		}
+	}
 
-    /**
-     * @return Role
-     */
-    public function role()
-    {
-        return Role::instance($this->preferences, $this->mysql->getHandler());
-    }
+	public function role()
+	{
+		return Role::instance($this->preferences, $this->dbConn->getWrappedConnection());
+	}
 
-    /**
-     * @return User
-     */
-    public function user()
-    {
-        return User::instance($this->preferences, $this->mysql->getHandler());
-    }
+	public function user()
+	{
+		return User::instance($this->preferences, $this->dbConn->getWrappedConnection());
+	}
 
-    /**
-     * @return Task
-     */
-    public function task()
-    {
-        return Task::instance($this->preferences, $this->mysql->getHandler());
-    }
+	public function task()
+	{
+		return Task::instance($this->preferences, $this->dbConn->getWrappedConnection());
+	}
 
-    /**
-     * @return Operation
-     */
-    public function operation()
-    {
-        return Operation::instance($this->preferences, $this->mysql->getHandler());
-    }
+	public function operation()
+	{
+		return Operation::instance($this->preferences, $this->dbConn->getWrappedConnection());
+	}
 
 }
