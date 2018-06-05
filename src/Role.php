@@ -16,7 +16,7 @@ class Role extends Entity
 {
     public function delete($id)
     {
-        if($this->findById($id)) {
+        if ($this->findById($id)) {
             $this->id = $id;
 
             try {
@@ -25,8 +25,9 @@ class Role extends Entity
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
+
                 return $id;
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -36,15 +37,16 @@ class Role extends Entity
 
     public function attachTask($taskId, $roleId)
     {
-        if($this->isPossibleToAttachTheTask($taskId, $roleId)) {
+        if ($this->isPossibleToAttachTheTask($taskId, $roleId)) {
             try {
                 $sql = "INSERT INTO rpd_role_has_task(id_role, id_task) VALUES (:idRole, :idTask)";
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
                 $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
+
                 return $stmt->execute();
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -56,8 +58,8 @@ class Role extends Entity
     {
         return (
             Task::instance($this->preferences, $this->db)->findById($taskId) &&
-            !Role::instance($this->preferences, $this->db)->hasAccessToTask($taskId, $roleId)
-            );
+            ! Role::instance($this->preferences, $this->db)->hasAccessToTask($taskId, $roleId)
+        );
     }
 
     public function findById($roleId)
@@ -71,14 +73,14 @@ class Role extends Entity
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $role = $stmt->fetch();
 
-            if($role) {
+            if ($role) {
                 return $role;
             } else {
                 throw new Exception('Record #' . $roleId . ' not found on `role` table');
             }
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::instance()->showException($e);
         }
 
@@ -96,14 +98,14 @@ class Role extends Entity
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $role = $stmt->fetch();
 
-            if($role) {
+            if ($role) {
                 return $role;
             } else {
                 throw new Exception('Record with name: ' . $name . ' not found on `role` table');
             }
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::instance()->showException($e);
         }
 
@@ -115,10 +117,11 @@ class Role extends Entity
         try {
             $sql = "SELECT id, name, business_name, description FROM rpd_role";
             $stmt = $this->db->query($sql);
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::instance()->showException($e);
         }
 
@@ -136,14 +139,14 @@ class Role extends Entity
                 ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName, description = :description";
 
             return $this->saveFromSQL($sql);
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
         }
     }
 
     public function getTasks($roleId)
     {
-        if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
+        if (Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "
                 SELECT t.id, t.name, t.business_name, t.description
@@ -154,10 +157,11 @@ class Role extends Entity
                 $this->id = (int) $roleId;
                 $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
+
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -167,7 +171,7 @@ class Role extends Entity
 
     public function hasAccessToTask($taskId, $roleId)
     {
-        if(
+        if (
             Task::instance($this->preferences, $this->db)->findById($taskId) &&
             Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
@@ -178,8 +182,9 @@ class Role extends Entity
                 $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
                 $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
                 $stmt->execute();
+
                 return ($stmt->fetch() ? true : false);
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -189,7 +194,7 @@ class Role extends Entity
 
     public function getOperations($roleId)
     {
-        if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
+        if (Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "
                 SELECT o.id, o.`name`, o.business_name, o.description
@@ -202,10 +207,11 @@ class Role extends Entity
                 $this->id = (int) $roleId;
                 $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
+
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -215,13 +221,13 @@ class Role extends Entity
 
     public function hasAccessToOperation($operationId, $roleId)
     {
-        if(
+        if (
             Operation::instance($this->preferences, $this->db)->findById($operationId) &&
             Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
             $tasksThatCanExecuteTheOperation = Operation::instance($this->preferences, $this->db)->getTasksThatCanExecute($operationId);
-            foreach($tasksThatCanExecuteTheOperation as $task) {
-                if($this->hasAccessToTask($task['id_task'], $roleId)) {
+            foreach ($tasksThatCanExecuteTheOperation as $task) {
+                if ($this->hasAccessToTask($task['id_task'], $roleId)) {
                     return true;
                 }
             }
@@ -232,15 +238,16 @@ class Role extends Entity
 
     public function getUsersThatHasPermission($roleId)
     {
-        if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
+        if (Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "SELECT id_user FROM rpd_user_has_role WHERE id_role = :idRole";
                 $stmt = $this->db->prepare($sql);
                 $this->id = (int) $roleId;
                 $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
+
                 return $stmt->fetchAll(PDO::FETCH_COLUMN);
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -250,14 +257,15 @@ class Role extends Entity
 
     public function removeUsersFromRole($roleId)
     {
-        if(Role::instance($this->preferences, $this->db)->findById($roleId)) {
+        if (Role::instance($this->preferences, $this->db)->findById($roleId)) {
             try {
                 $sql = "DELETE FROM rpd_user_has_role WHERE id_role = :idRole";
                 $stmt = $this->db->prepare($sql);
                 $this->id = (int) $roleId;
                 $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+
                 return $stmt->execute();
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -266,4 +274,3 @@ class Role extends Entity
     }
 
 }
-

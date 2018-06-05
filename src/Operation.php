@@ -28,8 +28,9 @@ class Operation extends Entity
         $this->business_name = $businessName;
         $this->description = $description;
 
-        if($this->isValidNeedsAuthorizationValue($needsAuthorization)) {
+        if ($this->isValidNeedsAuthorizationValue($needsAuthorization)) {
             $this->needs_authorization = $needsAuthorization;
+
             return $this->save();
         }
 
@@ -39,18 +40,18 @@ class Operation extends Entity
     private function isValidNeedsAuthorizationValue($needsAuthorizationValue)
     {
         try {
-            if(
+            if (
                 $needsAuthorizationValue == '1' || $needsAuthorizationValue == '0' ||
                 $needsAuthorizationValue === true || $needsAuthorizationValue === false
             ) {
                 return true;
             } else {
                 throw new Exception(
-                'Bad value to $needsAuthorization param. Expected: \'1\' or \'0\', given ' .
-                $needsAuthorizationValue
+                    'Bad value to $needsAuthorization param. Expected: \'1\' or \'0\', given ' .
+                    $needsAuthorizationValue
                 );
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::showException($e);
         }
 
@@ -62,20 +63,21 @@ class Operation extends Entity
      */
     public function update($id, $businessName, $name = null, $description = null, $needsAuthorization = '1')
     {
-        if($this->populateById($id)) {
+        if ($this->populateById($id)) {
             $this->id = $id;
             $this->business_name = $businessName;
 
-            if($name !== null) {
+            if ($name !== null) {
                 $this->name = $name;
             }
 
-            if($description !== null) {
+            if ($description !== null) {
                 $this->description = $description;
             }
 
-            if($this->isValidNeedsAuthorizationValue($needsAuthorization)) {
+            if ($this->isValidNeedsAuthorizationValue($needsAuthorization)) {
                 $this->needs_authorization = $needsAuthorization;
+
                 return $this->save();
             }
         }
@@ -85,7 +87,7 @@ class Operation extends Entity
 
     public function delete($id)
     {
-        if($this->findById($id)) {
+        if ($this->findById($id)) {
             $this->id = $id;
 
             try {
@@ -93,8 +95,9 @@ class Operation extends Entity
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+
                 return $stmt->execute();
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -109,12 +112,13 @@ class Operation extends Entity
     {
         $operation = $this->findById($operationId);
 
-        if($operation) {
+        if ($operation) {
             $this->id = (int) $operation['id'];
             $this->name = $operation['name'];
             $this->business_name = $operation['business_name'];
             $this->description = $operation['description'];
             $this->needs_authorization = $operation['needs_authorization'];
+
             return true;
         }
 
@@ -126,8 +130,8 @@ class Operation extends Entity
      */
     public function needsAuthorization($operationId)
     {
-        if($this->populateById($operationId)) {
-            switch($this->needs_authorization) {
+        if ($this->populateById($operationId)) {
+            switch ($this->needs_authorization) {
                 case 1:
                 case '1':
                 case true:
@@ -155,14 +159,14 @@ class Operation extends Entity
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $operation = $stmt->fetch();
 
-            if($operation) {
+            if ($operation) {
                 return $operation;
             } else {
                 throw new Exception('Record #' . $operationId . ' not found on `operation` table');
             }
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::instance()->showException($e);
         }
 
@@ -180,14 +184,14 @@ class Operation extends Entity
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $operation = $stmt->fetch();
 
-            if($operation) {
+            if ($operation) {
                 return $operation;
             } else {
                 throw new Exception('Record with name: ' . $name . ' not found on `operation` table');
             }
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::instance()->showException($e);
         }
 
@@ -199,10 +203,11 @@ class Operation extends Entity
         try {
             $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE needs_authorization = '0'";
             $stmt = $this->db->query($sql);
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::instance()->showException($e);
         }
 
@@ -214,10 +219,11 @@ class Operation extends Entity
         try {
             $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE needs_authorization = '1'";
             $stmt = $this->db->query($sql);
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::instance()->showException($e);
         }
 
@@ -229,10 +235,11 @@ class Operation extends Entity
         try {
             $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation";
             $stmt = $this->db->query($sql);
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             MySQL::instance()->showException($e);
         }
 
@@ -253,7 +260,7 @@ class Operation extends Entity
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':businessName', $this->business_name, PDO::PARAM_STR);
 
-            switch($this->needs_authorization) {
+            switch ($this->needs_authorization) {
                 case 1:
                 case true:
                     $needsAuthorization = '1';
@@ -277,20 +284,21 @@ class Operation extends Entity
 
             $stmt->execute();
 
-            if(!$this->id) {
+            if ( ! $this->id) {
                 $this->id = (int) $this->db->lastInsertId();
             }
 
             $this->id = (int) $this->id;
+
             return $this->id;
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             MySQL::instance()->showException($e);
         }
     }
 
     public function getTasksThatCanExecute($operationId)
     {
-        if(Operation::instance($this->preferences, $this->db)->findById($operationId)) {
+        if (Operation::instance($this->preferences, $this->db)->findById($operationId)) {
             try {
                 $sql = "SELECT id_task FROM rpd_task_has_operation WHERE id_operation = :idOperation";
                 $stmt = $this->db->prepare($sql);
@@ -298,8 +306,9 @@ class Operation extends Entity
                 $stmt->bindParam(':idOperation', $this->id, PDO::PARAM_INT);
                 $stmt->execute();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
                 return $stmt->fetchAll();
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -309,7 +318,7 @@ class Operation extends Entity
 
     public function removeOperationFromTask($operationId, $taskId)
     {
-        if(
+        if (
             Task::instance($this->preferences, $this->db)->findById($taskId) &&
             Operation::instance($this->preferences, $this->db)->findById($operationId)
         ) {
@@ -319,8 +328,9 @@ class Operation extends Entity
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
                 $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
+
                 return $stmt->execute();
-            } catch(\PDOException $e) {
+            } catch (\PDOException $e) {
                 MySQL::instance()->showException($e);
             }
         }
@@ -329,3 +339,4 @@ class Operation extends Entity
     }
 
 }
+
