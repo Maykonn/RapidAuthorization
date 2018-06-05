@@ -37,9 +37,6 @@ class ClientPreferences
     private function __construct($clientPreferences = Array())
     {
         $this->setPreferencesList($clientPreferences);
-        /*if ($this->preferencesList->useRapidAuthorizationAutoload) {
-			Autoload::instance()->init();
-		}*/
     }
 
     /**
