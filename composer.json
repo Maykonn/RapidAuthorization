@@ -1,23 +1,30 @@
 {
-    "name": "maykonn/rapid-authorization",
-    "type": "library",
-    "description": "RapidAuthorization is a PHP framework for Access Control, based in Role-based Access Control (RBAC)",
-    "keywords": ["PHP", "access control", "role-based access control", "role based access control", "rbac", "framework"],
-    "homepage": "https://github.com/Maykonn/RapidAuthorization",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Maykonn Welington Candido",
-            "email": "maykonn@outlook.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.0",
-        "doctrine/dbal": "^2.7"
-    },
-    "autoload": {
-        "psr-4": {
-            "RapidAuthorization\\": "src/"
-        }
+  "name": "maykonn/rapid-authorization",
+  "type": "library",
+  "description": "RapidAuthorization is a PHP framework for Access Control, based in Role-based Access Control (RBAC)",
+  "keywords": [
+    "PHP",
+    "access control",
+    "role-based access control",
+    "role based access control",
+    "rbac",
+    "framework"
+  ],
+  "homepage": "https://github.com/Maykonn/RapidAuthorization",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maykonn Welington Candido",
+      "email": "maykonn@outlook.com"
     }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "doctrine/dbal": "^2.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "RapidAuthorization\\": "src/"
+    }
+  }
 }

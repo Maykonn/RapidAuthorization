@@ -11,5 +11,5 @@ use Doctrine\DBAL\Driver\Connection;
 
 interface IEntity
 {
-	public static function instance(ClientPreferences $preferences, Connection $pdo);
+    public static function instance(ClientPreferences $preferences, Connection $pdo);
 }

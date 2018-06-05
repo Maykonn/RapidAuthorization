@@ -21,7 +21,7 @@ class Autoload
      */
     public static function instance()
     {
-        if(self::$instance instanceof Autoload) {
+        if (self::$instance instanceof Autoload) {
             return self::$instance;
         } else {
             return self::$instance = new self();

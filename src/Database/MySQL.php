@@ -35,7 +35,7 @@ class MySQL
      */
     public static function instance()
     {
-        if(self::$instance instanceof MySQL) {
+        if (self::$instance instanceof MySQL) {
             return self::$instance;
         } else {
             return self::$instance = new self();
@@ -50,7 +50,7 @@ class MySQL
     public function connect(Array $connection)
     {
         try {
-            if(isset($connection['pdoInstance']) && $connection['pdoInstance'] instanceof PDO) {
+            if (isset($connection['pdoInstance']) && $connection['pdoInstance'] instanceof PDO) {
                 $this->conn = $connection['pdoInstance'];
             } else {
                 $this->conn = new PDO(
@@ -62,7 +62,7 @@ class MySQL
                 $this->conn->query('SET NAMES ' . $connection['dbCharset']);
                 $this->conn->query('SET CHARACTER SET ' . $connection['dbCharset']);
             }
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             self::showException($e);
         }
     }

@@ -11,7 +11,7 @@ $authorization = new \RapidAuthorization\RapidAuthorization($configuration);
 // Creating Operation that don't need Authorization
 echo "Creating Operation that don't need Authorization: #";
 echo $operationThatDontNeedAuthorization = $authorization->operation()->create('Login', 'login',
-"Don't needs Authorization", false);
+    "Don't needs Authorization", false);
 echo '<br/><br/>';
 
 
@@ -52,7 +52,7 @@ echo '</pre>';
 $operationId = 4;
 echo 'DETACH OPERATION #' . $operationId . ' FROM FIRST TASK THAT CAN ACCESS THE OPERATION: ';
 var_dump($authorization->operation()->removeOperationFromTask($operationId,
-        $tasksThaCanExecute[0]['id_task']));
+    $tasksThaCanExecute[0]['id_task']));
 
 
 // Require/Not Require Authorization
