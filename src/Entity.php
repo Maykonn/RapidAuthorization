@@ -16,7 +16,7 @@ class Entity implements IEntity
 	 * @param ClientPreferences $preferences
 	 * @param Connection $pdo
 	 *
-	 * @return self
+	 * @return mixed(User, Role, Task or Operation entity)
 	 */
 	public static function instance(ClientPreferences $preferences, Connection $pdo)
 	{
