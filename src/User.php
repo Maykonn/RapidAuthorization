@@ -104,7 +104,7 @@ class User extends Entity
 
     public function findById($userId)
     {
-        $sql = "SELECT * FROM " . $this->preferencesList->userTable . " WHERE " . $this->preferencesList->userTablePK . " = :userId";
+        $sql = "SELECT * FROM $this->preferencesList->userTable WHERE $this->preferencesList->userTablePK = :userId";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
@@ -121,7 +121,7 @@ class User extends Entity
 
     public function findAll()
     {
-        $sql = "SELECT " . $this->preferencesList->userTablePK . " FROM " . $this->preferencesList->userTable;
+        $sql = "SELECT $this->preferencesList->userTablePK FROM $this->preferencesList->userTable";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
