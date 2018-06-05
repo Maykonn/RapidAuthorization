@@ -12,7 +12,7 @@ use Doctrine\DBAL\Driver\Connection;
 use \PDO;
 use \ArrayObject;
 
-abstract class AbstractEntity implements IEntity
+abstract class AbstractEntity implements EntityInterface
 {
     /**
      * @var ClientPreferences

@@ -10,7 +10,7 @@ use Doctrine\DBAL\Driver\Connection;
 use \PDO;
 use \ArrayObject;
 
-class Entity implements IEntity
+class Entity implements EntityInterface
 {
     /**
      * @param ClientPreferences $preferences

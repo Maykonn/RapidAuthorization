@@ -9,7 +9,7 @@ namespace RapidAuthorization;
 
 use Doctrine\DBAL\Driver\Connection;
 
-interface IEntity
+interface EntityInterface
 {
     public static function instance(ClientPreferences $preferences, Connection $pdo);
 }
