@@ -1,12 +1,13 @@
 <?php
 
 return Array(
-	'mysqlHost' => 'localhost',
-	'mysqlPort' => 3306,
-	'mysqlUser' => 'root',
-	'mysqlPass' => '123456',
+	'dbDriver' => 'pdo_mysql', // put in an ENUM
+	'dbHost' => 'localhost',
+	'dbPort' => 3306,
+	'dbUser' => 'root',
+	'dbPassword' => '123456',
 	'dbName' => 'test_rbac',
-	'dbCharset' => 'utf8',
+	'dbConnCharset' => 'utf8',
 	// optional param, default is utf8
 	'userTable' => 'users',
 	// optional param if is different of user, default is user
