@@ -7,10 +7,8 @@
 
 namespace RapidAuthorization;
 
-use Doctrine\DBAL\Driver\Connection;
 use \PDO;
 use \Exception;
-use RapidAuthorization\Database\MySQL;
 
 class Role extends Entity
 {
@@ -19,17 +17,13 @@ class Role extends Entity
         if ($this->findById($id)) {
             $this->id = $id;
 
-            try {
-                $sql = "DELETE FROM rpd_role WHERE id = :id";
+            $sql = "DELETE FROM rpd_role WHERE id = :id";
 
-                $stmt = $this->db->prepare($sql);
-                $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-                $stmt->execute();
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmt->execute();
 
-                return $id;
-            } catch (\PDOException $e) {
-                MySQL::instance()->showException($e);
-            }
+            return $id;
         }
 
         return false;
@@ -38,17 +32,13 @@ class Role extends Entity
     public function attachTask($taskId, $roleId)
     {
         if ($this->isPossibleToAttachTheTask($taskId, $roleId)) {
-            try {
-                $sql = "INSERT INTO rpd_role_has_task(id_role, id_task) VALUES (:idRole, :idTask)";
+            $sql = "INSERT INTO rpd_role_has_task(id_role, id_task) VALUES (:idRole, :idTask)";
 
-                $stmt = $this->db->prepare($sql);
-                $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
-                $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
+            $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
 
-                return $stmt->execute();
-            } catch (\PDOException $e) {
-                MySQL::instance()->showException($e);
-            }
+            return $stmt->execute();
         }
 
         return false;
@@ -64,106 +54,72 @@ class Role extends Entity
 
     public function findById($roleId)
     {
-        try {
-            $sql = "SELECT id, name, business_name, description FROM rpd_role WHERE id = :roleId";
+        $sql = "SELECT id, name, business_name, description FROM rpd_role WHERE id = :roleId";
 
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $role = $stmt->fetch();
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $role = $stmt->fetch();
 
-            if ($role) {
-                return $role;
-            } else {
-                throw new Exception('Record #' . $roleId . ' not found on `role` table');
-            }
-        } catch (\PDOException $e) {
-            MySQL::instance()->showException($e);
-        } catch (Exception $e) {
-            MySQL::instance()->showException($e);
+        if ($role) {
+            return $role;
         }
 
-        return false;
+        throw new Exception('Record #' . $roleId . ' not found on `role` table');
     }
 
     public function findByName($name)
     {
-        try {
-            $sql = "SELECT id, name, business_name, description FROM rpd_role WHERE name = :name";
+        $sql = "SELECT id, name, business_name, description FROM rpd_role WHERE name = :name";
 
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':name', $name, PDO::PARAM_INT);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $role = $stmt->fetch();
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':name', $name, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $role = $stmt->fetch();
 
-            if ($role) {
-                return $role;
-            } else {
-                throw new Exception('Record with name: ' . $name . ' not found on `role` table');
-            }
-        } catch (\PDOException $e) {
-            MySQL::instance()->showException($e);
-        } catch (Exception $e) {
-            MySQL::instance()->showException($e);
+        if ($role) {
+            return $role;
         }
 
-        return false;
+        throw new Exception('Record with name: ' . $name . ' not found on `role` table');
     }
 
     public function findAll()
     {
-        try {
-            $sql = "SELECT id, name, business_name, description FROM rpd_role";
-            $stmt = $this->db->query($sql);
+        $sql = "SELECT id, name, business_name, description FROM rpd_role";
+        $stmt = $this->db->query($sql);
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
-            MySQL::instance()->showException($e);
-        } catch (Exception $e) {
-            MySQL::instance()->showException($e);
-        }
-
-        return Array();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function save()
     {
-        try {
-            $sql = "
-                INSERT INTO rpd_role(
-                    id, name, business_name, description
-                ) VALUES (
-                    :id, :name, :businessName, :description
-                ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName, description = :description";
+        $sql = "
+            INSERT INTO rpd_role(
+                id, name, business_name, description
+            ) VALUES (
+                :id, :name, :businessName, :description
+            ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName, description = :description";
 
-            return $this->saveFromSQL($sql);
-        } catch (\PDOException $e) {
-            MySQL::instance()->showException($e);
-        }
+        return $this->saveFromSQL($sql);
     }
 
     public function getTasks($roleId)
     {
         if (Role::instance($this->preferences, $this->db)->findById($roleId)) {
-            try {
-                $sql = "
+            $sql = "
                 SELECT t.id, t.name, t.business_name, t.description
                 FROM rpd_task t INNER JOIN rpd_role_has_task rht ON t.id = rht.id_task
                 WHERE rht.id_role = :idRole";
 
-                $stmt = $this->db->prepare($sql);
-                $this->id = (int) $roleId;
-                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
-                $stmt->execute();
+            $stmt = $this->db->prepare($sql);
+            $this->id = (int) $roleId;
+            $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+            $stmt->execute();
 
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (\PDOException $e) {
-                MySQL::instance()->showException($e);
-            } catch (Exception $e) {
-                MySQL::instance()->showException($e);
-            }
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         return Array();
@@ -175,18 +131,14 @@ class Role extends Entity
             Task::instance($this->preferences, $this->db)->findById($taskId) &&
             Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
-            try {
-                $sql = "SELECT id FROM rpd_role_has_task WHERE id_role = :idRole AND id_task = :idTask";
-                $stmt = $this->db->prepare($sql);
-                $this->id = (int) $roleId;
-                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
-                $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
-                $stmt->execute();
+            $sql = "SELECT id FROM rpd_role_has_task WHERE id_role = :idRole AND id_task = :idTask";
+            $stmt = $this->db->prepare($sql);
+            $this->id = (int) $roleId;
+            $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
+            $stmt->execute();
 
-                return ($stmt->fetch() ? true : false);
-            } catch (\PDOException $e) {
-                MySQL::instance()->showException($e);
-            }
+            return ($stmt->fetch() ? true : false);
         }
 
         return false;
@@ -195,25 +147,19 @@ class Role extends Entity
     public function getOperations($roleId)
     {
         if (Role::instance($this->preferences, $this->db)->findById($roleId)) {
-            try {
-                $sql = "
+            $sql = "
                 SELECT o.id, o.`name`, o.business_name, o.description
                 FROM rpd_operation o
                 LEFT JOIN rpd_task_has_operation tho ON o.id = tho.id_operation
                 LEFT JOIN rpd_role_has_task rht ON tho.id_task = rht.id_task
                 WHERE rht.id_role = :idRole";
 
-                $stmt = $this->db->prepare($sql);
-                $this->id = (int) $roleId;
-                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
-                $stmt->execute();
+            $stmt = $this->db->prepare($sql);
+            $this->id = (int) $roleId;
+            $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+            $stmt->execute();
 
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (\PDOException $e) {
-                MySQL::instance()->showException($e);
-            } catch (Exception $e) {
-                MySQL::instance()->showException($e);
-            }
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         return Array();
@@ -239,35 +185,27 @@ class Role extends Entity
     public function getUsersThatHasPermission($roleId)
     {
         if (Role::instance($this->preferences, $this->db)->findById($roleId)) {
-            try {
-                $sql = "SELECT id_user FROM rpd_user_has_role WHERE id_role = :idRole";
-                $stmt = $this->db->prepare($sql);
-                $this->id = (int) $roleId;
-                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
-                $stmt->execute();
+            $sql = "SELECT id_user FROM rpd_user_has_role WHERE id_role = :idRole";
+            $stmt = $this->db->prepare($sql);
+            $this->id = (int) $roleId;
+            $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+            $stmt->execute();
 
-                return $stmt->fetchAll(PDO::FETCH_COLUMN);
-            } catch (\PDOException $e) {
-                MySQL::instance()->showException($e);
-            }
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
         }
 
-        return false;
+        return Array();
     }
 
     public function removeUsersFromRole($roleId)
     {
         if (Role::instance($this->preferences, $this->db)->findById($roleId)) {
-            try {
-                $sql = "DELETE FROM rpd_user_has_role WHERE id_role = :idRole";
-                $stmt = $this->db->prepare($sql);
-                $this->id = (int) $roleId;
-                $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
+            $sql = "DELETE FROM rpd_user_has_role WHERE id_role = :idRole";
+            $stmt = $this->db->prepare($sql);
+            $this->id = (int) $roleId;
+            $stmt->bindParam(':idRole', $this->id, PDO::PARAM_INT);
 
-                return $stmt->execute();
-            } catch (\PDOException $e) {
-                MySQL::instance()->showException($e);
-            }
+            return $stmt->execute();
         }
 
         return false;

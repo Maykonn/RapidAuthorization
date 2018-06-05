@@ -9,7 +9,6 @@ namespace RapidAuthorization;
 
 use Doctrine\DBAL\Connection;
 use RapidAuthorization\Database\DB;
-use RapidAuthorization\Database\MySQL;
 use RapidAuthorization\Database\SchemaHandler;
 
 class RapidAuthorization
@@ -40,6 +39,10 @@ class RapidAuthorization
     {
         $this->preferences = ClientPreferences::instance($preferences);
         $this->preferencesList = $this->preferences->getPreferencesList();
+
+        if ($this->preferencesList->exceptionHandler) {
+            set_exception_handler($this->preferencesList->exceptionHandler);
+        }
     }
 
     private function initDatabase()

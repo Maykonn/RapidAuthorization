@@ -24,6 +24,7 @@ class AvailablePreferences
         'userTablePK' => 'id',
         'autoGenerateTables' => false,
         'pdoInstance' => null, // pass your own pdo instance to doctrine/dbal
+        'exceptionHandler' => null,
         //'useRapidAuthorizationAutoload' => false,
     );
 

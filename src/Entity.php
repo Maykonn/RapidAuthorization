@@ -96,7 +96,7 @@ class Entity implements EntityInterface
     }
 
     /**
-     * <p>Populate object with values from record on database</p>
+     * Populate object with values from record on database
      */
     private function populateById($roleId)
     {
