@@ -21,7 +21,7 @@ var_dump($authorization->task()->attachOperation($operationId, $taskId)) . '<br>
 
 $operationId = 1;
 $taskId = 3;
-echo 'ADD ROLE #' . $operationId . ' TO USER : #' . $taskId;
+echo 'ADD OPERATION #' . $operationId . ' TO USER : #' . $taskId;
 var_dump($authorization->task()->attachOperation($operationId, $taskId)) . '<br>';
 
 
