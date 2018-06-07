@@ -7,7 +7,7 @@
 
 namespace RapidAuthorization;
 
-use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Connection;
 
 interface EntityInterface
 {

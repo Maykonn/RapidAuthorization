@@ -50,29 +50,29 @@ class RapidAuthorization
         $this->dbConn = DB::connect($this->preferencesList);
 
         if ($this->preferencesList->autoGenerateTables) {
-            $schema = SchemaHandler::instance($this->preferences, $this->dbConn->getWrappedConnection());
+            $schema = SchemaHandler::instance($this->preferences, $this->dbConn);
             $schema->createDefaultSchema();
         }
     }
 
     public function role()
     {
-        return Role::instance($this->preferences, $this->dbConn->getWrappedConnection());
+        return Role::instance($this->preferences, $this->dbConn);
     }
 
     public function user()
     {
-        return User::instance($this->preferences, $this->dbConn->getWrappedConnection());
+        return User::instance($this->preferences, $this->dbConn);
     }
 
     public function task()
     {
-        return Task::instance($this->preferences, $this->dbConn->getWrappedConnection());
+        return Task::instance($this->preferences, $this->dbConn);
     }
 
     public function operation()
     {
-        return Operation::instance($this->preferences, $this->dbConn->getWrappedConnection());
+        return Operation::instance($this->preferences, $this->dbConn);
     }
 
 }

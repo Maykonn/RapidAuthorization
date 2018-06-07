@@ -8,6 +8,7 @@
 
 namespace RapidAuthorization;
 
+use Doctrine\DBAL\FetchMode;
 use \PDO;
 use \Exception;
 
@@ -16,19 +17,16 @@ class User extends Entity
     public function getRoles($userId)
     {
         if (User::instance($this->preferences, $this->db)->findById($userId)) {
-            $sql = "
-                SELECT rol.id, rol.`name`
-                FROM rpd_role rol
-                RIGHT JOIN rpd_user_has_role usr ON rol.id = usr.id_role
-                WHERE usr.id_user = :idUser";
-
-            $stmt = $this->db->prepare($sql);
             $this->id = (int) $userId;
-            $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            return $stmt->fetchAll();
+            return $this->queryBuilder
+                ->select('rol.*')
+                ->from('rpd_role', 'rol')
+                ->rightJoin('rol', 'rpd_user_has_role', 'usr', 'rol.id = usr.id_role')
+                ->where('usr.id_user = ?')
+                ->setParameter(0, $this->id)
+                ->execute()
+                ->fetchAll();
         }
 
         return Array();
@@ -37,7 +35,19 @@ class User extends Entity
     public function getTasks($userId)
     {
         if (User::instance($this->preferences, $this->db)->findById($userId)) {
-            $sql = "
+            $this->id = (int) $userId;
+
+            return $this->queryBuilder
+                ->select('DISTINCT t.id, t.name, t.description')
+                ->from('rpd_task', 't')
+                ->leftJoin('t', 'rpd_role_has_task', 'rht', 't.id = rht.id_task')
+                ->leftJoin('rht', 'rpd_user_has_role', 'uhr', 'rht.id_role = uhr.id_role')
+                ->where('uhr.id_user = ?')
+                ->setParameter(0, $this->id)
+                ->execute()
+                ->fetchAll();
+
+            /*$sql = "
                 SELECT DISTINCT t.id, t.name, t.description
                 FROM rpd_task t
                 LEFT JOIN rpd_role_has_task rht ON t.id = rht.id_task
@@ -50,7 +60,7 @@ class User extends Entity
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            return $stmt->fetchAll();
+            return $stmt->fetchAll();*/
         }
 
         return Array();
@@ -104,28 +114,22 @@ class User extends Entity
 
     public function findById($userId)
     {
-        $sql = "SELECT * FROM $this->preferencesList->userTable WHERE $this->preferencesList->userTablePK = :userId";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $user = $stmt->fetch();
-
-        if ($user) {
-            return $user;
-        }
-
-        throw new Exception('Record #' . $userId . ' not found on `' . $this->preferencesList->userTable . '` table');
+        return $this->queryBuilder
+            ->select('*')
+            ->from($this->preferencesList->userTable)
+            ->where($this->preferencesList->userTablePK . " = ?")
+            ->setParameter(0, (int) $userId)
+            ->execute()
+            ->fetch();
     }
 
     public function findAll()
     {
-        $sql = "SELECT $this->preferencesList->userTablePK FROM $this->preferencesList->userTable";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $this->queryBuilder
+            ->select($this->preferencesList->userTablePK)
+            ->from($this->preferencesList->userTable)
+            ->execute()
+            ->fetchAll();
     }
 
     public function hasPermissionsOfTheRole($roleId, $userId)
@@ -134,13 +138,16 @@ class User extends Entity
             Role::instance($this->preferences, $this->db)->findById($roleId) &&
             User::instance($this->preferences, $this->db)->findById($userId)
         ) {
-            $sql = "SELECT id FROM rpd_user_has_role WHERE id_user = :idUser AND id_role = :idRole";
-
-            $stmt = $this->db->prepare($sql);
             $this->id = (int) $userId;
-            $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
-            $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
-            $stmt->execute();
+
+            $stmt = $this->queryBuilder
+                ->select('id')
+                ->from('rpd_user_has_role')
+                ->where('id_user = ?')
+                ->andWhere('id_role = ?')
+                ->setParameter(0, $this->id)
+                ->setParameter(1, $roleId)
+                ->execute();
 
             return ($stmt->fetch() ? true : false);
         }

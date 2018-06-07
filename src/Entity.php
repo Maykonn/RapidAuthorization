@@ -6,23 +6,25 @@
 
 namespace RapidAuthorization;
 
-use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Connection;
 use \PDO;
 use \ArrayObject;
 
 class Entity implements EntityInterface
 {
+    protected $queryBuilder;
+
     /**
      * @param ClientPreferences $preferences
-     * @param Connection $pdo
+     * @param Connection $dbConn
      *
      * @return mixed(User, Role, Task or Operation entity)
      */
-    public static function instance(ClientPreferences $preferences, Connection $pdo)
+    public static function instance(ClientPreferences $preferences, Connection $dbConn)
     {
         $calledClass = get_called_class();
 
-        return self::$instance = new $calledClass($preferences, $pdo);
+        return self::$instance = new $calledClass($preferences, $dbConn);
     }
 
     /**
@@ -51,11 +53,12 @@ class Entity implements EntityInterface
     public $business_name = '';
     public $description = null;
 
-    protected function __construct(ClientPreferences $preferences, Connection $pdo)
+    protected function __construct(ClientPreferences $preferences, Connection $dbConn)
     {
         $this->preferences = $preferences;
         $this->preferencesList = $this->preferences->getPreferencesList();
-        $this->db = $pdo;
+        $this->db = $dbConn;
+        $this->queryBuilder = $dbConn->createQueryBuilder();
     }
 
     public static function getInstance()

@@ -16,7 +16,8 @@ return Array(
     // optional param if is different of id, default is id
     'autoGenerateTables' => true,
     // optional param to set a default exception handler, use a callable
-    'exceptionHandler' => function(Exception $e) {
+    'exceptionHandler' => function(Throwable $e)
+    {
         echo '<pre>';
         echo '<b>' . $e->getMessage() . '</b><br/><br/>';
         echo $e->getTraceAsString();

@@ -7,21 +7,22 @@
 
 namespace RapidAuthorization;
 
+use Doctrine\DBAL\ParameterType;
 use \PDO;
 use \Exception;
 
 class Operation extends Entity
 {
     /**
-     * Verify if needs to check the authorization, see Operation::populateById()
-     * @var '1' or '0'
+     * Some operation can be executed by any user regardless of your role.
+     * Verify if needs to check the authorization to perform the operation.
      */
-    public $needs_authorization = '1';
+    public $needs_authorization = true;
 
     /**
      * An Operation can be, e.g. Create Product or Edit Customer
      */
-    public function create($businessName, $name = null, $description = null, $needsAuthorization = '1')
+    public function create($businessName, $name = null, $description = null, $needsAuthorization = true)
     {
         $this->name = $name;
         $this->business_name = $businessName;
@@ -38,17 +39,7 @@ class Operation extends Entity
 
     private function isValidNeedsAuthorizationValue($needsAuthorizationValue)
     {
-        if (
-            $needsAuthorizationValue == '1' || $needsAuthorizationValue == '0' ||
-            $needsAuthorizationValue === true || $needsAuthorizationValue === false
-        ) {
-            return true;
-        }
-
-        throw new Exception(
-            'Bad value to $needsAuthorization param. Expected: \'1\' or \'0\', given ' .
-            $needsAuthorizationValue
-        );
+        return is_bool($needsAuthorizationValue);
     }
 
     /**
@@ -81,13 +72,13 @@ class Operation extends Entity
     public function delete($id)
     {
         if ($this->findById($id)) {
-            $sql = "DELETE FROM rpd_operation WHERE id = :id";
-
             $this->id = $id;
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 
-            return $stmt->execute();
+            return $this->queryBuilder
+                ->delete('rpd_operation')
+                ->where('id = ?')
+                ->setParameter(0, $this->id, ParameterType::INTEGER)
+                ->execute();
         }
 
         return false;
@@ -114,84 +105,68 @@ class Operation extends Entity
     }
 
     /**
-     * Verify if needs to verify Autorization to execute Operation
+     * Verify if needs have authorization to execute the $operationId
      */
     public function needsAuthorization($operationId)
     {
-        if ($this->populateById($operationId)) {
-            switch ($this->needs_authorization) {
-                case 1:
-                case '1':
-                case true:
-                    return true;
-                    break;
-                case 0:
-                case '0':
-                case false:
-                    return false;
-                    break;
-            }
-        }
+        $this->populateById($operationId);
 
-        return true;
+        return $this->needs_authorization;
     }
 
     public function findById($operationId)
     {
-        $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE id = :operationId";
+        $operation = $this->queryBuilder
+            ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
+            ->from('rpd_operation')
+            ->where('id = ?')
+            ->setParameter(0, $operationId, ParameterType::INTEGER)
+            ->execute()
+            ->fetch();
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $operation = $stmt->fetch();
+        $operation['needs_authorization'] = (bool) $operation['needs_authorization'];
 
-        if ($operation) {
-            return $operation;
-        }
-
-        throw new Exception('Record #' . $operationId . ' not found on `operation` table');
+        return $operation;
     }
 
     public function findByName($name)
     {
-        $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE name = :name";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':name', $name, PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $operation = $stmt->fetch();
-
-        if ($operation) {
-            return $operation;
-        }
-
-        throw new Exception('Record with name: ' . $name . ' not found on `operation` table');
+        return $this->queryBuilder
+            ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
+            ->from('rpd_operation')
+            ->where('name = ?')
+            ->setParameter(0, $name, ParameterType::STRING)
+            ->execute()
+            ->fetch();
     }
 
     public function findByNotRequireAuthorization()
     {
-        $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE needs_authorization = '0'";
-        $stmt = $this->db->query($sql);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->queryBuilder
+            ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
+            ->from('rpd_operation')
+            ->where('needs_authorization = 0')
+            ->execute()
+            ->fetchAll();
     }
 
     public function findByRequireAuthorization()
     {
-        $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation WHERE needs_authorization = '1'";
-        $stmt = $this->db->query($sql);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->queryBuilder
+            ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
+            ->from('rpd_operation')
+            ->where('needs_authorization = 1')
+            ->execute()
+            ->fetchAll();
     }
 
     public function findAll()
     {
-        $sql = "SELECT id, name, business_name, description, needs_authorization FROM rpd_operation";
-        $stmt = $this->db->query($sql);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->queryBuilder
+            ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
+            ->from('rpd_operation')
+            ->execute()
+            ->fetchAll();
     }
 
     private function save()
@@ -204,24 +179,11 @@ class Operation extends Entity
             ) ON DUPLICATE KEY UPDATE name = :name, business_name = :businessName,  description = :description, needs_authorization = :needsAuthorization";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $stmt->bindParam(':businessName', $this->business_name, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $this->id, ParameterType::INTEGER);
+        $stmt->bindParam(':businessName', $this->business_name, ParameterType::STRING);
 
-        switch ($this->needs_authorization) {
-            case 1:
-            case true:
-                $needsAuthorization = '1';
-                break;
-            case 0:
-            case false:
-                $needsAuthorization = '0';
-                break;
-            default :
-                $needsAuthorization = $this->needs_authorization;
-                break;
-        }
-
-        $stmt->bindParam(':needsAuthorization', $needsAuthorization, PDO::PARAM_STR);
+        $needsAuthorization = (int) $this->needs_authorization;
+        $stmt->bindParam(':needsAuthorization', $needsAuthorization);
 
         $name = ($this->name ? $this->name : null);
         $stmt->bindParam(':name', $name);
@@ -232,25 +194,24 @@ class Operation extends Entity
         $stmt->execute();
 
         if ( ! $this->id) {
-            $this->id = (int) $this->db->lastInsertId();
+            $this->id = $this->db->lastInsertId();
         }
 
-        $this->id = (int) $this->id;
-
-        return $this->id;
+        return $this->id = (int) $this->id;
     }
 
     public function getTasksThatCanExecute($operationId)
     {
         if (Operation::instance($this->preferences, $this->db)->findById($operationId)) {
-            $sql = "SELECT id_task FROM rpd_task_has_operation WHERE id_operation = :idOperation";
-            $stmt = $this->db->prepare($sql);
             $this->id = (int) $operationId;
-            $stmt->bindParam(':idOperation', $this->id, PDO::PARAM_INT);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            return $stmt->fetchAll();
+            return $this->queryBuilder
+                ->select('id_task')
+                ->from('rpd_task_has_operation')
+                ->where('id_operation = ?')
+                ->setParameter(0, $this->id)
+                ->execute()
+                ->fetch();
         }
 
         return false;
@@ -262,13 +223,13 @@ class Operation extends Entity
             Task::instance($this->preferences, $this->db)->findById($taskId) &&
             Operation::instance($this->preferences, $this->db)->findById($operationId)
         ) {
-            $sql = "DELETE FROM rpd_task_has_operation WHERE id_task = :taskId AND id_operation = :operationId";
-
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
-            $stmt->bindParam(':operationId', $operationId, PDO::PARAM_INT);
-
-            return $stmt->execute();
+            return $this->queryBuilder
+                ->delete('rpd_task_has_operation')
+                ->where('id_task = ?')
+                ->andWhere('id_operation = ?')
+                ->setParameter(0, $taskId, ParameterType::INTEGER)
+                ->setParameter(1, $operationId, ParameterType::INTEGER)
+                ->execute();
         }
 
         return false;

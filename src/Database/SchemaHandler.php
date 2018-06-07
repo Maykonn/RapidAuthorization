@@ -7,7 +7,7 @@
 
 namespace RapidAuthorization\Database;
 
-use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Connection;
 use \PDO;
 use RapidAuthorization\ClientPreferences;
 
@@ -30,26 +30,26 @@ class SchemaHandler
 
     /**
      * @param ClientPreferences $preferences
-     * @param Connection $pdo
+     * @param Connection $dbConn
      *
      * @return SchemaHandler
      */
-    public static function instance(ClientPreferences $preferences, Connection $pdo)
+    public static function instance(ClientPreferences $preferences, Connection $dbConn)
     {
         if (self::$instance instanceof SchemaHandler) {
             return self::$instance;
-        } else {
-            return self::$instance = new self($preferences, $pdo);
         }
+
+        return self::$instance = new self($preferences, $dbConn);
     }
 
-    private function __construct(ClientPreferences $preferences, PDO $pdo)
+    private function __construct(ClientPreferences $preferences, Connection $dbConn)
     {
         $preferencesList = $preferences->getPreferencesList();
         $this->userTable = $preferencesList->userTable;
         $this->userTablePK = $preferencesList->userTablePK;
         $this->dbConnCharset = $preferencesList->dbConnCharset;
-        $this->db = $pdo;
+        $this->db = $dbConn->getWrappedConnection();
     }
 
     public function createDefaultSchema()
@@ -66,10 +66,10 @@ class SchemaHandler
 
         // replace user table and PK
         $userTableDefault = 'CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)';
         $userTable = 'CREATE TABLE IF NOT EXISTS `' . $this->userTable . '` (
-  `' . $this->userTablePK . '` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `' . $this->userTablePK . '` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`' . $this->userTablePK . '`)';
         $contentUserTable = str_replace($userTableDefault, $userTable, $contentDefault);
 

@@ -7,6 +7,7 @@
 
 namespace RapidAuthorization;
 
+use Doctrine\DBAL\ParameterType;
 use \PDO;
 use \Exception;
 
@@ -52,44 +53,33 @@ class Task extends Entity
 
     public function findById($taskId)
     {
-        $sql = "SELECT id, name, business_name, description FROM rpd_task WHERE id = :taskId";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $task = $stmt->fetch();
-
-        if ($task) {
-            return $task;
-        }
-
-        throw new Exception('Record #' . $taskId . ' not found on `task` table');
+        return $this->queryBuilder
+            ->select('id', 'name', 'business_name', 'description')
+            ->from('rpd_task')
+            ->where('id = ?')
+            ->setParameter(0, $taskId, ParameterType::INTEGER)
+            ->execute()
+            ->fetch();
     }
 
     public function findByName($name)
     {
-        $sql = "SELECT id, name, business_name, description FROM rpd_task WHERE name = :name";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':name', $name, PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $task = $stmt->fetch();
-
-        if ($task) {
-            return $task;
-        }
-
-        throw new Exception('Record with name: ' . $name . ' not found on `task` table');
+        return $this->queryBuilder
+            ->select('id', 'name', 'business_name', 'description')
+            ->from('rpd_task')
+            ->where('name = ?')
+            ->setParameter(0, $name, ParameterType::STRING)
+            ->execute()
+            ->fetch();
     }
 
     public function findAll()
     {
-        $sql = "SELECT id, name, business_name, description FROM rpd_task";
-        $stmt = $this->db->query($sql);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->queryBuilder
+            ->select('id', 'name', 'business_name', 'description')
+            ->from('rpd_task')
+            ->execute()
+            ->fetchAll();
     }
 
     public function save()
