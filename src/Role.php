@@ -74,7 +74,7 @@ class Role extends Entity
         $sql = "SELECT id, name, business_name, description FROM rpd_role WHERE name = :name";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':name', $name, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $role = $stmt->fetch();
