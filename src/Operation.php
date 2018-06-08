@@ -8,8 +8,6 @@
 namespace RapidAuthorization;
 
 use Doctrine\DBAL\ParameterType;
-use \PDO;
-use \Exception;
 
 class Operation extends Entity
 {
@@ -72,13 +70,17 @@ class Operation extends Entity
     public function delete($id)
     {
         if ($this->findById($id)) {
-            $this->id = $id;
+            $this->id = (int) $id;
 
-            return $this->queryBuilder
+            $result = $this->queryBuilder
                 ->delete('rpd_operation')
                 ->where('id = ?')
                 ->setParameter(0, $this->id, ParameterType::INTEGER)
                 ->execute();
+
+            if ($result) {
+                return $this->id;
+            }
         }
 
         return false;

@@ -17,11 +17,15 @@ class Role extends Entity
         if ($this->findById($id)) {
             $this->id = (int) $id;
 
-            return $this->queryBuilder
+            $result = $this->queryBuilder
                 ->delete('rpd_role')
                 ->where('id = ?')
                 ->setParameter(0, $this->id, ParameterType::INTEGER)
                 ->execute();
+
+            if ($result) {
+                return $this->id;
+            }
         }
 
         return false;
