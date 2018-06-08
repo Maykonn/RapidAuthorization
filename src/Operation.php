@@ -43,10 +43,10 @@ class Operation extends Entity
     /**
      * Set '' to $description to set NULL on database
      */
-    public function update($id, $businessName, $name = null, $description = null, $needsAuthorization = '1')
+    public function update($id, $businessName, $name = null, $description = null, $needsAuthorization = true)
     {
         if ($this->populateById($id)) {
-            $this->id = $id;
+            $this->id = (int) $id;
             $this->business_name = $businessName;
 
             if ($name !== null) {
