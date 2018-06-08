@@ -4,9 +4,7 @@
  * @author Maykonn Welington Candido<maykonn@outlook.com>
  */
 
-
 namespace RapidAuthorization\Database;
-
 
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;

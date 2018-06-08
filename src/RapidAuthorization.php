@@ -55,21 +55,33 @@ class RapidAuthorization
         }
     }
 
+    /**
+     * @return Role
+     */
     public function role()
     {
         return Role::instance($this->preferences, $this->dbConn);
     }
 
+    /**
+     * @return User
+     */
     public function user()
     {
         return User::instance($this->preferences, $this->dbConn);
     }
 
+    /**
+     * @return Task
+     */
     public function task()
     {
         return Task::instance($this->preferences, $this->dbConn);
     }
 
+    /**
+     * @return Operation
+     */
     public function operation()
     {
         return Operation::instance($this->preferences, $this->dbConn);

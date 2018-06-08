@@ -14,12 +14,6 @@ class Entity implements EntityInterface
 {
     protected $queryBuilder;
 
-    /**
-     * @param ClientPreferences $preferences
-     * @param Connection $dbConn
-     *
-     * @return mixed(User, Role, Task or Operation entity)
-     */
     public static function instance(ClientPreferences $preferences, Connection $dbConn)
     {
         $calledClass = get_called_class();
