@@ -8,9 +8,8 @@
 
 namespace RapidAuthorization;
 
-use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 use \PDO;
-use \Exception;
 
 class User extends Entity
 {
@@ -24,7 +23,7 @@ class User extends Entity
                 ->from('rpd_role', 'rol')
                 ->rightJoin('rol', 'rpd_user_has_role', 'usr', 'rol.id = usr.id_role')
                 ->where('usr.id_user = ?')
-                ->setParameter(0, $this->id)
+                ->setParameter(0, $this->id, ParameterType::INTEGER)
                 ->execute()
                 ->fetchAll();
         }
@@ -43,24 +42,9 @@ class User extends Entity
                 ->leftJoin('t', 'rpd_role_has_task', 'rht', 't.id = rht.id_task')
                 ->leftJoin('rht', 'rpd_user_has_role', 'uhr', 'rht.id_role = uhr.id_role')
                 ->where('uhr.id_user = ?')
-                ->setParameter(0, $this->id)
+                ->setParameter(0, $this->id, ParameterType::INTEGER)
                 ->execute()
                 ->fetchAll();
-
-            /*$sql = "
-                SELECT DISTINCT t.id, t.name, t.description
-                FROM rpd_task t
-                LEFT JOIN rpd_role_has_task rht ON t.id = rht.id_task
-                LEFT JOIN rpd_user_has_role uhr ON rht.id_role = uhr.id_role
-                WHERE uhr.id_user = :idUser";
-
-            $stmt = $this->db->prepare($sql);
-            $this->id = (int) $userId;
-            $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            return $stmt->fetchAll();*/
         }
 
         return Array();
@@ -118,7 +102,7 @@ class User extends Entity
             ->select('*')
             ->from($this->preferencesList->userTable)
             ->where($this->preferencesList->userTablePK . " = ?")
-            ->setParameter(0, (int) $userId)
+            ->setParameter(0, $userId, ParameterType::INTEGER)
             ->execute()
             ->fetch();
     }
@@ -145,8 +129,8 @@ class User extends Entity
                 ->from('rpd_user_has_role')
                 ->where('id_user = ?')
                 ->andWhere('id_role = ?')
-                ->setParameter(0, $this->id)
-                ->setParameter(1, $roleId)
+                ->setParameter(0, $this->id, ParameterType::INTEGER)
+                ->setParameter(1, $roleId, ParameterType::INTEGER)
                 ->execute();
 
             return ($stmt->fetch() ? true : false);
