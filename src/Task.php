@@ -8,21 +8,19 @@
 namespace RapidAuthorization;
 
 use Doctrine\DBAL\ParameterType;
-use \PDO;
-use \Exception;
 
 class Task extends Entity
 {
     public function delete($id)
     {
         if ($this->findById($id)) {
-            $sql = "DELETE FROM rpd_task WHERE id = :id";
+            $this->id = (int) $id;
 
-            $this->id = $id;
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-
-            return $stmt->execute();
+            return $this->queryBuilder
+                ->delete('rpd_task')
+                ->where('id = ?')
+                ->setParameter(0, $this->id, ParameterType::INTEGER)
+                ->execute();
         }
 
         return false;
@@ -31,13 +29,12 @@ class Task extends Entity
     public function attachOperation($operationId, $taskId)
     {
         if ($this->isPossibleToAttachTheOperation($operationId, $taskId)) {
-            $sql = "INSERT INTO rpd_task_has_operation(id_task, id_operation) VALUES (:idTask, :idOperation)";
-
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':idTask', $taskId, PDO::PARAM_INT);
-            $stmt->bindParam(':idOperation', $operationId, PDO::PARAM_INT);
-
-            return $stmt->execute();
+            return $this->queryBuilder
+                ->insert('rpd_task_has_operation')
+                ->values(array('id_task' => '?', 'id_operation' => '?'))
+                ->setParameter(0, $taskId, ParameterType::INTEGER)
+                ->setParameter(1, $operationId, ParameterType::INTEGER)
+                ->execute();
         }
 
         return false;
@@ -97,14 +94,15 @@ class Task extends Entity
     public function getRolesThatHasAccess($taskId)
     {
         if (Task::instance($this->preferences, $this->db)->findById($taskId)) {
-            $sql = "SELECT id_role FROM rpd_role_has_task WHERE id_task = :idTask";
-            $stmt = $this->db->prepare($sql);
             $this->id = (int) $taskId;
-            $stmt->bindParam(':idTask', $this->id, PDO::PARAM_INT);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            return $stmt->fetchAll();
+            return $this->queryBuilder
+                ->select('id_role')
+                ->from('rpd_role_has_task')
+                ->where('id_task = ?')
+                ->setParameter(0, $this->id, ParameterType::INTEGER)
+                ->execute()
+                ->fetchAll();
         }
 
         return Array();
@@ -113,17 +111,16 @@ class Task extends Entity
     public function getOperations($taskId)
     {
         if (Task::instance($this->preferences, $this->db)->findById($taskId)) {
-            $sql = "
-                SELECT o.id, o.name, o.business_name, o.description
-                FROM rpd_operation o INNER JOIN rpd_task_has_operation tho ON o.id = tho.id_operation
-                WHERE tho.id_task = :idTask";
-
-            $stmt = $this->db->prepare($sql);
             $this->id = (int) $taskId;
-            $stmt->bindParam(':idTask', $this->id, PDO::PARAM_INT);
-            $stmt->execute();
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $this->queryBuilder
+                ->select('o.id', 'o.name', 'o.business_name', 'o.description')
+                ->from('rpd_operation', 'o')
+                ->innerJoin('o', 'rpd_task_has_operation', 'tho', 'o.id = tho.id_operation')
+                ->where('tho.id_task = ?')
+                ->setParameter(0, $this->id, ParameterType::INTEGER)
+                ->execute()
+                ->fetchAll();
         }
 
         return Array();
@@ -153,13 +150,13 @@ class Task extends Entity
             Role::instance($this->preferences, $this->db)->findById($roleId) &&
             Task::instance($this->preferences, $this->db)->findById($taskId)
         ) {
-            $sql = "DELETE FROM rpd_role_has_task WHERE id_role = :roleId AND id_task = :taskId";
-
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
-            $stmt->bindParam(':taskId', $taskId, PDO::PARAM_INT);
-
-            return $stmt->execute();
+            return $this->queryBuilder
+                ->delete('rpd_role_has_task')
+                ->where('id_role = ?')
+                ->andWhere('id_task = ?')
+                ->setParameter(0, $roleId, ParameterType::INTEGER)
+                ->setParameter(1, $taskId, ParameterType::INTEGER)
+                ->execute();
         }
 
         return false;

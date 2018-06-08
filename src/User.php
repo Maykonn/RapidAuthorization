@@ -9,7 +9,6 @@
 namespace RapidAuthorization;
 
 use Doctrine\DBAL\ParameterType;
-use \PDO;
 
 class User extends Entity
 {
@@ -53,21 +52,18 @@ class User extends Entity
     public function getOperations($userId)
     {
         if (User::instance($this->preferences, $this->db)->findById($userId)) {
-            $sql = "
-                SELECT DISTINCT o.id, o.name, o.description
-                FROM rpd_operation o
-				LEFT JOIN rpd_task_has_operation tho ON o.id = tho.id_operation
-                LEFT JOIN rpd_role_has_task rht ON tho.id_task = rht.id_task
-                LEFT JOIN rpd_user_has_role uhr ON rht.id_role = uhr.id_role
-                WHERE uhr.id_user = :idUser";
-
-            $stmt = $this->db->prepare($sql);
             $this->id = (int) $userId;
-            $stmt->bindParam(':idUser', $this->id, PDO::PARAM_INT);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            return $stmt->fetchAll();
+            return $this->queryBuilder
+                ->select('DISTINCT o.id, o.name, o.description')
+                ->from('rpd_operation', 'o')
+                ->leftJoin('o', 'rpd_task_has_operation', 'tho', 'o.id = tho.id_operation')
+                ->leftJoin('tho', 'rpd_role_has_task', 'rht', 'tho.id_task = rht.id_task')
+                ->leftJoin('rht', 'rpd_user_has_role', 'uhr', 'rht.id_role = uhr.id_role')
+                ->where('uhr.id_user = ?')
+                ->setParameter(0, $this->id, ParameterType::INTEGER)
+                ->execute()
+                ->fetchAll();
         }
 
         return Array();
@@ -76,13 +72,12 @@ class User extends Entity
     public function attachRole($roleId, $userId)
     {
         if ($this->isPossibleToAttachTheRole($roleId, $userId)) {
-            $sql = "INSERT INTO rpd_user_has_role(id_user, id_role) VALUES (:idUser, :idRole)";
-
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':idUser', $userId, PDO::PARAM_INT);
-            $stmt->bindParam(':idRole', $roleId, PDO::PARAM_INT);
-
-            return $stmt->execute();
+            return $this->queryBuilder
+                ->insert('rpd_user_has_role')
+                ->values(array('id_user' => '?', 'id_role' => '?'))
+                ->setParameter(0, $userId, ParameterType::INTEGER)
+                ->setParameter(1, $roleId, ParameterType::INTEGER)
+                ->execute();
         }
 
         return false;
@@ -179,13 +174,13 @@ class User extends Entity
             User::instance($this->preferences, $this->db)->findById($userId) &&
             Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
-            $sql = "DELETE FROM rpd_user_has_role WHERE id_user = :userId AND id_role = :roleId";
-
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-            $stmt->bindParam(':roleId', $roleId, PDO::PARAM_INT);
-
-            return $stmt->execute();
+            return $this->queryBuilder
+                ->delete('rpd_user_has_role')
+                ->where('id_user = ?')
+                ->andWhere('id_role = ?')
+                ->setParameter(0, $userId, ParameterType::INTEGER)
+                ->setParameter(1, $roleId, ParameterType::INTEGER)
+                ->execute();
         }
 
         return false;
