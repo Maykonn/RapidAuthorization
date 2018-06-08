@@ -151,7 +151,8 @@ class Operation extends Entity
             ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
             ->from('rpd_operation')
-            ->where('needs_authorization = 0')
+            ->where('needs_authorization = ?')
+            ->setParameter(0, 0, ParameterType::STRING)
             ->execute()
             ->fetchAll();
     }
@@ -162,7 +163,8 @@ class Operation extends Entity
             ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
             ->from('rpd_operation')
-            ->where('needs_authorization = 1')
+            ->where('needs_authorization = ?')
+            ->setParameter(0, 1, ParameterType::STRING)
             ->execute()
             ->fetchAll();
     }
