@@ -18,6 +18,7 @@ class User extends Entity
             $this->id = (int) $userId;
 
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->select('rol.*')
                 ->from('rpd_role', 'rol')
                 ->rightJoin('rol', 'rpd_user_has_role', 'usr', 'rol.id = usr.id_role')
@@ -36,6 +37,7 @@ class User extends Entity
             $this->id = (int) $userId;
 
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->select('DISTINCT t.id, t.name, t.description')
                 ->from('rpd_task', 't')
                 ->leftJoin('t', 'rpd_role_has_task', 'rht', 't.id = rht.id_task')
@@ -55,6 +57,7 @@ class User extends Entity
             $this->id = (int) $userId;
 
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->select('DISTINCT o.id, o.name, o.description')
                 ->from('rpd_operation', 'o')
                 ->leftJoin('o', 'rpd_task_has_operation', 'tho', 'o.id = tho.id_operation')
@@ -73,6 +76,7 @@ class User extends Entity
     {
         if ($this->isPossibleToAttachTheRole($roleId, $userId)) {
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->insert('rpd_user_has_role')
                 ->values(array('id_user' => '?', 'id_role' => '?'))
                 ->setParameter(0, $userId, ParameterType::INTEGER)
@@ -94,6 +98,7 @@ class User extends Entity
     public function findById($userId)
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select('*')
             ->from($this->preferencesList->userTable)
             ->where($this->preferencesList->userTablePK . " = ?")
@@ -105,6 +110,7 @@ class User extends Entity
     public function findAll()
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select($this->preferencesList->userTablePK)
             ->from($this->preferencesList->userTable)
             ->execute()
@@ -120,6 +126,7 @@ class User extends Entity
             $this->id = (int) $userId;
 
             $stmt = $this->queryBuilder
+                ->resetQueryParts()
                 ->select('id')
                 ->from('rpd_user_has_role')
                 ->where('id_user = ?')
@@ -175,6 +182,7 @@ class User extends Entity
             Role::instance($this->preferences, $this->db)->findById($roleId)
         ) {
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->delete('rpd_user_has_role')
                 ->where('id_user = ?')
                 ->andWhere('id_role = ?')

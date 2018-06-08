@@ -73,6 +73,7 @@ class Operation extends Entity
             $this->id = (int) $id;
 
             $result = $this->queryBuilder
+                ->resetQueryParts()
                 ->delete('rpd_operation')
                 ->where('id = ?')
                 ->setParameter(0, $this->id, ParameterType::INTEGER)
@@ -119,6 +120,7 @@ class Operation extends Entity
     public function findById($operationId)
     {
         $operation = $this->queryBuilder
+            ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
             ->from('rpd_operation')
             ->where('id = ?')
@@ -134,6 +136,7 @@ class Operation extends Entity
     public function findByName($name)
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
             ->from('rpd_operation')
             ->where('name = ?')
@@ -145,6 +148,7 @@ class Operation extends Entity
     public function findByNotRequireAuthorization()
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
             ->from('rpd_operation')
             ->where('needs_authorization = 0')
@@ -155,6 +159,7 @@ class Operation extends Entity
     public function findByRequireAuthorization()
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
             ->from('rpd_operation')
             ->where('needs_authorization = 1')
@@ -165,6 +170,7 @@ class Operation extends Entity
     public function findAll()
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description', 'needs_authorization')
             ->from('rpd_operation')
             ->execute()
@@ -208,6 +214,7 @@ class Operation extends Entity
             $this->id = (int) $operationId;
 
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->select('id_task')
                 ->from('rpd_task_has_operation')
                 ->where('id_operation = ?')
@@ -226,6 +233,7 @@ class Operation extends Entity
             Operation::instance($this->preferences, $this->db)->findById($operationId)
         ) {
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->delete('rpd_task_has_operation')
                 ->where('id_task = ?')
                 ->andWhere('id_operation = ?')

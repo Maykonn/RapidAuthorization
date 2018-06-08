@@ -17,6 +17,7 @@ class Task extends Entity
             $this->id = (int) $id;
 
             $result = $this->queryBuilder
+                ->resetQueryParts()
                 ->delete('rpd_task')
                 ->where('id = ?')
                 ->setParameter(0, $this->id, ParameterType::INTEGER)
@@ -34,6 +35,7 @@ class Task extends Entity
     {
         if ($this->isPossibleToAttachTheOperation($operationId, $taskId)) {
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->insert('rpd_task_has_operation')
                 ->values(array('id_task' => '?', 'id_operation' => '?'))
                 ->setParameter(0, $taskId, ParameterType::INTEGER)
@@ -55,6 +57,7 @@ class Task extends Entity
     public function findById($taskId)
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description')
             ->from('rpd_task')
             ->where('id = ?')
@@ -66,6 +69,7 @@ class Task extends Entity
     public function findByName($name)
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description')
             ->from('rpd_task')
             ->where('name = ?')
@@ -77,6 +81,7 @@ class Task extends Entity
     public function findAll()
     {
         return $this->queryBuilder
+            ->resetQueryParts()
             ->select('id', 'name', 'business_name', 'description')
             ->from('rpd_task')
             ->execute()
@@ -101,6 +106,7 @@ class Task extends Entity
             $this->id = (int) $taskId;
 
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->select('id_role')
                 ->from('rpd_role_has_task')
                 ->where('id_task = ?')
@@ -118,6 +124,7 @@ class Task extends Entity
             $this->id = (int) $taskId;
 
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->select('o.id', 'o.name', 'o.business_name', 'o.description')
                 ->from('rpd_operation', 'o')
                 ->innerJoin('o', 'rpd_task_has_operation', 'tho', 'o.id = tho.id_operation')
@@ -155,6 +162,7 @@ class Task extends Entity
             Task::instance($this->preferences, $this->db)->findById($taskId)
         ) {
             return $this->queryBuilder
+                ->resetQueryParts()
                 ->delete('rpd_role_has_task')
                 ->where('id_role = ?')
                 ->andWhere('id_task = ?')
