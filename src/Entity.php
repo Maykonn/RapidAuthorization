@@ -36,7 +36,6 @@ class Entity implements EntityInterface
      */
     protected static $instance;
 
-
     /**
      * @var Connection
      */
